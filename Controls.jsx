@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import { TAB_COLORS } from '../lib/constants.js'
+import { TAB_COLORS } from './constants.js'
 import styles from './Controls.module.css'
 
 const TABS = [
@@ -41,7 +41,8 @@ export function Controls({ day, age, indoorOnly, onDayChange, onAgeChange, onInd
     onDayChange(id)
   }
 
-  const activeColor = TAB_COLORS[day].hex
+  // Safety check for TAB_COLORS
+  const activeColor = TAB_COLORS[day]?.hex || '#007bff'
 
   return (
     <div className={styles.controls}>
