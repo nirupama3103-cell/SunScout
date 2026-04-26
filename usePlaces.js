@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import { LAT, LON, STATIC_ACTIVITIES } from '../lib/constants.js'
-import { fetchNearbyPlaces } from '../lib/places.js'
+import { LAT, LON, STATIC_ACTIVITIES } from './constants.js'
+import { fetchNearbyPlaces } from './places.js'
 
 /**
  * Merges live Google Places results with our static fallback data.
@@ -14,10 +14,15 @@ export function usePlaces() {
   useEffect(() => {
     async function load() {
       setLoading(true)
-      const live = await fetchNearbyPlaces(LAT, LON)
-      if (live.length > 0) {
-        setActivities([...STATIC_ACTIVITIES, ...live])
-        setSource('live')
+      try {
+        const live = await fetchNearbyPlaces(LAT, LON)
+        if (live && live.length > 0) {
+          setActivities([...STATIC_ACTIVITIES, ...live])
+          setSource('live')
+        }
+      } catch (error) {
+        console.error("Failed to fetch live places:", error)
+        // Fallback is already set to STATIC_ACTIVITIES
       }
       setLoading(false)
     }
