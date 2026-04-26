@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react'
-import { LAT, LON } from '../lib/constants.js'
+import { LAT, LON } from './constants.js'
 import styles from './MapArea.module.css'
 
 /**
