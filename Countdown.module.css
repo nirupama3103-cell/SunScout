@@ -1,0 +1,45 @@
+.countdown {
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(
+    135deg,
+    rgba(var(--active-r), var(--active-g), var(--active-b), 0.75),
+    rgba(var(--active-r), var(--active-g), var(--active-b), 0.5)
+  );
+  transition: background 0.4s;
+}
+
+.days {
+  font-family: 'Fredoka One', cursive;
+  font-size: 24px;
+  color: #fff;
+}
+
+.label {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.barWrap {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 4px;
+  height: 6px;
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  background: #fff;
+  border-radius: 4px;
+  transition: width 1s ease;
+}
+
+.endLabel {
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+}

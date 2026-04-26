@@ -1,0 +1,71 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 16px;
+  animation: fade-in 0.15s ease;
+}
+
+.modal {
+  background: var(--card-bg);
+  border-radius: 20px;
+  padding: 28px 24px 24px;
+  max-width: 340px;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+}
+
+.close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: var(--border);
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  font-size: 13px;
+  cursor: pointer;
+  color: var(--subtext);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconBig {
+  font-size: 48px;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.title {
+  font-family: 'Fredoka One', cursive;
+  font-size: 20px;
+  color: var(--active-color);
+  text-align: center;
+  margin-bottom: 8px;
+  transition: color 0.4s;
+}
+
+.desc {
+  font-size: 13px;
+  color: var(--subtext);
+  text-align: center;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text);
+  padding: 8px 0;
+  border-top: 1px solid var(--border);
+}

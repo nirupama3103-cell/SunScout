@@ -1,0 +1,54 @@
+.sectionTitle {
+  font-family: 'Fredoka One', cursive;
+  font-size: 17px;
+  padding: 14px 16px 8px;
+  letter-spacing: 0.3px;
+  color: var(--active-color);
+  transition: color 0.4s, background 0.4s, border-color 0.4s;
+  border-left: 4px solid var(--active-color);
+  background: rgba(var(--active-r), var(--active-g), var(--active-b), 0.05);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.loadingBadge,
+.liveBadge {
+  font-family: 'Nunito', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+.loadingBadge {
+  background: rgba(var(--active-r), var(--active-g), var(--active-b), 0.15);
+  color: var(--active-color);
+}
+
+.liveBadge {
+  background: #d4f8e8;
+  color: #1a7a4a;
+}
+
+@media (prefers-color-scheme: dark) {
+  .liveBadge {
+    background: #1a4a30;
+    color: #5de89a;
+  }
+}
+
+.empty {
+  padding: 24px;
+  text-align: center;
+  color: var(--subtext);
+  font-weight: 700;
+}
+
+.footer {
+  text-align: center;
+  padding: 16px;
+  font-size: 11px;
+  color: var(--subtext);
+  font-weight: 600;
+}

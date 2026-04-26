@@ -1,0 +1,100 @@
+.controls {
+  padding: 14px 16px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border);
+  align-items: center;
+}
+
+.separator {
+  width: 1px;
+  background: var(--border);
+  align-self: stretch;
+  margin: 0 2px;
+}
+
+/* ── Day tabs ── */
+.tab {
+  border: none;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 12px;
+  cursor: pointer;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+}
+
+/* shimmer sweep */
+.tab::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent);
+  transform: skewX(-20deg);
+}
+
+.shimmer::before {
+  animation: shimmer-sweep 0.55s ease forwards;
+}
+
+.tab_today   { background: #FF4444; box-shadow: 0 2px 8px rgba(255,68,68,0.35); }
+.tab_weekend { background: #FF8C00; box-shadow: 0 2px 8px rgba(255,140,0,0.35); }
+.tab_week    { background: #FFD700; box-shadow: 0 2px 8px rgba(255,215,0,0.35); color: #7a5c00; }
+.tab_month   { background: #4CAF50; box-shadow: 0 2px 8px rgba(76,175,80,0.35); }
+.tab_summer  { background: #2196F3; box-shadow: 0 2px 8px rgba(33,150,243,0.35); }
+
+.tabActive { transform: scale(1.08); }
+.tab_today.tabActive   { box-shadow: 0 4px 16px rgba(255,68,68,0.6); }
+.tab_weekend.tabActive { box-shadow: 0 4px 16px rgba(255,140,0,0.6); }
+.tab_week.tabActive    { box-shadow: 0 4px 16px rgba(255,215,0,0.6); }
+.tab_month.tabActive   { box-shadow: 0 4px 16px rgba(76,175,80,0.6); }
+.tab_summer.tabActive  { box-shadow: 0 4px 16px rgba(33,150,243,0.6); }
+
+.tabInactive { opacity: 0.5; }
+.tabInactive:hover { opacity: 0.75; }
+
+/* ── Age buttons ── */
+.ageBtn {
+  border: 1.5px solid var(--border);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  cursor: pointer;
+  background: var(--cream);
+  color: var(--subtext);
+  transition: all 0.2s;
+}
+
+/* ── Indoor toggle ── */
+.indoorToggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--subtext);
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: var(--cream);
+  border: 1.5px solid var(--border);
+  font-family: 'Nunito', sans-serif;
+  transition: all 0.2s;
+}
+
+.indoorToggleActive {
+  background: var(--lavender);
+  color: #fff;
+  border-color: var(--lavender);
+}

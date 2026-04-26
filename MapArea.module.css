@@ -1,0 +1,91 @@
+.mapArea {
+  position: relative;
+  height: 200px;
+  background: linear-gradient(180deg, #e8f4f8 0%, #d4edda 100%);
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+}
+
+@media (prefers-color-scheme: dark) {
+  .mapArea {
+    background: linear-gradient(180deg, #1a2535 0%, #1a2e20 100%);
+  }
+}
+
+.mapGrid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.roadH {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.7);
+  height: 3px;
+  left: 0;
+  right: 0;
+}
+
+.roadV {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.7);
+  width: 3px;
+  top: 0;
+  bottom: 0;
+}
+
+.weatherAlert {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: var(--coral);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  z-index: 4;
+}
+
+.myLocation {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background: var(--sky);
+  border: 3px solid #fff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulse-loc 2s ease-in-out infinite;
+  z-index: 3;
+}
+
+.locationLabel {
+  position: absolute;
+  background: var(--sky);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 7px;
+  border-radius: 8px;
+  white-space: nowrap;
+  z-index: 3;
+  transform: translateY(-50%);
+}
+
+.pin {
+  position: absolute;
+  cursor: pointer;
+  transform: translate(-50%, -100%);
+  animation: bounce-in 0.4s ease both;
+  font-size: 22px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+  transition: transform 0.2s;
+  z-index: 2;
+}
+
+.pin:hover {
+  transform: translate(-50%, -100%) scale(1.3);
+}
