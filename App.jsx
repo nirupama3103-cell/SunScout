@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Header }       from './components/Header.jsx'
+import { Header }       from './import Header from './Header'
 import { Controls }     from './components/Controls.jsx'
 import { Stats }        from './components/Stats.jsx'
 import { MapArea }      from './components/MapArea.jsx'
