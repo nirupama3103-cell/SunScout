@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
-import { LAT, LON, CITY, wmoDesc } from '../lib/constants.js'
-
+import { LAT, LON, CITY, wmoDesc } from './constants.js'
 export function useWeather() {
   const [weather, setWeather] = useState({
     temp: null,
