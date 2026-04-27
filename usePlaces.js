@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { CITY_COORDS } from './constants.js'; 
-import { fetchNearbyPlaces } from './places.js'; 
+import { CITY_COORDS } from './constants.js';
+import { fetchNearbyPlaces } from './places.js';
 
 export function usePlaces(city = 'CA') {
   const [places, setPlaces] = useState([]);
@@ -10,7 +10,6 @@ export function usePlaces(city = 'CA') {
     async function load() {
       const coords = CITY_COORDS[city];
       if (!coords) return;
-
       setLoading(true);
       try {
         const live = await fetchNearbyPlaces(coords.lat, coords.lon, city);
@@ -22,7 +21,7 @@ export function usePlaces(city = 'CA') {
       }
     }
     load();
-  }, [city]); 
+  }, [city]);
 
   return { places, loading };
 }
