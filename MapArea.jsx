@@ -1,9 +1,9 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { CITY_COORDS } from './constants.js';
+import { CITY_COORDS } from './constants.js'; 
 import styles from './MapArea.module.css';
 
 function getBounds(lat, lon) {
-  const padding = 0.05;
+  const padding = 0.05; 
   return {
     minLat: lat - padding,
     maxLat: lat + padding,
@@ -38,33 +38,13 @@ export function MapArea({ activities = [], centerCity = 'CA', isHot }) {
   const bounds = getBounds(cityData.lat, cityData.lon);
   const userPos = toMapCoords(cityData.lat, cityData.lon, bounds, size.w, size.h);
 
-  // Helper: get pin position from item
-  // Prefers real lat/lon, falls back to mapX/mapY grid (1–9, 1–5)
-  function getPinPos(item) {
-    const lat = item.lat ?? item.location?.latitude;
-    const lon = item.lon ?? item.location?.longitude;
-
-    if (lat != null && lon != null) {
-      return toMapCoords(lat, lon, bounds, size.w, size.h);
-    }
-
-    // Fall back to mapX (1-9) / mapY (1-5) grid
-    const gridCols = 9;
-    const gridRows = 5;
-    const x = ((item.mapX ?? 1) / gridCols) * size.w;
-    const y = ((item.mapY ?? 1) / gridRows) * size.h;
-    return { x, y };
-  }
-
   return (
     <div className={styles.mapArea} ref={containerRef}>
       <div className={styles.mapGrid} />
-      {isHot && (
-        <div className={styles.weatherAlert}>🌡️ Hot day — showing indoor picks!</div>
-      )}
+      {isHot && <div className={styles.weatherAlert}>🌡️ Hot day — showing indoor picks!</div>}
       <div className={styles.myLocation} style={{ left: userPos.x, top: userPos.y }} />
       {activities.slice(0, 8).map((item, i) => {
-        const pos = getPinPos(item);
+        const pos = toMapCoords(item.lat || cityData.lat, item.lon || cityData.lon, bounds, size.w, size.h);
         return (
           <div
             key={item.id}
