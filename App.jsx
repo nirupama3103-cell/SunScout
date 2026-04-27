@@ -8,7 +8,7 @@ import { TAB_LABELS } from './constants';
 import styles from './App.module.css';
 
 const App = () => {
-  const [city, setCity] = useState('CA'); 
+  const [city, setCity] = useState('CA');
   const { places, loading } = usePlaces(city);
 
   return (
@@ -18,9 +18,13 @@ const App = () => {
         <Controls currentCity={city} onCityChange={setCity} />
         <MapArea activities={places} centerCity={city} />
         <section className={styles.activityGrid}>
-          {loading ? <p>Searching Sunnyvale...</p> : 
-            places.map(place => <ActivityCard key={place.id} activity={place} />)
-          }
+          {loading ? (
+            <p>Searching Sunnyvale...</p>
+          ) : (
+            places.map(place => (
+              <ActivityCard key={place.id} activity={place} />
+            ))
+          )}
         </section>
       </main>
     </div>
