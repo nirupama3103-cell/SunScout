@@ -1,9 +1,5 @@
-/**
- * Google Places API (New) — Nearby Search Logic
- * Location: /src/services/places.js (or wherever your API logic lives)
- */
-
-import { placeTypeToIcon } from './constants.js'
+// 1. Remove .js extension to help Vite resolve the path correctly
+import { placeTypeToIcon } from './constants'
 
 const API_KEY = import.meta.env.VITE_GOOGLE_PLACES_API_KEY
 
@@ -19,7 +15,7 @@ export const manualActivities = [
     open: true,
     ages: ['toddler', 'kids'],
     type: 'indoor',
-    mapX: 3, mapY: 2 
+    lat: 37.37, lon: -122.03 
   },
   {
     id: 'tx-fri-1',
@@ -31,19 +27,7 @@ export const manualActivities = [
     open: true,
     ages: ['all'],
     type: 'indoor',
-    mapX: 5, mapY: 4
-  },
-  {
-    id: 'tx-aub-1',
-    city: 'Aubrey',
-    name: 'Aubrey City Park',
-    icon: '🌳',
-    desc: 'Quiet park with great shade for hot days.',
-    dist: 2.1,
-    open: true,
-    ages: ['toddler', 'kids'],
-    type: 'outdoor',
-    mapX: 2, mapY: 3
+    lat: 33.15, lon: -96.82
   },
   {
     id: 'tx-dal-1',
@@ -55,39 +39,20 @@ export const manualActivities = [
     open: true,
     ages: ['all'],
     type: 'outdoor',
-    mapX: 6, mapY: 7
-  },
-  {
-    id: 'ny-1',
-    city: 'NY',
-    name: 'Central Park Zoo Area',
-    icon: '🐒',
-    desc: 'Free views of the clock and statues.',
-    dist: 0.3,
-    open: true,
-    ages: ['kids'],
-    type: 'outdoor',
-    mapX: 8, mapY: 5
+    lat: 32.78, lon: -96.80
   }
 ];
 
-const SEARCH_TYPES = ['park', 'library', 'museum', 'aquarium', 'art_gallery']
+const SEARCH_TYPES = ['park', 'library', 'museum', 'aquarium']
 
 /**
- * Fetch nearby places via our own serverless proxy.
- * Merges live Google data with your manual "Hero" spots.
+ * Fetch nearby places via the local serverless proxy.
  */
 export async function fetchNearbyPlaces(lat, lon, city = 'CA', radiusMeters = 8000) {
-  // 1. Get manual spots for the current city
   const localManual = manualActivities.filter(a => a.city === city);
 
-  if (!API_KEY) {
-    console.warn('[Places] No API key — showing manual data only.');
-    return localManual;
-  }
-
+  // 2. Ensure this calls the local proxy path defined in your vercel.json
   let liveResults = []
-
   for (const type of SEARCH_TYPES) {
     try {
       const res = await fetch('/api/places', {
@@ -99,6 +64,7 @@ export async function fetchNearbyPlaces(lat, lon, city = 'CA', radiusMeters = 80
       if (!res.ok) continue
       const data = await res.json()
       
+      // The API proxy returns { places: [...] }
       if (data.places) {
         liveResults.push(...data.places.map(p => normalizePlaceResult(p, lat, lon, city)))
       }
@@ -107,7 +73,6 @@ export async function fetchNearbyPlaces(lat, lon, city = 'CA', radiusMeters = 80
     }
   }
 
-  // 2. Deduplicate and merge
   const allResults = [...localManual, ...liveResults]
   const seen = new Set()
   return allResults.filter(p => {
@@ -117,33 +82,21 @@ export async function fetchNearbyPlaces(lat, lon, city = 'CA', radiusMeters = 80
   })
 }
 
-/**
- * Haversine distance in miles
- */
 function haversineMiles(lat1, lon1, lat2, lon2) {
   const R = 3958.8 
   const dLat = ((lat2 - lat1) * Math.PI) / 180
   const dLon = ((lon2 - lon1) * Math.PI) / 180
-  const a =
-    Math.sin(dLat / 2) ** 2 +
-    Math.cos((lat1 * Math.PI) / 180) *
-      Math.cos((lat2 * Math.PI) / 180) *
-      Math.sin(dLon / 2) ** 2
+  const a = Math.sin(dLat / 2) ** 2 + Math.cos((lat1 * Math.PI) / 180) * Math.cos((lat2 * Math.PI) / 180) * Math.sin(dLon / 2) ** 2
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
 }
 
-/**
- * Normalized Google Result → SunScout Shape
- */
 function normalizePlaceResult(place, userLat, userLon, currentCity) {
-  const placeLat = place.location?.latitude ?? userLat
-  const placeLon = place.location?.longitude ?? userLon
-  const dist = haversineMiles(userLat, userLon, placeLat, placeLon)
+  const pLat = place.location?.latitude ?? userLat
+  const pLon = place.location?.longitude ?? userLon
+  const dist = haversineMiles(userLat, userLon, pLat, pLon)
   const types = place.types ?? []
   
-  const isIndoor = types.some(t =>
-    ['library', 'museum', 'art_gallery', 'aquarium', 'shopping_mall'].includes(t)
-  )
+  const isIndoor = types.some(t => ['library', 'museum', 'aquarium'].includes(t))
 
   return {
     id: place.id,
@@ -152,12 +105,10 @@ function normalizePlaceResult(place, userLat, userLon, currentCity) {
     icon: placeTypeToIcon ? placeTypeToIcon(types[0]) : '📍',
     desc: place.editorialSummary?.text || 'A great local spot to explore.',
     dist: parseFloat(dist.toFixed(1)),
+    lat: pLat, 
+    lon: pLon,
     open: place.businessStatus === 'OPERATIONAL',
-    ages: ['all', 'toddler', 'kids', 'teens'],
-    type: isIndoor ? 'indoor' : 'outdoor',
-    // Randomized grid position for the mock map
-    mapX: Math.floor(Math.random() * 9) + 1,
-    mapY: Math.floor(Math.random() * 5) + 1,
-    tags: types.slice(0, 2)
+    ages: ['all', 'toddler', 'kids'],
+    type: isIndoor ? 'indoor' : 'outdoor'
   }
 }
