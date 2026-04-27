@@ -1,26 +1,28 @@
 import React, { useRef, useEffect, useState } from 'react'
-import { LAT, LON } from './constants.js'
+import { CITY_COORDS } from './constants.js' // Changed from LAT, LON
 import styles from './MapArea.module.css'
 
 /**
- * Projects a lat/lon to (x%, y%) within the visible map bounding box.
- * We define a rough bounding box around Sunnyvale so pins fall meaningfully.
+ * Helper to calculate bounds around a center point 
+ * so pins are always centered in the map view.
  */
-const BOUNDS = {
-  minLat: 37.32,
-  maxLat: 37.42,
-  minLon: -122.08,
-  maxLon: -121.98,
+function getBounds(lat, lon) {
+  const padding = 0.05; // Adjust this to zoom in/out
+  return {
+    minLat: lat - padding,
+    maxLat: lat + padding,
+    minLon: lon - padding,
+    maxLon: lon + padding,
+  }
 }
 
-function toMapCoords(lat, lon, containerW, containerH) {
-  const x = ((lon - BOUNDS.minLon) / (BOUNDS.maxLon - BOUNDS.minLon)) * containerW
-  // lat increases upward, but CSS y increases downward
-  const y = (1 - (lat - BOUNDS.minLat) / (BOUNDS.maxLat - BOUNDS.minLat)) * containerH
+function toMapCoords(lat, lon, bounds, containerW, containerH) {
+  const x = ((lon - bounds.minLon) / (bounds.maxLon - bounds.minLon)) * containerW
+  const y = (1 - (lat - bounds.minLat) / (bounds.maxLat - bounds.minLat)) * containerH
   return { x, y }
 }
 
-export function MapArea({ activities, isHot }) {
+export function MapArea({ activities, centerCity = 'CA', isHot }) {
   const containerRef = useRef(null)
   const [size, setSize] = useState({ w: 360, h: 200 })
 
@@ -36,16 +38,21 @@ export function MapArea({ activities, isHot }) {
     return () => ro.disconnect()
   }, [])
 
-  const userPos = toMapCoords(LAT, LON, size.w, size.h)
+  // 1. Get dynamic bounds based on the selected city
+  const cityData = CITY_COORDS[centerCity] || CITY_COORDS['CA']
+  const bounds = getBounds(cityData.lat, cityData.lon)
+
+  // 2. Project user position using the new bounds
+  const userPos = toMapCoords(cityData.lat, cityData.lon, bounds, size.w, size.h)
   const visiblePins = activities.slice(0, 8)
 
   return (
-    <div className={styles.mapArea} ref={containerRef} role="img" aria-label="Map of nearby activities">
+    <div className={styles.mapArea} ref={containerRef} role="img" aria-label={`Map of ${centerCity}`}>
       <div className={styles.mapGrid} />
+      
+      {/* Visual road decorations */}
       <div className={styles.roadH} style={{ top: '38%' }} />
-      <div className={styles.roadH} style={{ top: '62%' }} />
       <div className={styles.roadV} style={{ left: '28%' }} />
-      <div className={styles.roadV} style={{ left: '60%' }} />
 
       {isHot && (
         <div className={styles.weatherAlert}>🌡️ Hot day — showing indoor picks!</div>
@@ -56,16 +63,10 @@ export function MapArea({ activities, isHot }) {
         className={styles.myLocation}
         style={{ left: userPos.x, top: userPos.y }}
       />
-      <div
-        className={styles.locationLabel}
-        style={{ left: userPos.x + 10, top: userPos.y - 8 }}
-      >
-        You
-      </div>
 
-      {/* Activity pins */}
+      {/* Activity pins projected into city bounds */}
       {visiblePins.map((item, i) => {
-        const pos = toMapCoords(item.lat, item.lon, size.w, size.h)
+        const pos = toMapCoords(item.lat, item.lon, bounds, size.w, size.h)
         return (
           <div
             key={item.id}
