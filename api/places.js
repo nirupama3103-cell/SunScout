@@ -2,7 +2,7 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   const { type } = req.body;
-  const API_KEY = process.env.GOOGLE_PLACES_API_KEY; // ✅ Fixed: removed VITE_ prefix
+  const API_KEY = process.env.GOOGLE_PLACES_API_KEY;
 
   try {
     const response = await fetch('https://places.googleapis.com/v1/places:searchText', {
