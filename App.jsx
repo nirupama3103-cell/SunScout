@@ -13,18 +13,20 @@ import { TAB_LABELS } from './constants'
 import styles from './App.module.css'
 
 export default function App() {
-  const [day,        setDay]        = useState('today')
-  const [age,        setAge]        = useState('all')
+  // 1. CHANGE: Track 'city' instead of just 'day' if your tabs are city-based
+  const [city, setCity] = useState('CA') 
+  const [age, setAge] = useState('all')
   const [indoorOnly, setIndoorOnly] = useState(false)
-  const [selected,   setSelected]   = useState(null)   // for modal
+  const [selected, setSelected] = useState(null)
 
-  const weather  = useWeather()
-  const { activities, loading, source } = usePlaces()
+  const weather = useWeather(city) // Pass city to weather if it supports it
+  
+  // 2. CRITICAL: Pass 'city' to your custom hook so it knows where to fetch
+  const { activities, loading, source } = usePlaces(city)
 
-  // Sync CSS variables to active tab color
-  useActiveColor(day)
+  // Sync CSS colors
+  useActiveColor(city)
 
-  // Auto-enable indoor when it's hot
   useEffect(() => {
     if (weather.isHot && !indoorOnly) setIndoorOnly(true)
   }, [weather.isHot])
@@ -32,26 +34,28 @@ export default function App() {
   // Filter activities
   const filtered = activities.filter(item => {
     if (indoorOnly && item.type !== 'indoor') return false
-    if (age !== 'all' && !item.ages.includes(age))  return false
+    // Ensure item.ages exists before calling .includes to prevent crashes
+    if (age !== 'all' && item.ages && !item.ages.includes(age)) return false
     return true
   })
 
   const openCount = filtered.filter(i => i.open).length
   const nearCount = filtered.filter(i => i.dist <= 5).length
 
+  // Update title based on city/tab
   const sectionTitle = indoorOnly
-    ? `🏠 Indoor spots · ${TAB_LABELS[day]}`
-    : `🗺️ Activities · ${TAB_LABELS[day]}`
+    ? `🏠 Indoor spots · ${TAB_LABELS[city] || city}`
+    : `🗺️ Activities · ${TAB_LABELS[city] || city}`
 
   return (
     <>
       <Header weather={weather} />
 
       <Controls
-        day={day}
+        day={city}           // Using city as the primary tab driver
         age={age}
         indoorOnly={indoorOnly}
-        onDayChange={setDay}
+        onDayChange={setCity} // Renamed internally to onCityChange essentially
         onAgeChange={setAge}
         onIndoorToggle={() => setIndoorOnly(v => !v)}
       />
@@ -66,19 +70,17 @@ export default function App() {
 
       <Countdown />
 
-      {/* Section header */}
       <div className={styles.sectionTitle}>
         {sectionTitle}
         {loading && <span className={styles.loadingBadge}>🔄 Refreshing…</span>}
         {!loading && source === 'live' && (
-          <span className={styles.liveBadge}>📍 Live</span>
+          <span className={styles.liveBadge}>📍 Live Data</span>
         )}
       </div>
 
-      {/* Activity list */}
-      <div>
+      <div className={styles.activityGrid}> 
         {filtered.length === 0 ? (
-          <div className={styles.empty}>No activities match your filters</div>
+          <div className={styles.empty}>No activities match your filters in {city}</div>
         ) : (
           filtered.map((item, i) => (
             <ActivityCard
