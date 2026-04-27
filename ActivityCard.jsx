@@ -4,12 +4,9 @@ import styles from './ActivityCard.module.css';
 export const ActivityCard = ({ activity }) => {
   const handleMapClick = (e) => {
     e.stopPropagation();
-    // Uses the official Google Maps URI from the API
+    // This uses the googleMapsUri fetched from the API to redirect correctly
     if (activity.googleMapsUri) {
       window.open(activity.googleMapsUri, '_blank');
-    } else {
-      const name = activity.displayName?.text || 'Park';
-      window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name)}`, '_blank');
     }
   };
 
