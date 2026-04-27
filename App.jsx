@@ -1,105 +1,76 @@
-import React, { useState, useEffect } from 'react'
-import { Header } from './Header'
-import { Controls } from './Controls'
-import { Stats } from './Stats'
-import { MapArea } from './MapArea'
-import { Countdown } from './Countdown'
-import { ActivityCard } from './ActivityCard'
-import { CardModal } from './CardModal'
-import { useWeather } from './useWeather'
-import { usePlaces } from './usePlaces'
-import { useActiveColor } from './useActiveColor'
-import { TAB_LABELS } from './constants'
-import styles from './App.module.css'
+import React, { useState, useEffect } from 'react';
+import { Header } from './Header';
+import { Controls } from './Controls';
+import { Stats } from './Stats';
+import { MapArea } from './MapArea';
+import { Countdown } from './Countdown';
+import { ActivityCard } from './ActivityCard';
+import { CardModal } from './CardModal';
+import { useWeather } from './useWeather';
+import { usePlaces } from './usePlaces';
+import { useActiveColor } from './useActiveColor';
+import { TAB_LABELS } from './constants';
+import styles from './App.module.css';
 
-export default function App() {
-  // 1. CHANGE: Track 'city' instead of just 'day' if your tabs are city-based
-  const [city, setCity] = useState('CA') 
-  const [age, setAge] = useState('all')
-  const [indoorOnly, setIndoorOnly] = useState(false)
-  const [selected, setSelected] = useState(null)
+const App = () => {
+  // 1. STATE MANAGEMENT
+  const [city, setCity] = useState('CA'); // Default city
+  const [day, setDay] = useState('today');
+  const [age, setAge] = useState('all');
+  const [indoorOnly, setIndoorOnly] = useState(false);
+  const [selectedActivity, setSelectedActivity] = useState(null);
 
-  const weather = useWeather(city) // Pass city to weather if it supports it
-  
-  // 2. CRITICAL: Pass 'city' to your custom hook so it knows where to fetch
-  const { activities, loading, source } = usePlaces(city)
-
-  // Sync CSS colors
-  useActiveColor(city)
-
-  useEffect(() => {
-    if (weather.isHot && !indoorOnly) setIndoorOnly(true)
-  }, [weather.isHot])
-
-  // Filter activities
-  const filtered = activities.filter(item => {
-    if (indoorOnly && item.type !== 'indoor') return false
-    // Ensure item.ages exists before calling .includes to prevent crashes
-    if (age !== 'all' && item.ages && !item.ages.includes(age)) return false
-    return true
-  })
-
-  const openCount = filtered.filter(i => i.open).length
-  const nearCount = filtered.filter(i => i.dist <= 5).length
-
-  // Update title based on city/tab
-  const sectionTitle = indoorOnly
-    ? `🏠 Indoor spots · ${TAB_LABELS[city] || city}`
-    : `🗺️ Activities · ${TAB_LABELS[city] || city}`
+  // 2. DATA FETCHING (Pass 'city' into these hooks)
+  const { weather } = useWeather(city);
+  const { places, loading } = usePlaces(city);
+  const activeColor = useActiveColor(day);
 
   return (
-    <>
-      <Header weather={weather} />
-
-      <Controls
-        day={city}           // Using city as the primary tab driver
-        age={age}
-        indoorOnly={indoorOnly}
-        onDayChange={setCity} // Renamed internally to onCityChange essentially
-        onAgeChange={setAge}
-        onIndoorToggle={() => setIndoorOnly(v => !v)}
+    <div className={styles.app} style={{ '--active-color': activeColor }}>
+      <Header 
+        city={TAB_LABELS[city]} 
+        weather={weather} 
       />
+      
+      <main className={styles.main}>
+        <Controls 
+          day={day} 
+          setDay={setDay} 
+          age={age} 
+          onAgeChange={setAge}
+          indoorOnly={indoorOnly}
+          onIndoorToggle={() => setIndoorOnly(!indoorOnly)}
+          currentCity={city}      // Pass state to Controls
+          onCityChange={setCity}  // Pass setter to Controls
+        />
 
-      <Stats
-        total={filtered.length}
-        openCount={openCount}
-        nearCount={nearCount}
-      />
+        <Stats count={places.length} city={TAB_LABELS[city]} />
+        
+        <MapArea places={places} centerCity={city} />
 
-      <MapArea activities={filtered} isHot={weather.isHot} />
+        <section className={styles.activityGrid}>
+          {loading ? (
+            <p>Finding the best spots in {TAB_LABELS[city]}...</p>
+          ) : (
+            places.map(place => (
+              <ActivityCard 
+                key={place.id} 
+                activity={place} 
+                onClick={() => setSelectedActivity(place)} 
+              />
+            ))
+          )}
+        </section>
+      </main>
 
-      <Countdown />
-
-      <div className={styles.sectionTitle}>
-        {sectionTitle}
-        {loading && <span className={styles.loadingBadge}>🔄 Refreshing…</span>}
-        {!loading && source === 'live' && (
-          <span className={styles.liveBadge}>📍 Live Data</span>
-        )}
-      </div>
-
-      <div className={styles.activityGrid}> 
-        {filtered.length === 0 ? (
-          <div className={styles.empty}>No activities match your filters in {city}</div>
-        ) : (
-          filtered.map((item, i) => (
-            <ActivityCard
-              key={item.id}
-              activity={item}
-              onClick={setSelected}
-              style={{ animationDelay: `${i * 0.04}s` }}
-            />
-          ))
-        )}
-      </div>
-
-      <div className={styles.footer}>
-        📍 Weather: Open-Meteo · Activities: Google Places · Refreshes every 30 min
-      </div>
-
-      {selected && (
-        <CardModal activity={selected} onClose={() => setSelected(null)} />
+      {selectedActivity && (
+        <CardModal 
+          activity={selectedActivity} 
+          onClose={() => setSelectedActivity(null)} 
+        />
       )}
-    </>
-  )
-}
+    </div>
+  );
+};
+
+export default App;
