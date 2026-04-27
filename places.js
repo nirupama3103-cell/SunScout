@@ -1,47 +1,92 @@
 /**
- * Google Places API (New) — Nearby Search
- * Docs: https://developers.google.com/maps/documentation/places/web-service/nearby-search
- *
- * Setup:
- *  1. Enable "Places API (New)" in Google Cloud Console
- *  2. Add your key to .env.local as VITE_GOOGLE_PLACES_API_KEY
- *
- * Note: The Places API (New) does not support CORS browser requests directly.
- * For production, proxy through a Vercel serverless function (see api/places.js).
- * In dev, we hit /api/places which Vite proxies to the serverless function.
+ * Google Places API (New) — Nearby Search Logic
+ * Location: /src/services/places.js (or wherever your API logic lives)
  */
 
 import { placeTypeToIcon } from './constants.js'
 
 const API_KEY = import.meta.env.VITE_GOOGLE_PLACES_API_KEY
 
-/** Place types to search for free family activities */
-const SEARCH_TYPES = [
-  'park',
-  'library',
-  'museum',
-  'aquarium',
-  'art_gallery',
-  'campground',
-  'movie_theater',
-]
+/** Manual "Hero" activities for your target cities */
+export const manualActivities = [
+  {
+    id: 'ca-lib-1',
+    city: 'CA',
+    name: 'Sunnyvale Public Library',
+    icon: '📚',
+    desc: 'Story time and summer reading programs.',
+    dist: 0.8,
+    open: true,
+    ages: ['toddler', 'kids'],
+    type: 'indoor',
+    mapX: 3, mapY: 2 
+  },
+  {
+    id: 'tx-fri-1',
+    city: 'Frisco',
+    name: 'Frisco Public Library',
+    icon: '🏢',
+    desc: 'Massive new library with amazing kids zone.',
+    dist: 1.2,
+    open: true,
+    ages: ['all'],
+    type: 'indoor',
+    mapX: 5, mapY: 4
+  },
+  {
+    id: 'tx-aub-1',
+    city: 'Aubrey',
+    name: 'Aubrey City Park',
+    icon: '🌳',
+    desc: 'Quiet park with great shade for hot days.',
+    dist: 2.1,
+    open: true,
+    ages: ['toddler', 'kids'],
+    type: 'outdoor',
+    mapX: 2, mapY: 3
+  },
+  {
+    id: 'tx-dal-1',
+    city: 'Dallas',
+    name: 'Klyde Warren Park',
+    icon: '⛲',
+    desc: 'The best splash pads and food trucks downtown.',
+    dist: 0.5,
+    open: true,
+    ages: ['all'],
+    type: 'outdoor',
+    mapX: 6, mapY: 7
+  },
+  {
+    id: 'ny-1',
+    city: 'NY',
+    name: 'Central Park Zoo Area',
+    icon: '🐒',
+    desc: 'Free views of the clock and statues.',
+    dist: 0.3,
+    open: true,
+    ages: ['kids'],
+    type: 'outdoor',
+    mapX: 8, mapY: 5
+  }
+];
+
+const SEARCH_TYPES = ['park', 'library', 'museum', 'aquarium', 'art_gallery']
 
 /**
- * Fetch nearby places via our own serverless proxy at /api/places.
- * Falls back to an empty array on any error so the static data always shows.
- *
- * @param {number} lat
- * @param {number} lon
- * @param {number} radiusMeters  default 8000 (~5 miles)
- * @returns {Promise<Activity[]>}
+ * Fetch nearby places via our own serverless proxy.
+ * Merges live Google data with your manual "Hero" spots.
  */
-export async function fetchNearbyPlaces(lat, lon, radiusMeters = 8000) {
+export async function fetchNearbyPlaces(lat, lon, city = 'CA', radiusMeters = 8000) {
+  // 1. Get manual spots for the current city
+  const localManual = manualActivities.filter(a => a.city === city);
+
   if (!API_KEY) {
-    console.warn('[Places] No API key — set VITE_GOOGLE_PLACES_API_KEY to enable live data.')
-    return []
+    console.warn('[Places] No API key — showing manual data only.');
+    return localManual;
   }
 
-  const results = []
+  let liveResults = []
 
   for (const type of SEARCH_TYPES) {
     try {
@@ -50,30 +95,33 @@ export async function fetchNearbyPlaces(lat, lon, radiusMeters = 8000) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ lat, lon, type, radius: radiusMeters }),
       })
+      
       if (!res.ok) continue
       const data = await res.json()
+      
       if (data.places) {
-        results.push(...data.places.map(p => normalizePlaceResult(p, lat, lon)))
+        liveResults.push(...data.places.map(p => normalizePlaceResult(p, lat, lon, city)))
       }
     } catch (err) {
       console.error(`[Places] Error fetching type "${type}":`, err)
     }
   }
 
-  // Deduplicate by placeId
+  // 2. Deduplicate and merge
+  const allResults = [...localManual, ...liveResults]
   const seen = new Set()
-  return results.filter(p => {
-    if (seen.has(p.id)) return false
-    seen.add(p.id)
+  return allResults.filter(p => {
+    if (seen.has(p.id) || seen.has(p.name)) return false
+    seen.add(p.id || p.name)
     return true
   })
 }
 
 /**
- * Haversine distance in miles between two lat/lon pairs
+ * Haversine distance in miles
  */
 function haversineMiles(lat1, lon1, lat2, lon2) {
-  const R = 3958.8 // Earth radius in miles
+  const R = 3958.8 
   const dLat = ((lat2 - lat1) * Math.PI) / 180
   const dLon = ((lon2 - lon1) * Math.PI) / 180
   const a =
@@ -85,33 +133,31 @@ function haversineMiles(lat1, lon1, lat2, lon2) {
 }
 
 /**
- * Normalize a Google Places (New) place object → our Activity shape
+ * Normalized Google Result → SunScout Shape
  */
-function normalizePlaceResult(place, userLat, userLon) {
+function normalizePlaceResult(place, userLat, userLon, currentCity) {
   const placeLat = place.location?.latitude ?? userLat
   const placeLon = place.location?.longitude ?? userLon
   const dist = haversineMiles(userLat, userLon, placeLat, placeLon)
-
   const types = place.types ?? []
+  
   const isIndoor = types.some(t =>
-    ['library', 'museum', 'art_gallery', 'aquarium', 'movie_theater', 'shopping_mall'].includes(t)
+    ['library', 'museum', 'art_gallery', 'aquarium', 'shopping_mall'].includes(t)
   )
 
   return {
     id: place.id,
-    placeId: place.id,
-    name: place.displayName?.text ?? 'Unknown Place',
-    icon: placeTypeToIcon(types),
+    city: currentCity,
+    name: place.displayName?.text || 'Local Spot',
+    icon: placeTypeToIcon ? placeTypeToIcon(types[0]) : '📍',
+    desc: place.editorialSummary?.text || 'A great local spot to explore.',
+    dist: parseFloat(dist.toFixed(1)),
+    open: place.businessStatus === 'OPERATIONAL',
+    ages: 'all',
     type: isIndoor ? 'indoor' : 'outdoor',
-    ages: ['toddler', 'kids', 'teens'],
-    dist: Math.round(dist * 10) / 10,
-    tags: ['free', isIndoor ? 'indoor' : 'outdoor'],
-    lat: placeLat,
-    lon: placeLon,
-    desc: place.editorialSummary?.text ?? place.primaryTypeDisplayName?.text ?? types[0] ?? '',
-    open: place.currentOpeningHours?.openNow ?? true,
-    rating: place.rating,
-    website: place.websiteUri,
-    googleMapsUri: place.googleMapsUri,
+    // Randomized grid position for the mock map
+    mapX: Math.floor(Math.random() * 9) + 1,
+    mapY: Math.floor(Math.random() * 5) + 1,
+    tags: types.slice(0, 2)
   }
 }
