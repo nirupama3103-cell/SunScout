@@ -14,34 +14,31 @@ import styles from './App.module.css';
 
 const App = () => {
   // 1. STATE MANAGEMENT
-  const [city, setCity] = useState('CA'); // Default city
+  const [city, setCity] = useState('CA'); 
   const [day, setDay] = useState('today');
   const [age, setAge] = useState('all');
   const [indoorOnly, setIndoorOnly] = useState(false);
   const [selectedActivity, setSelectedActivity] = useState(null);
 
-  // 2. DATA FETCHING (Pass 'city' into these hooks)
-  const { weather } = useWeather(city);
+  // 2. DATA FETCHING
+  const weather = useWeather(city);
   const { places, loading } = usePlaces(city);
   const activeColor = useActiveColor(day);
 
   return (
     <div className={styles.app} style={{ '--active-color': activeColor }}>
-      <Header 
-        city={TAB_LABELS[city]} 
-        weather={weather} 
-      />
+      <Header city={TAB_LABELS[city]} weather={weather} />
       
       <main className={styles.main}>
         <Controls 
-          day={day} 
-          setDay={setDay} 
-          age={age} 
-          onAgeChange={setAge}
+          day={day}
+          setDay={setDay}
+          age={age}
+          setAge={setAge}
           indoorOnly={indoorOnly}
           onIndoorToggle={() => setIndoorOnly(!indoorOnly)}
-          currentCity={city}      // Pass state to Controls
-          onCityChange={setCity}  // Pass setter to Controls
+          currentCity={city}
+          onCityChange={setCity}
         />
 
         <Stats count={places.length} city={TAB_LABELS[city]} />
