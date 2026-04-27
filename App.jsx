@@ -12,12 +12,14 @@ import { TAB_LABELS } from './constants';
 import styles from './App.module.css';
 
 const App = () => {
-  const [city, setCity] = useState('CA');
+  // 1. STATE MANAGEMENT
+  const [city, setCity] = useState('CA'); 
   const [day, setDay] = useState('today');
   const [age, setAge] = useState('all');
   const [indoorOnly, setIndoorOnly] = useState(false);
   const [selectedActivity, setSelectedActivity] = useState(null);
 
+  // 2. DATA FETCHING
   const weather = useWeather(city);
   const { places, loading } = usePlaces(city);
   const activeColor = useActiveColor(day);
@@ -26,9 +28,9 @@ const App = () => {
     <div className={styles.app} style={{ '--active-color': activeColor }}>
       <Header city={TAB_LABELS[city]} weather={weather} />
       <main className={styles.main}>
-        <Controls
-          day={day} onDayChange={setDay}
-          age={age} onAgeChange={setAge}
+        <Controls 
+          day={day} setDay={setDay}
+          age={age} setAge={setAge}
           indoorOnly={indoorOnly}
           onIndoorToggle={() => setIndoorOnly(!indoorOnly)}
           currentCity={city}
@@ -38,13 +40,13 @@ const App = () => {
         <MapArea activities={places} centerCity={city} isHot={indoorOnly} />
         <section className={styles.activityGrid}>
           {loading ? (
-            <p>Loading {TAB_LABELS[city]}...</p>
+            <p>Finding the best spots in {TAB_LABELS[city]}...</p>
           ) : (
             places.map(place => (
-              <ActivityCard
-                key={place.id}
-                activity={place}
-                onClick={() => setSelectedActivity(place)}
+              <ActivityCard 
+                key={place.id} 
+                activity={place} 
+                onClick={() => setSelectedActivity(place)} 
               />
             ))
           )}
