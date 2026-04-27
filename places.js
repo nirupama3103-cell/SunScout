@@ -1,20 +1,31 @@
-import { placeTypeToIcon } from './constants' // Use standard imports
+import { useState, useEffect } from 'react';
+import { CITY_COORDS } from './constants'; 
 
-export async function fetchNearbyPlaces(lat, lon, city = 'CA', radiusMeters = 8000) {
-  // ... existing manualActivities filter ...
+export function usePlaces(city = 'CA') {
+  const [places, setPlaces] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  try {
-    const res = await fetch('/api/places', { // Path must match Step 1
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ lat, lon, type: 'park', radius: radiusMeters }),
-    })
-    
-    const data = await res.json()
-    // Returns data.places to the usePlaces hook
-    return data.places || [] 
-  } catch (err) {
-    console.error(err)
-    return []
-  }
+  useEffect(() => {
+    async function load() {
+      const coords = CITY_COORDS[city];
+      if (!coords) return;
+      setLoading(true);
+      try {
+        const res = await fetch('/api/places', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ lat: coords.lat, lon: coords.lon, type: 'park' })
+        });
+        const data = await res.json();
+        setPlaces(data.places || []);
+      } catch (err) {
+        console.error("Fetch error:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    load();
+  }, [city]);
+
+  return { places, loading };
 }
