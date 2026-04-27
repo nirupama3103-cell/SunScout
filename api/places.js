@@ -18,7 +18,7 @@ export default async function handler(req, res) {
         locationRestriction: {
           circle: { 
             center: { latitude: lat, longitude: lon }, 
-            radius: 80467 // 50 miles in meters
+            radius: 80467 
           } 
         }
       })
