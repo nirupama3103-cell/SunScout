@@ -12,7 +12,7 @@ import { TAB_LABELS } from './constants';
 import styles from './App.module.css';
 
 const App = () => {
-  const [city, setCity] = useState('CA'); 
+  const [city, setCity] = useState('CA');
   const [day, setDay] = useState('today');
   const [age, setAge] = useState('all');
   const [indoorOnly, setIndoorOnly] = useState(false);
@@ -26,9 +26,9 @@ const App = () => {
     <div className={styles.app} style={{ '--active-color': activeColor }}>
       <Header city={TAB_LABELS[city]} weather={weather} />
       <main className={styles.main}>
-        <Controls 
-          day={day} setDay={setDay}
-          age={age} setAge={setAge}
+        <Controls
+          day={day} onDayChange={setDay}
+          age={age} onAgeChange={setAge}
           indoorOnly={indoorOnly}
           onIndoorToggle={() => setIndoorOnly(!indoorOnly)}
           currentCity={city}
@@ -41,10 +41,10 @@ const App = () => {
             <p>Loading {TAB_LABELS[city]}...</p>
           ) : (
             places.map(place => (
-              <ActivityCard 
-                key={place.id} 
-                activity={place} 
-                onClick={() => setSelectedActivity(place)} 
+              <ActivityCard
+                key={place.id}
+                activity={place}
+                onClick={() => setSelectedActivity(place)}
               />
             ))
           )}
