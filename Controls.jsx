@@ -20,7 +20,6 @@ const AGES = [
 export function Controls({ day, age, indoorOnly, onDayChange, onAgeChange, onIndoorToggle }) {
   const tabRefs = useRef({})
 
-  // Staggered shimmer on mount
   useEffect(() => {
     TABS.forEach(({ id }, i) => {
       const el = tabRefs.current[id]
@@ -41,7 +40,6 @@ export function Controls({ day, age, indoorOnly, onDayChange, onAgeChange, onInd
     onDayChange(id)
   }
 
-  // Safety check for TAB_COLORS
   const activeColor = TAB_COLORS[day]?.hex || '#007bff'
 
   return (
@@ -57,9 +55,7 @@ export function Controls({ day, age, indoorOnly, onDayChange, onAgeChange, onInd
           {label}
         </button>
       ))}
-
       <div className={styles.separator} />
-
       {AGES.map(({ id, label }) => (
         <button
           key={id}
@@ -71,9 +67,7 @@ export function Controls({ day, age, indoorOnly, onDayChange, onAgeChange, onInd
           {label}
         </button>
       ))}
-
       <div className={styles.separator} />
-
       <button
         className={`${styles.indoorToggle} ${indoorOnly ? styles.indoorToggleActive : ''}`}
         onClick={onIndoorToggle}
