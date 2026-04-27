@@ -4,10 +4,6 @@ export default async function handler(req, res) {
   const { lat, lon, type } = req.body;
   const API_KEY = process.env.VITE_GOOGLE_PLACES_API_KEY;
 
-  if (!API_KEY) {
-    return res.status(500).json({ error: 'API key not configured' });
-  }
-
   try {
     const response = await fetch('https://places.googleapis.com/v1/places:searchNearby', {
       method: 'POST',
@@ -30,7 +26,6 @@ export default async function handler(req, res) {
 
     const data = await response.json();
     return res.status(200).json({ places: data.places || [] });
-
   } catch (err) {
     return res.status(500).json({ error: 'Failed to fetch places' });
   }
