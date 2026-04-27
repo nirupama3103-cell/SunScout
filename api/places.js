@@ -18,15 +18,17 @@ export default async function handler(req, res) {
         locationRestriction: {
           circle: { 
             center: { latitude: lat, longitude: lon }, 
-            radius: 80467 
+            radius: 80467 // 50 miles in meters
           } 
         }
       })
     });
 
     const data = await response.json();
+    // This is the SINGLE return for success
     return res.status(200).json({ places: data.places || [] });
   } catch (err) {
+    // This is the SINGLE return for error
     return res.status(500).json({ error: 'Failed to fetch' });
   }
 }
