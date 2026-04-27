@@ -1,19 +1,18 @@
 import { useState, useEffect } from 'react';
-import { CITY_COORDS } from './constants.js'; 
+import { CITY_COORDS } from './constants.js'; // Fix: Import coords object
+import { fetchNearbyPlaces } from './places.js'; // Ensure this helper is present
 
 /**
- * Merges live Google Places results with manual "Hero" spots.
- * Refetches whenever the 'city' changes.
+ * usePlaces hook to fetch live activity data based on the selected city.
  */
 export function usePlaces(city = 'CA') {
-  // 1. Initial state: filter manual spots by the current city immediately
-  // Note: Ensure manualActivities is imported or defined in this file
-  const [activities, setActivities] = useState([]);
+  const [places, setPlaces] = useState([]);
   const [loading, setLoading] = useState(false);
   const [source, setSource] = useState('static');
 
   useEffect(() => {
     async function load() {
+      // 1. Get the specific coordinates for the current city
       const coords = CITY_COORDS[city];
       
       if (!coords) {
@@ -23,12 +22,11 @@ export function usePlaces(city = 'CA') {
 
       setLoading(true);
       try {
-        // 2. Fetch live data using coordinates
-        // Ensure fetchNearbyPlaces is imported or defined
+        // 2. Fetch live data using dynamic coordinates from constants.js
         const live = await fetchNearbyPlaces(coords.lat, coords.lon, city);
         
         if (live && live.length > 0) {
-          setActivities(live);
+          setPlaces(live);
           setSource('live');
         } else {
           setSource('static');
@@ -42,7 +40,7 @@ export function usePlaces(city = 'CA') {
     }
 
     load();
-  }, [city]); 
+  }, [city]); // 3. CRITICAL: Re-run the fetch every time the city tab changes
 
-  return { activities, loading, source };
+  return { places, loading, source };
 }
