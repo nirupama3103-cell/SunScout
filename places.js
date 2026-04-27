@@ -153,7 +153,7 @@ function normalizePlaceResult(place, userLat, userLon, currentCity) {
     desc: place.editorialSummary?.text || 'A great local spot to explore.',
     dist: parseFloat(dist.toFixed(1)),
     open: place.businessStatus === 'OPERATIONAL',
-    ages: 'all',
+    ages: ['all', 'toddler', 'kids', 'teens'],
     type: isIndoor ? 'indoor' : 'outdoor',
     // Randomized grid position for the mock map
     mapX: Math.floor(Math.random() * 9) + 1,
