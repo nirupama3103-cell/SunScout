@@ -20,14 +20,4 @@ export function CardModal({ activity, onClose }) {
         <div className={styles.row}>
           <span>📍 {activity.dist} miles away</span>
           <span style={{ color: activity.open ? 'var(--grass)' : 'var(--coral)' }}>
-            {activity.open ? '● Open now' : '○ Currently closed'}
-          </span>
-        </div>
-        <div className={styles.row}>
-          <span>👶 {Array.isArray(activity.ages) ? activity.ages.join(', ') : activity.ages}</span>
-          <span>{activity.type === 'indoor' ? '🏠 Indoor' : '🌳 Outdoor'}</span>
-        </div>
-      </div>
-    </div>
-  )
-}
+            {activity.open ?
