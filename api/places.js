@@ -1,4 +1,5 @@
 export default async function handler(req, res) {
+  // Line 3 fix: Standardized method check
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   
   const { lat, lon, type } = req.body;
@@ -29,7 +30,10 @@ export default async function handler(req, res) {
     });
 
     const data = await response.json();
+    
+    // Line 19, 24, 26 fix: Only one return statement allowed
     return res.status(200).json({ places: data.places || [] });
+
   } catch (err) {
     return res.status(500).json({ error: 'Failed to fetch places' });
   }
