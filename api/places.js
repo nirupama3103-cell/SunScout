@@ -4,11 +4,11 @@ export default async function handler(req, res) {
   }
 
   const { lat, lon, type, radius = 8000 } = req.body;
-  // Use process.env for server-side Vercel functions
+  // Vercel uses process.env for backend functions
   const API_KEY = process.env.VITE_GOOGLE_PLACES_API_KEY;
 
   if (!API_KEY) {
-    return res.status(500).json({ error: 'API key not configured on server' });
+    return res.status(500).json({ error: 'No API key configured' });
   }
 
   try {
@@ -33,9 +33,10 @@ export default async function handler(req, res) {
         }),
       }
     );
+
     const data = await response.json();
-    res.status(200).json(data);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch from Google' });
+    return res.status(200).json({ places: data.places || [] });
+  } catch (err) {
+    return res.status(500).json({ error: 'Failed to fetch places' });
   }
 }
