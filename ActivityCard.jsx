@@ -20,7 +20,9 @@ export function ActivityCard({ activity }) {
             <p className={styles.desc}>{activity.editorialSummary.text}</p>
           )}
           <div className={styles.tags}>
-            {activity.dist && <span className={styles.tag}>📍 {activity.dist} mi</span>}
+            {activity.dist && (
+              <span className={styles.tag}>📍 {activity.dist} mi</span>
+            )}
             {activity.open !== undefined && (
               <span className={styles.tag} style={{ color: activity.open ? 'green' : 'red' }}>
                 {activity.open ? '● Open' : '○ Closed'}
