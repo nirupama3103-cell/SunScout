@@ -1,9 +1,9 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { CITY_COORDS } from './constants.js'; 
+import { CITY_COORDS } from './constants.js';
 import styles from './MapArea.module.css';
 
 function getBounds(lat, lon) {
-  const padding = 0.05; 
+  const padding = 0.05;
   return {
     minLat: lat - padding,
     maxLat: lat + padding,
@@ -44,7 +44,13 @@ export function MapArea({ activities = [], centerCity = 'CA', isHot }) {
       {isHot && <div className={styles.weatherAlert}>🌡️ Hot day — showing indoor picks!</div>}
       <div className={styles.myLocation} style={{ left: userPos.x, top: userPos.y }} />
       {activities.slice(0, 8).map((item, i) => {
-        const pos = toMapCoords(item.lat || cityData.lat, item.lon || cityData.lon, bounds, size.w, size.h);
+        const pos = toMapCoords(
+          item.lat || cityData.lat,
+          item.lon || cityData.lon,
+          bounds,
+          size.w,
+          size.h
+        );
         return (
           <div
             key={item.id}
