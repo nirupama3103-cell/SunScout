@@ -37,15 +37,14 @@ export function MapArea({ activities = [], centerCity = 'CA', isHot }) {
   const cityData = CITY_COORDS[centerCity] || CITY_COORDS['CA'];
   const bounds = getBounds(cityData.lat, cityData.lon);
   const userPos = toMapCoords(cityData.lat, cityData.lon, bounds, size.w, size.h);
-  const visiblePins = activities.slice(0, 8);
 
   return (
     <div className={styles.mapArea} ref={containerRef}>
       <div className={styles.mapGrid} />
       {isHot && <div className={styles.weatherAlert}>🌡️ Hot day — showing indoor picks!</div>}
       <div className={styles.myLocation} style={{ left: userPos.x, top: userPos.y }} />
-      {visiblePins.map((item, i) => {
-        const pos = toMapCoords(item.lat, item.lon, bounds, size.w, size.h);
+      {activities.slice(0, 8).map((item, i) => {
+        const pos = toMapCoords(item.lat || cityData.lat, item.lon || cityData.lon, bounds, size.w, size.h);
         return (
           <div
             key={item.id}
