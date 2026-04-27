@@ -18,7 +18,7 @@ export default async function handler(req, res) {
         locationRestriction: {
           circle: { 
             center: { latitude: lat, longitude: lon }, 
-            radius: 80467 // 50 miles
+            radius: 80467 // 50 miles in meters
           } 
         }
       })
@@ -26,7 +26,8 @@ export default async function handler(req, res) {
 
     const data = await response.json();
     return res.status(200).json({ places: data.places || [] });
+
   } catch (err) {
-    return res.status(500).json({ error: 'Failed to fetch' });
+    return res.status(500).json({ error: 'Failed to fetch places' });
   }
 }
