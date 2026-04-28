@@ -4,7 +4,6 @@ import styles from './ActivityCard.module.css'
 
 export function ActivityCard({ activity }) {
   const [showModal, setShowModal] = useState(false)
-
   return (
     <>
       <div className={styles.card} onClick={() => setShowModal(true)}>
