@@ -1,128 +1,48 @@
-.mapArea {
-  position: relative;
-  height: 200px;
-  background: linear-gradient(180deg, #e8f4f8 0%, #d4edda 100%);
-  overflow: hidden;
-  border-bottom: 1px solid var(--border);
+.tabScroller {
+  display: flex;
+  gap: 12px;
+  padding: 15px;
+  overflow-x: auto;
+  background: white;
+  border-bottom: 1px solid #f0f0f0;
+  scrollbar-width: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  .mapArea {
-    background: linear-gradient(180deg, #1a2535 0%, #1a2e20 100%);
-  }
-}
-
-.mapGrid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px);
-  background-size: 40px 40px;
-}
-
-/* ... existing roadH, roadV, weatherAlert styles ... */
-
-.weatherAlert {
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  background: var(--coral);
-  color: #fff;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 20px;
-  z-index: 4;
-}
-
-.myLocation {
-  position: absolute;
-  width: 14px;
-  height: 14px;
-  background: var(--sky);
-  border: 3px solid #fff;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  animation: pulse-loc 2s ease-in-out infinite;
-  z-index: 3;
-}
-
-.pin {
-  position: absolute;
-  cursor: pointer;
-  transform: translate(-50%, -100%);
-  animation: bounce-in 0.4s ease both;
-  font-size: 22px;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-  transition: transform 0.2s;
-  z-index: 2;
+.categoryTab {
   display: flex;
   flex-direction: column;
   align-items: center;
+  border: none;
+  background: none;
+  min-width: 65px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
 }
 
-.pin:hover {
-  transform: translate(-50%, -100%) scale(1.3);
+.tabIcon {
+  font-size: 22px;
+  margin-bottom: 4px;
+  padding: 10px;
+  background: #f7f9fb;
+  border-radius: 15px;
+  transition: all 0.3s ease;
 }
 
-/* --- NEW STYLES FOR SUMMER ACTIVITIES --- */
-
-.filterBar {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  z-index: 10;
+.activeTab .tabIcon {
+  background: var(--active-color);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transform: scale(1.1);
+  color: white;
 }
 
-.filterBtn {
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
-  padding: 5px 12px;
+.tabLabel {
   font-size: 10px;
   font-weight: 700;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  transition: all 0.2s ease;
-  color: #444;
-}
-
-.filterBtn.active {
-  background: #ffeb3b; /* Bright summer yellow */
-  color: #000;
-  border-color: #fbc02d;
-  transform: scale(1.05);
-}
-
-.freeBadge {
-  position: absolute;
-  top: -12px;
-  background: #4caf50; /* Green for free */
-  color: white;
-  font-size: 8px;
-  font-weight: 900;
-  padding: 1px 5px;
-  border-radius: 4px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-  white-space: nowrap;
+  color: #64748b;
 }
 
-/* Optional: Make the pin pulse if it's a free activity */
-.freePin {
-  filter: drop-shadow(0 0 5px rgba(76, 175, 80, 0.4));
-}
-
-@keyframes bounce-in {
-  0% { transform: translate(-50%, -100%) scale(0); opacity: 0; }
-  70% { transform: translate(-50%, -100%) scale(1.1); opacity: 1; }
-  100% { transform: translate(-50%, -100%) scale(1); }
-}
-
-@keyframes pulse-loc {
-  0% { box-shadow: 0 0 0 0 rgba(0, 191, 255, 0.4); }
-  70% { box-shadow: 0 0 0 10px rgba(0, 191, 255, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(0, 191, 255, 0); }
+.activeTab .tabLabel {
+  color: #1e293b;
 }
