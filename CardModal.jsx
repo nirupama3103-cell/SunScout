@@ -19,5 +19,4 @@ export function CardModal({ activity, onClose }) {
         <p className={styles.desc}>{activity.desc}</p>
         <div className={styles.row}>
           <span>📍 {activity.dist} miles away</span>
-          <span style={{ color: activity.open ? 'var(--grass)' : 'var(--coral)' }}>
-            {activity.open ?
+          <span style
