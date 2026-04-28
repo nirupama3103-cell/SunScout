@@ -1,13 +1,13 @@
 import React, { useRef, useEffect, useState } from 'react';
 import styles from './MapArea.module.css';
 
-// Moving this inside so we don't rely on external files that might be missing
 const LOCAL_COORDS = {
-  'CA': { lat: 37.3688, lon: -122.0363 }, // Sunnyvale
-  'TX': { lat: 32.7767, lon: -96.7970 }, // Dallas
+  'CA': { lat: 37.3688, lon: -122.0363 },
+  'TX': { lat: 32.7767, lon: -96.7970 },
 };
 
-export function MapArea({ activities = [], centerCity = 'CA' }) {
+// Change this line from "export function" to just "function"
+function MapArea({ activities = [], centerCity = 'CA' }) {
   const containerRef = useRef(null);
   const [size, setSize] = useState({ w: 360, h: 400 });
   const [activeTab, setActiveTab] = useState('all');
@@ -63,3 +63,6 @@ export function MapArea({ activities = [], centerCity = 'CA' }) {
     </div>
   );
 }
+
+// Add this at the very bottom
+export default MapArea;
