@@ -1,48 +1,108 @@
-.tabScroller {
-  display: flex;
-  gap: 12px;
-  padding: 15px;
-  overflow-x: auto;
-  background: white;
-  border-bottom: 1px solid #f0f0f0;
-  scrollbar-width: none;
+import React, { useRef, useEffect, useState } from 'react';
+import { CITY_COORDS } from './constants.js';
+import styles from './MapArea.module.css';
+
+function getBounds(lat, lon) {
+  const padding = 0.05;
+  return {
+    minLat: lat - padding,
+    maxLat: lat + padding,
+    minLon: lon - padding,
+    maxLon: lon + padding,
+  };
 }
 
-.categoryTab {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border: none;
-  background: none;
-  min-width: 65px;
-  cursor: pointer;
-  transition: transform 0.2s ease;
+function toMapCoords(lat, lon, bounds, containerW, containerH) {
+  const x = ((lon - bounds.minLon) / (bounds.maxLon - bounds.minLon)) * containerW;
+  const y = (1 - (lat - bounds.minLat) / (bounds.maxLat - bounds.minLat)) * containerH;
+  return { x, y };
 }
 
-.tabIcon {
-  font-size: 22px;
-  margin-bottom: 4px;
-  padding: 10px;
-  background: #f7f9fb;
-  border-radius: 15px;
-  transition: all 0.3s ease;
-}
+export function MapArea({ activities = [], centerCity = 'CA', isHot }) {
+  const containerRef = useRef(null);
+  const [size, setSize] = useState({ w: 360, h: 200 });
+  const [activeTab, setActiveTab] = useState('all');
 
-.activeTab .tabIcon {
-  background: var(--active-color);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  transform: scale(1.1);
-  color: white;
-}
+  const categories = [
+    { id: 'all', label: 'All Fun', icon: '🌈', color: '#6366f1' }, 
+    { id: 'free', label: 'Free Fun', icon: '🎡', color: '#44D62C' },   // Parrot Green
+    { id: 'summer', label: 'Summer', icon: '☀️', color: '#0EA5E9' },  // Sky Blue
+    { id: 'camp', label: 'Paid Camps', icon: '🏕️', color: '#FFD700' }, // Gold
+  ];
 
-.tabLabel {
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: #64748b;
-}
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(entries => {
+      for (const entry of entries) {
+        setSize({ w: entry.contentRect.width, h: entry.contentRect.height });
+      }
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
 
-.activeTab .tabLabel {
-  color: #1e293b;
+  const cityData = CITY_COORDS[centerCity] || CITY_COORDS['CA'];
+  const bounds = getBounds(cityData.lat, cityData.lon);
+  const userPos = toMapCoords(cityData.lat, cityData.lon, bounds, size.w, size.h);
+
+  // Unified Filter Logic
+  const filteredActivities = activities.filter(item => {
+    if (activeTab === 'all') return true;
+    if (activeTab === 'free') return item.isFree === true;
+    if (activeTab === 'camp') return item.isPaid === true;
+    if (activeTab === 'summer') return item.category === 'summer';
+    return item.category === activeTab;
+  });
+
+  return (
+    <div className={styles.mapArea} ref={containerRef}>
+      <div className={styles.mapGrid} />
+      
+      <div className={styles.tabScroller}>
+        {categories.map((cat) => (
+          <button 
+            key={cat.id}
+            onClick={() => setActiveTab(cat.id)}
+            className={`${styles.categoryTab} ${activeTab === cat.id ? styles.activeTab : ''}`}
+            style={{ '--active-color': cat.color }}
+          >
+            <span className={styles.tabIcon}>{cat.icon}</span>
+            <span className={styles.tabLabel}>{cat.label}</span>
+          </button>
+        ))}
+      </div>
+
+      {isHot && <div className={styles.weatherAlert}>🌡️ Hot day — showing indoor picks!</div>}
+      
+      <div className={styles.myLocation} style={{ left: userPos.x, top: userPos.y }} />
+
+      {filteredActivities.slice(0, 15).map((item, i) => {
+        const pos = toMapCoords(
+          item.lat || cityData.lat,
+          item.lon || cityData.lon,
+          bounds,
+          size.w,
+          size.h
+        );
+        
+        return (
+          <div
+            key={item.id || i}
+            className={`${styles.pin} ${item.isFree ? styles.freePin : styles.paidPin}`}
+            style={{ 
+                left: pos.x, 
+                top: pos.y, 
+                animationDelay: `${i * 0.05}s`,
+                position: 'absolute' 
+            }}
+            title={item.name}
+          >
+            <div className={styles.pinIcon}>{item.icon || '📍'}</div>
+            {item.isFree && <span className={styles.freeBadge}>FREE</span>}
+          </div>
+        );
+      })}
+    </div>
+  );
 }
