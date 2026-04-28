@@ -28,7 +28,7 @@ export function ActivityCard({ activity }) {
               </span>
             )}
             {activity.googleMapsUri && (
-              <a
+              
                 className={styles.tag}
                 href={activity.googleMapsUri}
                 target="_blank"
