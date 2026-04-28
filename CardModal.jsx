@@ -19,4 +19,21 @@ export function CardModal({ activity, onClose }) {
         <p className={styles.desc}>{activity.desc}</p>
         <div className={styles.row}>
           <span>📍 {activity.dist} miles away</span>
-          <span style
+          <span style={{ color: activity.open ? 'var(--grass)' : 'var(--coral)' }}>
+            {activity.open ? '● Open' : '○ Closed'}
+          </span>
+        </div>
+        {activity.googleMapsUri && (
+          
+            className={styles.mapsLink}
+            href={activity.googleMapsUri}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            🗺️ Open in Google Maps
+          </a>
+        )}
+      </div>
+    </div>
+  )
+}
