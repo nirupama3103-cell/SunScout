@@ -1,108 +1,79 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { CITY_COORDS } from './constants.js';
-import styles from './MapArea.module.css';
-
-function getBounds(lat, lon) {
-  const padding = 0.05;
-  return {
-    minLat: lat - padding,
-    maxLat: lat + padding,
-    minLon: lon - padding,
-    maxLon: lon + padding,
-  };
+.mapArea {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  background: #f0fdf4; /* Very light green base */
+  overflow: hidden;
+  border-radius: 12px;
 }
 
-function toMapCoords(lat, lon, bounds, containerW, containerH) {
-  const x = ((lon - bounds.minLon) / (bounds.maxLon - bounds.minLon)) * containerW;
-  const y = (1 - (lat - bounds.minLat) / (bounds.maxLat - bounds.minLat)) * containerH;
-  return { x, y };
+.mapGrid {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(#e2e8f0 1px, transparent 1px),
+    linear-gradient(90deg, #e2e8f0 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0.4;
 }
 
-export function MapArea({ activities = [], centerCity = 'CA', isHot }) {
-  const containerRef = useRef(null);
-  const [size, setSize] = useState({ w: 360, h: 200 });
-  const [activeTab, setActiveTab] = useState('all');
+.tabScroller {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  overflow-x: auto;
+  background: white;
+  border-bottom: 1px solid #f0f0f0;
+  position: relative;
+  z-index: 10;
+}
 
-  const categories = [
-    { id: 'all', label: 'All Fun', icon: '🌈', color: '#6366f1' }, 
-    { id: 'free', label: 'Free Fun', icon: '🎡', color: '#44D62C' },   // Parrot Green
-    { id: 'summer', label: 'Summer', icon: '☀️', color: '#0EA5E9' },  // Sky Blue
-    { id: 'camp', label: 'Paid Camps', icon: '🏕️', color: '#FFD700' }, // Gold
-  ];
+.categoryTab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: none;
+  background: none;
+  min-width: 65px;
+  cursor: pointer;
+}
 
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    const ro = new ResizeObserver(entries => {
-      for (const entry of entries) {
-        setSize({ w: entry.contentRect.width, h: entry.contentRect.height });
-      }
-    });
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, []);
+.tabIcon {
+  font-size: 20px;
+  padding: 8px;
+  background: #f8fafc;
+  border-radius: 12px;
+  transition: all 0.2s;
+}
 
-  const cityData = CITY_COORDS[centerCity] || CITY_COORDS['CA'];
-  const bounds = getBounds(cityData.lat, cityData.lon);
-  const userPos = toMapCoords(cityData.lat, cityData.lon, bounds, size.w, size.h);
+.activeTab .tabIcon {
+  background: var(--active-color);
+  color: white;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
 
-  // Unified Filter Logic
-  const filteredActivities = activities.filter(item => {
-    if (activeTab === 'all') return true;
-    if (activeTab === 'free') return item.isFree === true;
-    if (activeTab === 'camp') return item.isPaid === true;
-    if (activeTab === 'summer') return item.category === 'summer';
-    return item.category === activeTab;
-  });
+.tabLabel {
+  font-size: 10px;
+  font-weight: 700;
+  color: #64748b;
+  margin-top: 4px;
+}
 
-  return (
-    <div className={styles.mapArea} ref={containerRef}>
-      <div className={styles.mapGrid} />
-      
-      <div className={styles.tabScroller}>
-        {categories.map((cat) => (
-          <button 
-            key={cat.id}
-            onClick={() => setActiveTab(cat.id)}
-            className={`${styles.categoryTab} ${activeTab === cat.id ? styles.activeTab : ''}`}
-            style={{ '--active-color': cat.color }}
-          >
-            <span className={styles.tabIcon}>{cat.icon}</span>
-            <span className={styles.tabLabel}>{cat.label}</span>
-          </button>
-        ))}
-      </div>
+.pin {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+}
 
-      {isHot && <div className={styles.weatherAlert}>🌡️ Hot day — showing indoor picks!</div>}
-      
-      <div className={styles.myLocation} style={{ left: userPos.x, top: userPos.y }} />
-
-      {filteredActivities.slice(0, 15).map((item, i) => {
-        const pos = toMapCoords(
-          item.lat || cityData.lat,
-          item.lon || cityData.lon,
-          bounds,
-          size.w,
-          size.h
-        );
-        
-        return (
-          <div
-            key={item.id || i}
-            className={`${styles.pin} ${item.isFree ? styles.freePin : styles.paidPin}`}
-            style={{ 
-                left: pos.x, 
-                top: pos.y, 
-                animationDelay: `${i * 0.05}s`,
-                position: 'absolute' 
-            }}
-            title={item.name}
-          >
-            <div className={styles.pinIcon}>{item.icon || '📍'}</div>
-            {item.isFree && <span className={styles.freeBadge}>FREE</span>}
-          </div>
-        );
-      })}
-    </div>
-  );
+.freeBadge {
+  position: absolute;
+  top: -10px;
+  background: #44D62C; /* Your Parrot Green! */
+  color: white;
+  font-size: 8px;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-weight: bold;
 }
