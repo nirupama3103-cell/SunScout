@@ -1,30 +1,39 @@
 .mapArea {
   position: relative;
   width: 100%;
-  height: 400px;
-  background: #f0fdf4; /* Very light green base */
+  height: 450px;
+  background: #f8fafc;
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  font-family: sans-serif;
 }
 
+/* The Grid Background */
 .mapGrid {
   position: absolute;
   inset: 0;
   background-image: linear-gradient(#e2e8f0 1px, transparent 1px),
     linear-gradient(90deg, #e2e8f0 1px, transparent 1px);
-  background-size: 20px 20px;
-  opacity: 0.4;
+  background-size: 30px 30px;
+  opacity: 0.3;
 }
 
+/* Horizontal Tab Scroller */
 .tabScroller {
   display: flex;
-  gap: 12px;
-  padding: 12px;
+  gap: 15px;
+  padding: 15px;
   overflow-x: auto;
   background: white;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f1f5f9;
   position: relative;
-  z-index: 10;
+  z-index: 20;
+  scrollbar-width: none;
+}
+
+.tabScroller::-webkit-scrollbar {
+  display: none;
 }
 
 .categoryTab {
@@ -33,47 +42,72 @@
   align-items: center;
   border: none;
   background: none;
-  min-width: 65px;
+  min-width: 70px;
   cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .tabIcon {
-  font-size: 20px;
-  padding: 8px;
-  background: #f8fafc;
-  border-radius: 12px;
-  transition: all 0.2s;
+  font-size: 24px;
+  padding: 12px;
+  background: #f1f5f9;
+  border-radius: 18px;
+  margin-bottom: 6px;
 }
 
+/* The Active Glow using our colors */
 .activeTab .tabIcon {
   background: var(--active-color);
   color: white;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 15px -3px var(--active-color);
+  transform: translateY(-2px);
 }
 
 .tabLabel {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   color: #64748b;
-  margin-top: 4px;
+  text-transform: uppercase;
 }
 
+.activeTab .tabLabel {
+  color: #1e293b;
+}
+
+/* Map Pins */
 .pin {
-  width: 32px;
-  height: 32px;
+  width: 35px;
+  height: 35px;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 5;
+  z-index: 10;
+  transition: transform 0.2s;
+}
+
+.pinIcon {
+  font-size: 24px;
 }
 
 .freeBadge {
   position: absolute;
-  top: -10px;
-  background: #44D62C; /* Your Parrot Green! */
+  top: -12px;
+  background: #44D62C; /* Parrot Green */
   color: white;
-  font-size: 8px;
-  padding: 2px 4px;
-  border-radius: 4px;
-  font-weight: bold;
+  font-size: 9px;
+  padding: 2px 6px;
+  border-radius: 20px;
+  font-weight: 800;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.myLocation {
+  width: 14px;
+  height: 14px;
+  background: #3b82f6;
+  border: 3px solid white;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 15;
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
 }
