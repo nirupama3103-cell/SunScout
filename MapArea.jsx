@@ -21,9 +21,14 @@ function toMapCoords(lat, lon, bounds, containerW, containerH) {
 export function MapArea({ activities = [], centerCity = 'CA', isHot }) {
   const containerRef = useRef(null);
   const [size, setSize] = useState({ w: 360, h: 200 });
-  
-  // State for filtering free summer activities
-  const [showFreeOnly, setShowFreeOnly] = useState(false);
+  const [activeTab, setActiveTab] = useState('all');
+
+  const categories = [
+    { id: 'all', label: 'All Fun', icon: '🌈', color: '#6366f1' }, 
+    { id: 'park', label: 'Parks', icon: '🌳', color: '#44D62C' },   // Parrot Green
+    { id: 'library', label: 'Reading', icon: '📚', color: '#a855f7' }, 
+    { id: 'center', label: 'Centers', icon: '🏫', color: '#556B2F' },  // Olive Green
+  ];
 
   useEffect(() => {
     const el = containerRef.current;
@@ -41,24 +46,30 @@ export function MapArea({ activities = [], centerCity = 'CA', isHot }) {
   const bounds = getBounds(cityData.lat, cityData.lon);
   const userPos = toMapCoords(cityData.lat, cityData.lon, bounds, size.w, size.h);
 
-  // Filter activities based on the "Free" toggle
+  // Filter logic for the new tabs
   const filteredActivities = activities.filter(item => {
-    if (showFreeOnly) return item.isFree === true;
-    return true;
+    if (!item.isFree) return false; 
+    if (activeTab === 'all') return true;
+    return item.category === activeTab;
   });
 
   return (
     <div className={styles.mapArea} ref={containerRef}>
       <div className={styles.mapGrid} />
       
-      {/* UI Controls for Summer Activities */}
-      <div className={styles.filterBar}>
-        <button 
-          className={`${styles.filterBtn} ${showFreeOnly ? styles.active : ''}`}
-          onClick={() => setShowFreeOnly(!showFreeOnly)}
-        >
-          {showFreeOnly ? "🌟 Showing Free Fun" : "All Activities"}
-        </button>
+      {/* Category Tab Scroller */}
+      <div className={styles.tabScroller}>
+        {categories.map((cat) => (
+          <button 
+            key={cat.id}
+            onClick={() => setActiveTab(cat.id)}
+            className={`${styles.categoryTab} ${activeTab === cat.id ? styles.activeTab : ''}`}
+            style={{ '--active-color': cat.color }}
+          >
+            <span className={styles.tabIcon}>{cat.icon}</span>
+            <span className={styles.tabLabel}>{cat.label}</span>
+          </button>
+        ))}
       </div>
 
       {isHot && <div className={styles.weatherAlert}>🌡️ Hot day — showing indoor picks!</div>}
@@ -77,7 +88,7 @@ export function MapArea({ activities = [], centerCity = 'CA', isHot }) {
         return (
           <div
             key={item.id || i}
-            className={`${styles.pin} ${item.isFree ? styles.freePin : ''}`}
+            className={`${styles.pin} ${styles.freePin}`}
             style={{ 
                 left: pos.x, 
                 top: pos.y, 
@@ -87,7 +98,7 @@ export function MapArea({ activities = [], centerCity = 'CA', isHot }) {
             title={item.name}
           >
             <div className={styles.pinIcon}>{item.icon || '📍'}</div>
-            {item.isFree && <span className={styles.freeBadge}>FREE</span>}
+            <span className={styles.freeBadge}>FREE</span>
           </div>
         );
       })}
