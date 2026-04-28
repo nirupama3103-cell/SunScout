@@ -54,12 +54,12 @@ export function MapArea({ activities = [], centerCity = 'CA', isHot }) {
       {/* UI Controls for Summer Activities */}
       <div className={styles.filterBar}>
         <button 
-          className={`${styles.filterBtn} ${showFreeOnly ? styles.active : ''}`}
-          onClick={() => setShowFreeOnly(!showFreeOnly)}
-        )
-          {showFreeOnly ? "🌟 Showing Free Fun" : "All Activities"}
-        </button>
-      </div>
+        <button 
+  className={`${styles.filterBtn} ${showFreeOnly ? styles.active : ''}`}
+  onClick={() => setShowFreeOnly(!showFreeOnly)}
+> 
+  {showFreeOnly ? "🌟 Showing Free Fun" : "All Activities"}
+</button>
 
       {isHot && <div className={styles.weatherAlert}>🌡️ Hot day — showing indoor picks!</div>}
       
