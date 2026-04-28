@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Header } from './Header';
 import { Controls } from './Controls';
-import { MapArea } from './MapArea';
+import MapArea from './MapArea'; // FIXED: Removed the { } 
 import { ActivityCard } from './ActivityCard';
 import { usePlaces } from './usePlaces';
 import { TAB_LABELS } from './constants';
@@ -19,7 +19,7 @@ const App = () => {
         <MapArea activities={places} centerCity={city} />
         <section className={styles.activityGrid}>
           {loading ? (
-            <p>Searching Sunnyvale...</p>
+            <p>Searching for fun nearby...</p>
           ) : (
             places.map(place => (
               <ActivityCard key={place.id} activity={place} />
