@@ -1,10 +1,15 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { CITY_COORDS } from './constants.js';
 import styles from './MapArea.module.css';
 
-export function MapArea({ activities = [], centerCity = 'CA', isHot }) {
+// Moving this inside so we don't rely on external files that might be missing
+const LOCAL_COORDS = {
+  'CA': { lat: 37.3688, lon: -122.0363 }, // Sunnyvale
+  'TX': { lat: 32.7767, lon: -96.7970 }, // Dallas
+};
+
+export function MapArea({ activities = [], centerCity = 'CA' }) {
   const containerRef = useRef(null);
-  const [size, setSize] = useState({ w: 360, h: 300 }); // Default height so it's not 0
+  const [size, setSize] = useState({ w: 360, h: 400 });
   const [activeTab, setActiveTab] = useState('all');
 
   const categories = [
@@ -14,33 +19,12 @@ export function MapArea({ activities = [], centerCity = 'CA', isHot }) {
     { id: 'camp', label: 'Paid Camps', icon: '🏕️', color: '#FFD700' },
   ];
 
-  useEffect(() => {
-    if (!containerRef.current) return;
-    const updateSize = () => {
-      if (containerRef.current) {
-        setSize({
-          w: containerRef.current.offsetWidth || 360,
-          h: containerRef.current.offsetHeight || 300
-        });
-      }
-    };
-    updateSize();
-    window.addEventListener('resize', updateSize);
-    return () => window.removeEventListener('resize', updateSize);
-  }, []);
-
-  // Safety check for city coordinates
-  const cityData = CITY_COORDS?.[centerCity] || { lat: 34.0522, lon: -118.2437 };
+  const cityData = LOCAL_COORDS[centerCity] || LOCAL_COORDS['CA'];
 
   const getPos = (lat, lon) => {
     const padding = 0.05;
-    const minLat = cityData.lat - padding;
-    const maxLat = cityData.lat + padding;
-    const minLon = cityData.lon - padding;
-    const maxLon = cityData.lon + padding;
-
-    const x = ((lon - minLon) / (maxLon - minLon)) * size.w;
-    const y = (1 - (lat - minLat) / (maxLat - minLat)) * size.h;
+    const x = ((lon - (cityData.lon - padding)) / (padding * 2)) * size.w;
+    const y = (1 - (lat - (cityData.lat - padding)) / (padding * 2)) * size.h;
     return { x, y };
   };
 
@@ -52,7 +36,7 @@ export function MapArea({ activities = [], centerCity = 'CA', isHot }) {
   });
 
   return (
-    <div className={styles.mapArea || ''} ref={containerRef} style={{ minHeight: '400px', position: 'relative', background: '#f0fdf4' }}>
+    <div className={styles.mapArea} ref={containerRef} style={{ minHeight: '450px', background: '#f0fdf4', position: 'relative' }}>
       <div className={styles.tabScroller}>
         {categories.map((cat) => (
           <button 
