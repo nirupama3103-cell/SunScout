@@ -2,25 +2,9 @@ import React, { useRef, useEffect, useState } from 'react';
 import { CITY_COORDS } from './constants.js';
 import styles from './MapArea.module.css';
 
-function getBounds(lat, lon) {
-  const padding = 0.05;
-  return {
-    minLat: lat - padding,
-    maxLat: lat + padding,
-    minLon: lon - padding,
-    maxLon: lon + padding,
-  };
-}
-
-function toMapCoords(lat, lon, bounds, containerW, containerH) {
-  const x = ((lon - bounds.minLon) / (bounds.maxLon - bounds.minLon)) * containerW;
-  const y = (1 - (lat - bounds.minLat) / (bounds.maxLat - bounds.minLat)) * containerH;
-  return { x, y };
-}
-
 export function MapArea({ activities = [], centerCity = 'CA', isHot }) {
   const containerRef = useRef(null);
-  const [size, setSize] = useState({ w: 360, h: 200 });
+  const [size, setSize] = useState({ w: 360, h: 300 }); // Default height so it's not 0
   const [activeTab, setActiveTab] = useState('all');
 
   const categories = [
@@ -31,35 +15,44 @@ export function MapArea({ activities = [], centerCity = 'CA', isHot }) {
   ];
 
   useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    const ro = new ResizeObserver(entries => {
-      for (const entry of entries) {
-        if (entry.contentRect) {
-          setSize({ w: entry.contentRect.width, h: entry.contentRect.height });
-        }
+    if (!containerRef.current) return;
+    const updateSize = () => {
+      if (containerRef.current) {
+        setSize({
+          w: containerRef.current.offsetWidth || 360,
+          h: containerRef.current.offsetHeight || 300
+        });
       }
-    });
-    ro.observe(el);
-    return () => ro.disconnect();
+    };
+    updateSize();
+    window.addEventListener('resize', updateSize);
+    return () => window.removeEventListener('resize', updateSize);
   }, []);
 
-  const cityData = CITY_COORDS[centerCity] || CITY_COORDS['CA'] || { lat: 34.0522, lon: -118.2437 };
-  const bounds = getBounds(cityData.lat, cityData.lon);
-  const userPos = toMapCoords(cityData.lat, cityData.lon, bounds, size.w, size.h);
+  // Safety check for city coordinates
+  const cityData = CITY_COORDS?.[centerCity] || { lat: 34.0522, lon: -118.2437 };
 
-  const filteredActivities = (activities || []).filter(item => {
+  const getPos = (lat, lon) => {
+    const padding = 0.05;
+    const minLat = cityData.lat - padding;
+    const maxLat = cityData.lat + padding;
+    const minLon = cityData.lon - padding;
+    const maxLon = cityData.lon + padding;
+
+    const x = ((lon - minLon) / (maxLon - minLon)) * size.w;
+    const y = (1 - (lat - minLat) / (maxLat - minLat)) * size.h;
+    return { x, y };
+  };
+
+  const filtered = (activities || []).filter(item => {
     if (activeTab === 'all') return true;
-    if (activeTab === 'free') return item.isFree === true;
-    if (activeTab === 'camp') return item.isPaid === true;
-    if (activeTab === 'summer') return item.category === 'summer';
+    if (activeTab === 'free') return item.isFree;
+    if (activeTab === 'camp') return item.isPaid;
     return item.category === activeTab;
   });
 
   return (
-    <div className={styles.mapArea} ref={containerRef}>
-      <div className={styles.mapGrid} />
-      
+    <div className={styles.mapArea || ''} ref={containerRef} style={{ minHeight: '400px', position: 'relative', background: '#f0fdf4' }}>
       <div className={styles.tabScroller}>
         {categories.map((cat) => (
           <button 
@@ -74,26 +67,11 @@ export function MapArea({ activities = [], centerCity = 'CA', isHot }) {
         ))}
       </div>
 
-      {isHot && <div className={styles.weatherAlert}>🌡️ Hot day — showing indoor picks!</div>}
-      
-      <div className={styles.myLocation} style={{ left: userPos.x, top: userPos.y }} />
-
-      {filteredActivities.slice(0, 15).map((item, i) => {
-        const pos = toMapCoords(
-          item.lat || cityData.lat,
-          item.lon || cityData.lon,
-          bounds,
-          size.w,
-          size.h
-        );
-        
+      {filtered.map((item, i) => {
+        const { x, y } = getPos(item.lat || cityData.lat, item.lon || cityData.lon);
         return (
-          <div
-            key={item.id || i}
-            className={`${styles.pin} ${item.isFree ? styles.freePin : styles.paidPin}`}
-            style={{ left: pos.x, top: pos.y, position: 'absolute' }}
-          >
-            <div className={styles.pinIcon}>{item.icon || '📍'}</div>
+          <div key={i} className={styles.pin} style={{ left: x, top: y, position: 'absolute' }}>
+            <span>{item.icon || '📍'}</span>
             {item.isFree && <span className={styles.freeBadge}>FREE</span>}
           </div>
         );
