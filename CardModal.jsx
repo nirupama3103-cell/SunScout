@@ -8,29 +8,23 @@ export function CardModal({ activity, onClose }) {
     return () => window.removeEventListener('keydown', onKey)
   }, [onClose])
 
-  if (!activity) return null
 
   return (
-    <div className={styles.overlay} onClick={onClose} role="dialog" aria-modal="true">
+    <div className={styles.overlay} onClick={onClose} role='dialog' aria-modal='true'>
       <div className={styles.modal} onClick={e => e.stopPropagation()}>
-        <button className={styles.close} onClick={onClose} aria-label="Close">X</button>
+        <button className={styles.close} onClick={onClose} aria-label='Close'>X</button>
         <div className={styles.iconBig}>{activity.icon}</div>
         <h2 className={styles.title}>{activity.name}</h2>
         <p className={styles.desc}>{activity.desc}</p>
         <div className={styles.row}>
-          <span>📍 {activity.dist} miles away</span>
-          <span style={{ color: activity.open ? 'var(--grass)' : 'var(--coral)' }}>
+          <span>{activity.dist} miles away</span>
+          <span style={{ color: activity.open ? 'green' : 'red' }}>
             {activity.open ? 'Open' : 'Closed'}
           </span>
         </div>
         {activity.googleMapsUri && (
-          
-            className={styles.mapsLink}
-            href={activity.googleMapsUri}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Maps
+          <a href={activity.googleMapsUri} target='_blank' rel='noopener noreferrer'>
+            Open in Google Maps
           </a>
         )}
       </div>
