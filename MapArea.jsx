@@ -22,7 +22,7 @@ export function MapArea({ activities = [], centerCity = 'CA', isHot }) {
   const containerRef = useRef(null);
   const [size, setSize] = useState({ w: 360, h: 200 });
   
-  // NEW: State for filtering free summer activities
+  // State for filtering free summer activities
   const [showFreeOnly, setShowFreeOnly] = useState(false);
 
   useEffect(() => {
@@ -54,12 +54,12 @@ export function MapArea({ activities = [], centerCity = 'CA', isHot }) {
       {/* UI Controls for Summer Activities */}
       <div className={styles.filterBar}>
         <button 
-        <button 
-  className={`${styles.filterBtn} ${showFreeOnly ? styles.active : ''}`}
-  onClick={() => setShowFreeOnly(!showFreeOnly)}
-> 
-  {showFreeOnly ? "🌟 Showing Free Fun" : "All Activities"}
-</button>
+          className={`${styles.filterBtn} ${showFreeOnly ? styles.active : ''}`}
+          onClick={() => setShowFreeOnly(!showFreeOnly)}
+        >
+          {showFreeOnly ? "🌟 Showing Free Fun" : "All Activities"}
+        </button>
+      </div>
 
       {isHot && <div className={styles.weatherAlert}>🌡️ Hot day — showing indoor picks!</div>}
       
@@ -76,7 +76,7 @@ export function MapArea({ activities = [], centerCity = 'CA', isHot }) {
         
         return (
           <div
-            key={item.id}
+            key={item.id || i}
             className={`${styles.pin} ${item.isFree ? styles.freePin : ''}`}
             style={{ 
                 left: pos.x, 
