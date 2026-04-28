@@ -25,9 +25,9 @@ export function MapArea({ activities = [], centerCity = 'CA', isHot }) {
 
   const categories = [
     { id: 'all', label: 'All Fun', icon: '🌈', color: '#6366f1' }, 
-    { id: 'park', label: 'Parks', icon: '🌳', color: '#44D62C' },   // Parrot Green
-    { id: 'library', label: 'Reading', icon: '📚', color: '#a855f7' }, 
-    { id: 'center', label: 'Centers', icon: '🏫', color: '#556B2F' },  // Olive Green
+    { id: 'free', label: 'Free Fun', icon: '🎡', color: '#44D62C' },
+    { id: 'summer', label: 'Summer', icon: '☀️', color: '#0EA5E9' },
+    { id: 'camp', label: 'Paid Camps', icon: '🏕️', color: '#FFD700' },
   ];
 
   useEffect(() => {
@@ -35,21 +35,24 @@ export function MapArea({ activities = [], centerCity = 'CA', isHot }) {
     if (!el) return;
     const ro = new ResizeObserver(entries => {
       for (const entry of entries) {
-        setSize({ w: entry.contentRect.width, h: entry.contentRect.height });
+        if (entry.contentRect) {
+          setSize({ w: entry.contentRect.width, h: entry.contentRect.height });
+        }
       }
     });
     ro.observe(el);
     return () => ro.disconnect();
   }, []);
 
-  const cityData = CITY_COORDS[centerCity] || CITY_COORDS['CA'];
+  const cityData = CITY_COORDS[centerCity] || CITY_COORDS['CA'] || { lat: 34.0522, lon: -118.2437 };
   const bounds = getBounds(cityData.lat, cityData.lon);
   const userPos = toMapCoords(cityData.lat, cityData.lon, bounds, size.w, size.h);
 
-  // Filter logic for the new tabs
-  const filteredActivities = activities.filter(item => {
-    if (!item.isFree) return false; 
+  const filteredActivities = (activities || []).filter(item => {
     if (activeTab === 'all') return true;
+    if (activeTab === 'free') return item.isFree === true;
+    if (activeTab === 'camp') return item.isPaid === true;
+    if (activeTab === 'summer') return item.category === 'summer';
     return item.category === activeTab;
   });
 
@@ -57,7 +60,6 @@ export function MapArea({ activities = [], centerCity = 'CA', isHot }) {
     <div className={styles.mapArea} ref={containerRef}>
       <div className={styles.mapGrid} />
       
-      {/* Category Tab Scroller */}
       <div className={styles.tabScroller}>
         {categories.map((cat) => (
           <button 
@@ -76,7 +78,7 @@ export function MapArea({ activities = [], centerCity = 'CA', isHot }) {
       
       <div className={styles.myLocation} style={{ left: userPos.x, top: userPos.y }} />
 
-      {filteredActivities.slice(0, 12).map((item, i) => {
+      {filteredActivities.slice(0, 15).map((item, i) => {
         const pos = toMapCoords(
           item.lat || cityData.lat,
           item.lon || cityData.lon,
@@ -88,17 +90,11 @@ export function MapArea({ activities = [], centerCity = 'CA', isHot }) {
         return (
           <div
             key={item.id || i}
-            className={`${styles.pin} ${styles.freePin}`}
-            style={{ 
-                left: pos.x, 
-                top: pos.y, 
-                animationDelay: `${i * 0.08}s`,
-                position: 'absolute' 
-            }}
-            title={item.name}
+            className={`${styles.pin} ${item.isFree ? styles.freePin : styles.paidPin}`}
+            style={{ left: pos.x, top: pos.y, position: 'absolute' }}
           >
             <div className={styles.pinIcon}>{item.icon || '📍'}</div>
-            <span className={styles.freeBadge}>FREE</span>
+            {item.isFree && <span className={styles.freeBadge}>FREE</span>}
           </div>
         );
       })}
