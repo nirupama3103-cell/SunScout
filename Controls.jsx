@@ -15,4 +15,18 @@ export function Controls({ currentCity, onCityChange }) {
             className={`${styles.tab} ${isActive ? styles.active : ''}`}
             onClick={() => onCityChange(city)}
             style={isActive && color ? {
-              '--active-color
+              '--active-color': color.hex,
+              '--active-r': color.r,
+              '--active-g': color.g,
+              '--active-b': color.b,
+              borderBottomColor: color.hex,
+              color: color.hex,
+            } : {}}
+          >
+            {TAB_LABELS[city]}
+          </button>
+        );
+      })}
+    </nav>
+  );
+}
