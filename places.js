@@ -1,4 +1,4 @@
-export async function fetchNearbyPlaces(lat, lon, type = 'park', radius = 8000) {
+export async function fetchNearbyPlaces(lat, lon, type = 'park', radius = 50000) {
   const response = await fetch('/api/places', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
