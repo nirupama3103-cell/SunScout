@@ -23,16 +23,16 @@ export function ActivityCard({ activity }) {
               <span className={styles.tag}>📍 {activity.dist} mi</span>
             )}
             {activity.open !== undefined && (
-              <span className={styles.tag} style={{ color: activity.open ? 'green' : 'red' }}>
+              <span className={styles.tag} style={{color: activity.open ? 'green' : 'red'}}>
                 {activity.open ? 'Open' : 'Closed'}
               </span>
             )}
             {activity.googleMapsUri && (
-              
+              <a
                 className={styles.tag}
                 href={activity.googleMapsUri}
-                target="_blank"
-                rel="noopener noreferrer"
+                target='_blank'
+                rel='noopener noreferrer'
                 onClick={e => e.stopPropagation()}
               >
                 Maps
