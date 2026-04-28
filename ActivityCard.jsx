@@ -27,4 +27,23 @@ export function ActivityCard({ activity }) {
                 {activity.open ? '● Open' : '○ Closed'}
               </span>
             )}
-            {activ
+            {activity.googleMapsUri && (
+              
+                className={styles.tag}
+                href={activity.googleMapsUri}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={e => e.stopPropagation()}
+              >
+                🗺️ Maps
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+      {showModal && (
+        <CardModal activity={activity} onClose={() => setShowModal(false)} />
+      )}
+    </>
+  )
+}
