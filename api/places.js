@@ -1,7 +1,7 @@
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const { lat, lon, type, radius = 8000 } = req.body;
+  const { lat, lon, type, radius = 50000 } = req.body;
   const API_KEY = process.env.GOOGLE_PLACES_API_KEY;
 
   if (!API_KEY) return res.status(500).json({ error: 'No API key configured' });
@@ -15,18 +15,17 @@ export default async function handler(req, res) {
         'X-Goog-FieldMask': 'places.id,places.displayName,places.formattedAddress,places.googleMapsUri,places.location',
       },
       body: JSON.stringify({
-        textQuery: `free ${type || 'parks and recreation'} near Sunnyvale CA`,
+        textQuery: `free ${type || 'parks and recreation'}`,
         maxResultCount: 10,
         locationBias: {
           circle: {
-            center: { latitude: lat, longitude: lon },
+            center: { latitude: lat, longitude: lon }, // ✅ Uses actual city coords
             radius: radius,
           },
         },
       }),
     });
     const data = await response.json();
-    console.log('Google response:', JSON.stringify(data));
     return res.status(200).json({ places: data.places || [] });
   } catch (err) {
     console.error('Places API error:', err);
