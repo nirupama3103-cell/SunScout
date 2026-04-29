@@ -12,15 +12,15 @@ const MapArea = ({ filters }) => {
       if (!key) return;
       
       setLoading(true);
-      // Simplified query map for better results
-      const queryMap = { RUN: 'park', COOL: 'splash pad', SMART: 'library', BREAK: 'cafe' };
-      
-      // Use broader city names for better API hits
+      const queryMap = { RUN: 'parks', COOL: 'splash pads', SMART: 'libraries', BREAK: 'coffee shops' };
       const cityMap = { HUB: 'Sunnyvale', ORCHARD: 'Cupertino', VINEYARD: 'Saratoga', GATEWAY: 'San Jose' };
-      const location = cityMap[filters.region] || 'Sunnyvale';
-      const searchTerm = `${queryMap[filters.mood]} near ${location}`;
+      
+      const city = cityMap[filters.region] || 'Sunnyvale';
+      const type = queryMap[filters.mood] || 'parks';
+      const searchTerm = `${type} in ${city}, CA`;
 
       try {
+        // We use a CORS proxy or a direct fetch if the key is unrestricted
         const response = await fetch(
           `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodeURIComponent(searchTerm)}&key=${key}`
         );
@@ -30,15 +30,15 @@ const MapArea = ({ filters }) => {
           const liveData = data.results.slice(0, 6).map(place => ({
             id: place.place_id,
             name: place.name,
-            address: place.formatted_address.split(',')[0],
+            address: place.formatted_address ? place.formatted_address.split(',')[0] : 'South Bay',
             wallet: filters.wallet
           }));
           setActivities(liveData);
         } else {
-          setActivities([]); // Clear if no results
+          setActivities([]);
         }
       } catch (error) {
-        console.error("API Error:", error);
+        console.error("Critical Fetch Error:", error);
       } finally {
         setLoading(false);
       }
@@ -50,7 +50,7 @@ const MapArea = ({ filters }) => {
   return (
     <div className={styles.mapContainer}>
       <div className={styles.statusBanner}>
-        {loading ? "✨ Scouting..." : `📍 ${REGIONS[filters.region]} | ${MOODS[filters.mood]}`}
+        {loading ? "🔍 Scouting..." : `📍 ${REGIONS[filters.region]} | ${MOODS[filters.mood]}`}
       </div>
       
       <div className={styles.grid}>
@@ -65,15 +65,18 @@ const MapArea = ({ filters }) => {
                 <p>📍 {act.address}</p>
                 <button 
                   className={styles.actionBtn} 
-                  onClick={() => window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(act.name)}`, '_blank')}
+                  onClick={() => window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(act.name + " " + act.address)}`, '_blank')}
                 >
-                  Go 🚗
+                  View Map 🚗
                 </button>
               </div>
             </div>
           ))
         ) : !loading && (
-          <div className={styles.noResults}>No spots found here yet. Try another tab! ☀️</div>
+          <div className={styles.noResults}>
+            <h3>No spots found here yet.</h3>
+            <p>Check if "Places API" is enabled in your Google Cloud Console! ☀️</p>
+          </div>
         )}
       </div>
     </div>
