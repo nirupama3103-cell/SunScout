@@ -38,9 +38,9 @@ const App = () => {
         <MapArea activities={places} centerCity={city} />
         <section className={styles.activityGrid}>
           {loading ? (
-            <p>Searching...</p>
+            <p>Searching for fun nearby...</p>
           ) : places.length === 0 ? (
-            <p>No activities found.</p>
+            <p>No activities found. Try another tab!</p>
           ) : (
             places.map(place => (
               <ActivityCard key={place.id} activity={place} />
