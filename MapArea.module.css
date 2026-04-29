@@ -1,113 +1,118 @@
-.mapArea {
-  position: relative;
-  width: 100%;
-  height: 450px;
-  background: #f8fafc;
-  overflow: hidden;
-  border-radius: 16px;
-  border: 1px solid #e2e8f0;
-  font-family: sans-serif;
+.mapContainer {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Inter', system-ui, sans-serif;
 }
 
-/* The Grid Background */
-.mapGrid {
-  position: absolute;
-  inset: 0;
-  background-image: linear-gradient(#e2e8f0 1px, transparent 1px),
-    linear-gradient(90deg, #e2e8f0 1px, transparent 1px);
-  background-size: 30px 30px;
-  opacity: 0.3;
-}
-
-/* Horizontal Tab Scroller */
-.tabScroller {
+.statusBanner {
+  background: #f0f9ff;
+  padding: 14px;
+  border-radius: 50px;
   display: flex;
-  gap: 15px;
-  padding: 15px;
-  overflow-x: auto;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  color: #0369a1;
+  margin-bottom: 30px;
+  border: 1px solid #bae6fd;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.adventureCard {
   background: white;
-  border-bottom: 1px solid #f1f5f9;
-  position: relative;
-  z-index: 20;
-  scrollbar-width: none;
-}
-
-.tabScroller::-webkit-scrollbar {
-  display: none;
-}
-
-.categoryTab {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #f1f5f9;
+  transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  border: none;
-  background: none;
-  min-width: 70px;
-  cursor: pointer;
-  transition: all 0.2s ease;
 }
 
-.tabIcon {
-  font-size: 24px;
-  padding: 12px;
-  background: #f1f5f9;
-  border-radius: 18px;
-  margin-bottom: 6px;
+.adventureCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 }
 
-/* The Active Glow using our colors */
-.activeTab .tabIcon {
-  background: var(--active-color);
+.cardHeader {
+  background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+  padding: 24px;
   color: white;
-  box-shadow: 0 8px 15px -3px var(--active-color);
-  transform: translateY(-2px);
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.tabLabel {
-  font-size: 11px;
-  font-weight: 700;
-  color: #64748b;
+.tag {
+  background: rgba(255, 255, 255, 0.25);
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 0.65rem;
   text-transform: uppercase;
+  letter-spacing: 1.2px;
+  font-weight: 800;
+  width: fit-content;
+  margin-bottom: 8px;
 }
 
-.activeTab .tabLabel {
-  color: #1e293b;
+.cardHeader h3 {
+  margin: 0;
+  font-size: 1.4rem;
+  line-height: 1.2;
 }
 
-/* Map Pins */
-.pin {
-  width: 35px;
-  height: 35px;
+.cardBody {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  flex-grow: 1;
+}
+
+.locationText {
+  color: #64748b;
+  font-size: 0.95rem;
+  margin: 0;
   display: flex;
   align-items: center;
-  justify-content: center;
-  z-index: 10;
-  transition: transform 0.2s;
+  gap: 6px;
 }
 
-.pinIcon {
-  font-size: 24px;
-}
-
-.freeBadge {
-  position: absolute;
-  top: -12px;
-  background: #44D62C; /* Parrot Green */
+.actionBtn {
+  margin-top: auto;
+  width: 100%;
+  padding: 14px;
+  background: #f59e0b;
   color: white;
-  font-size: 9px;
-  padding: 2px 6px;
-  border-radius: 20px;
+  border: none;
+  border-radius: 12px;
   font-weight: 800;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  box-shadow: 0 4px 0 #b45309;
 }
 
-.myLocation {
-  width: 14px;
-  height: 14px;
-  background: #3b82f6;
-  border: 3px solid white;
-  border-radius: 50%;
-  position: absolute;
-  z-index: 15;
-  box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+.actionBtn:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #b45309;
+}
+
+.noResults {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px;
+  background: #f8fafc;
+  border-radius: 20px;
+  border: 2px dashed #cbd5e1;
+  color: #64748b;
 }
