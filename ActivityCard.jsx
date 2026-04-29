@@ -28,14 +28,14 @@ export function ActivityCard({ activity }) {
               </span>
             )}
             {activity.googleMapsUri && (
-              <a
+              
                 className={styles.tag}
                 href={activity.googleMapsUri}
                 target='_blank'
                 rel='noopener noreferrer'
                 onClick={e => e.stopPropagation()}
               >
-                Maps
+                🗺️ Maps
               </a>
             )}
           </div>
