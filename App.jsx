@@ -1,22 +1,22 @@
-import React, { useState } from "react";
-import { Header } from "./Header";
-import { Controls } from "./Controls";
-import MapArea from "./MapArea";
-import { ActivityCard } from "./ActivityCard";
-import { usePlaces } from "./usePlaces";
-import { TAB_LABELS } from "./constants";
-import styles from "./App.module.css";
+import React, { useState } from 'react';
+import { Header } from './Header';
+import { Controls } from './Controls';
+import MapArea from './MapArea';
+import { ActivityCard } from './ActivityCard';
+import { usePlaces } from './usePlaces';
+import { TAB_LABELS } from './constants';
+import styles from './App.module.css';
 
 const CATEGORY_TABS = [
-  { id: "allFun", label: "🎉 All Fun" },
-  { id: "freeFun", label: "🆓 Free Fun" },
-  { id: "summer", label: "☀️ Summer" },
-  { id: "paidCamps", label: "⛺ Paid Camps" },
+  { id: 'allFun', label: '🎉 All Fun' },
+  { id: 'freeFun', label: '🆓 Free Fun' },
+  { id: 'summer', label: '☀️ Summer' },
+  { id: 'paidCamps', label: '⛺ Paid Camps' },
 ];
 
 const App = () => {
-  const [city, setCity] = useState("CA");
-  const [tab, setTab] = useState("allFun");
+  const [city, setCity] = useState('CA');
+  const [tab, setTab] = useState('allFun');
   const { places, loading } = usePlaces(city, tab);
 
   return (
@@ -40,6 +40,7 @@ const App = () => {
           {loading ? (
             <p>Searching for fun nearby...</p>
           ) : places.length === 0 ? (
+            <p>No activities found. Try another tab!</p>
           ) : (
             places.map(place => (
               <ActivityCard key={place.id} activity={place} />
