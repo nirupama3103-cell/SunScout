@@ -38,9 +38,9 @@ const App = () => {
         <MapArea activities={places} centerCity={city} />
         <section className={styles.activityGrid}>
           {loading ? (
-            <p>Searching for fun nearby...</p>
+            <p>Searching...</p>
           ) : places.length === 0 ? (
-            <p>No activities found. Try another tab!</p>
+            <p>No activities found.</p>
           ) : (
             places.map(place => (
               <ActivityCard key={place.id} activity={place} />
@@ -51,5 +51,4 @@ const App = () => {
     </div>
   );
 };
-
 export default App;
