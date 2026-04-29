@@ -7,25 +7,36 @@ const MapArea = ({ filters }) => {
   const [loading, setLoading] = useState(false);
 
   const FEATURED_CAMPS = [
-    { id: 'c1', name: 'YMCA Summer Power', address: 'Multiple Locations', link: 'https://www.ymcasv.org/day-camp' },
-    { id: 'c2', name: 'Sunnyvale Camp Adventure', address: 'Community Center', link: 'https://www.sunnyvale.ca.gov/recreation' },
-    { id: 'c3', name: 'Galileo Innovation Camp', address: 'Local Schools', link: 'https://galileo-camps.com/' },
-    { id: 'c4', name: 'Steve & Kate’s Camp', address: 'Cupertino/SJ', link: 'https://steveandkatescamp.com/' }
+    { id: 'c1', name: 'YMCA Summer Power', address: 'Multiple Locations', link: 'https://www.ymcasv.org/day-camp', type: 'Camp' },
+    { id: 'c2', name: 'Sunnyvale Camp Adventure', address: 'Community Center', link: 'https://www.sunnyvale.ca.gov/recreation', type: 'Camp' },
+    { id: 'c3', name: 'Galileo Innovation Camp', address: 'Local Schools', link: 'https://galileo-camps.com/', type: 'Camp' },
+    { id: 'c4', name: 'Steve & Kate’s Camp', address: 'Cupertino/SJ', link: 'https://steveandkatescamp.com/', type: 'Camp' }
   ];
 
   useEffect(() => {
     const fetchPlaces = () => {
+      setActivities([]); // Clear old results immediately
+      
+      // LOGIC 1: Hard-coded Paid Camps (No API call needed)
       if (filters.wallet === 'Paid Camps') {
         setActivities(FEATURED_CAMPS);
         return;
       }
 
       if (!window.google) return;
-      
       setLoading(true);
-      const queryMap = { RUN: 'park', COOL: 'splash pad', SMART: 'library', BREAK: 'cafe' };
+
+      // LOGIC 2: Strict Mapping to avoid "Coffee Shop" leaks
+      const queryMap = { 
+        RUN: 'public park with playground', 
+        COOL: 'public splash pad or pool', 
+        SMART: 'public library', 
+        BREAK: 'family friendly cafe' 
+      };
+      
       const cityMap = { HUB: 'Sunnyvale', ORCHARD: 'Cupertino', VINEYARD: 'Saratoga', GATEWAY: 'San Jose' };
-      const searchTerm = `${queryMap[filters.mood]} in ${cityMap[filters.region] || 'Sunnyvale'}, CA`;
+      const city = cityMap[filters.region] || 'Sunnyvale';
+      const searchTerm = `${queryMap[filters.mood]} in ${city}, CA`;
 
       const service = new window.google.maps.places.PlacesService(document.createElement('div'));
       const request = { query: searchTerm, location: new window.google.maps.LatLng(37.3541, -121.9552), radius: '10000' };
@@ -36,11 +47,10 @@ const MapArea = ({ filters }) => {
             id: place.place_id,
             name: place.name,
             address: place.formatted_address.split(',')[0],
-            link: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place.name + " " + place.formatted_address)}`
+            link: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place.name + " " + place.formatted_address)}`,
+            type: filters.mood === 'BREAK' ? 'Cafe' : 'Activity'
           }));
           setActivities(liveData);
-        } else {
-          setActivities([]);
         }
         setLoading(false);
       });
@@ -51,26 +61,34 @@ const MapArea = ({ filters }) => {
 
   return (
     <div className={styles.mapContainer}>
+      {/* THE NEW HEADER ROW: Clear City | Activity Branding */}
       <div className={styles.statusBanner}>
-        {loading ? "🔍 Scouting..." : `📍 ${REGIONS[filters.region]} | ${MOODS[filters.mood]}`}
+        <span className={styles.locationTag}>📍 {REGIONS[filters.region]}</span>
+        <span className={styles.divider}>|</span>
+        <span className={styles.activityTag}>{filters.wallet} - {MOODS[filters.mood]}</span>
       </div>
+
       <div className={styles.grid}>
-        {activities.length > 0 ? (
+        {loading ? (
+          <div className={styles.loader}>Scouting the best spots... ☀️</div>
+        ) : activities.length > 0 ? (
           activities.map(act => (
             <div key={act.id} className={styles.adventureCard}>
               <div className={styles.cardHeader}>
-                <span className={styles.tag}>{filters.wallet}</span>
+                <span className={styles.categoryBadge}>{act.type || filters.wallet}</span>
                 <h3>{act.name}</h3>
               </div>
               <div className={styles.cardBody}>
                 <p>📍 {act.address}</p>
                 <button className={styles.actionBtn} onClick={() => window.open(act.link, '_blank')}>
-                  {filters.wallet === 'Paid Camps' ? 'View Camp 🎒' : 'Go 🚗'}
+                  {filters.wallet === 'Paid Camps' ? 'Enroll 🎒' : 'Get Directions 🚗'}
                 </button>
               </div>
             </div>
           ))
-        ) : !loading && <div className={styles.noResults}>No spots found. Try another tab! ☀️</div>}
+        ) : (
+          <div className={styles.noResults}>No {MOODS[filters.mood]} found here. Try another tab!</div>
+        )}
       </div>
     </div>
   );
