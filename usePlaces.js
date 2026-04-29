@@ -1,18 +1,18 @@
-import { useState, useEffect } from "react";
-import { CITY_COORDS, placeTypeToIcon } from "./constants";
-import { fetchNearbyPlaces } from "./places";
+import { useState, useEffect } from 'react';
+import { CITY_COORDS, placeTypeToIcon } from './constants';
+import { fetchNearbyPlaces } from './places';
 
 const TAB_QUERIES = {
-  allFun: "parks and recreation activities",
-  freeFun: "free summer activities library splash pad",
-  summer: "summer program recreation center",
-  paidCamps: "summer camp YMCA kids program",
+  allFun: 'park',
+  freeFun: 'public library splash pad free activities',
+  summer: 'summer program recreation center sunnyvale',
+  paidCamps: 'summer camp sunnyvale',
 };
 
 function mapPlace(place, coords, i) {
   return {
     id: place.id || i,
-    name: place.displayName ? place.displayName.text : "Unknown Place",
+    name: place.displayName ? place.displayName.text : 'Unknown Place',
     displayName: place.displayName,
     formattedAddress: place.formattedAddress,
     googleMapsUri: place.googleMapsUri,
@@ -32,22 +32,23 @@ function mapPlace(place, coords, i) {
   };
 }
 
-export function usePlaces(city = "CA", tab = "allFun") {
+export function usePlaces(city = 'CA', tab = 'allFun') {
   const [places, setPlaces] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function load() {
       const coords = CITY_COORDS[city];
+      if (!coords) return;
       setLoading(true);
       setPlaces([]);
       try {
-        const query = TAB_QUERIES[tab] || "parks and recreation";
+        const query = TAB_QUERIES[tab] || 'park';
         const data = await fetchNearbyPlaces(coords.lat, coords.lon, query);
         const mapped = (data || []).map((place, i) => mapPlace(place, coords, i));
         setPlaces(mapped);
       } catch (error) {
-        console.error("Places fetch failed:", error);
+        console.error('Places fetch failed:', error);
       } finally {
         setLoading(false);
       }
