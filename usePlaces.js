@@ -1,60 +1,47 @@
-import { useState, useEffect } from 'react';
-import { CITY_COORDS, placeTypeToIcon } from './constants';
-import { fetchNearbyPlaces } from './places';
+import { useState, useEffect } from "react";
+import { STATIC_ACTIVITIES } from "./constants";
 
-const TAB_QUERIES = {
-  allFun: 'park',
-  freeFun: 'public library splash pad free activities',
-  summer: 'summer program recreation center sunnyvale',
-  paidCamps: 'summer camp sunnyvale',
+const CATEGORY_QUERIES = {
+  outdoor: "outdoor activities parks nature Sunnyvale CA",
+  food: "restaurants cafes brunch Sunnyvale CA",
+  arts: "museums art galleries San Jose CA",
+  wellness: "yoga spa wellness fitness Sunnyvale CA",
+  shopping: "shopping malls boutiques Sunnyvale CA",
+  events: "events entertainment venues San Jose CA",
 };
 
-function mapPlace(place, coords, i) {
-  return {
-    id: place.id || i,
-    name: place.displayName ? place.displayName.text : 'Unknown Place',
-    displayName: place.displayName,
-    formattedAddress: place.formattedAddress,
-    googleMapsUri: place.googleMapsUri,
-    lat: place.location ? place.location.latitude : null,
-    lon: place.location ? place.location.longitude : null,
-    icon: placeTypeToIcon(place.types || []),
-    dist: place.location ? (
-      Math.round(
-        Math.sqrt(
-          Math.pow((place.location.latitude - coords.lat) * 69, 2) +
-          Math.pow((place.location.longitude - coords.lon) * 55, 2)
-        ) * 10
-      ) / 10
-    ) : null,
-    open: place.currentOpeningHours ? place.currentOpeningHours.openNow : null,
-    editorialSummary: place.editorialSummary,
-  };
-}
-
-export function usePlaces(city = 'CA', tab = 'allFun') {
+export function usePlaces(category) {
   const [places, setPlaces] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    async function load() {
-      const coords = CITY_COORDS[city];
-      if (!coords) return;
-      setLoading(true);
-      setPlaces([]);
-      try {
-        const query = TAB_QUERIES[tab] || 'park';
-        const data = await fetchNearbyPlaces(coords.lat, coords.lon, query);
-        const mapped = (data || []).map((place, i) => mapPlace(place, coords, i));
-        setPlaces(mapped);
-      } catch (error) {
-        console.error('Places fetch failed:', error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    load();
-  }, [city, tab]);
+    if (!category) return;
+    setLoading(true);
+    setError(null);
 
-  return { places, loading };
+    const query = CATEGORY_QUERIES[category] || `${category} Sunnyvale CA`;
+
+    fetch(`/api/places?query=${encodeURIComponent(query)}&category=${category}`)
+      .then((res) => {
+        if (!res.ok) throw new Error(`API error ${res.status}`);
+        return res.json();
+      })
+      .then((data) => {
+        const apiPlaces = data.places || [];
+        if (apiPlaces.length > 0) {
+          setPlaces(apiPlaces);
+        } else {
+          setPlaces(STATIC_ACTIVITIES[category] || []);
+        }
+      })
+      .catch((err) => {
+        console.error("Places fetch error:", err);
+        setError(err.message);
+        setPlaces(STATIC_ACTIVITIES[category] || []);
+      })
+      .finally(() => setLoading(false));
+  }, [category]);
+
+  return { places, loading, error };
 }
