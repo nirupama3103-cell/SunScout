@@ -11,3 +11,5 @@ export const TAB_COLORS = {
   SUMMER: '#f59e0b',
   PAID: '#ec4899'
 };
+
+export const STATIC_ACTIVITIES = [];
