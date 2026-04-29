@@ -8,10 +8,10 @@ import { TAB_LABELS } from './constants';
 import styles from './App.module.css';
 
 const CATEGORY_TABS = [
-  { id: 'allFun', label: '🎉 All Fun' },
-  { id: 'freeFun', label: '🆓 Free Fun' },
+  { id: 'allFun', label: '🌈 All Fun' },
+  { id: 'freeFun', label: '🎡 Free Fun' },
   { id: 'summer', label: '☀️ Summer' },
-  { id: 'paidCamps', label: '⛺ Paid Camps' },
+  { id: 'paidCamps', label: '🏕️ Paid Camps' },
 ];
 
 const App = () => {
@@ -24,6 +24,7 @@ const App = () => {
       <Header city={TAB_LABELS[city]} />
       <main className={styles.main}>
         <Controls currentCity={city} onCityChange={setCity} />
+        
         <div className={styles.categoryTabs}>
           {CATEGORY_TABS.map(ct => (
             <button
@@ -31,16 +32,19 @@ const App = () => {
               className={tab === ct.id ? styles.categoryActive : styles.categoryTab}
               onClick={() => setTab(ct.id)}
             >
-              {ct.label}
+              <span className={styles.tabIcon}>{ct.label.split(' ')[0]}</span>
+              <span className={styles.tabLabel}>{ct.label.split(' ').slice(1).join(' ')}</span>
             </button>
           ))}
         </div>
+
         <MapArea activities={places} centerCity={city} />
+
         <section className={styles.activityGrid}>
           {loading ? (
-            <p>Searching for fun nearby...</p>
+            <p className={styles.statusMsg}>Searching for fun nearby...</p>
           ) : places.length === 0 ? (
-            <p>No activities found. Try another tab!</p>
+            <p className={styles.statusMsg}>No activities found. Try another tab!</p>
           ) : (
             places.map(place => (
               <ActivityCard key={place.id} activity={place} />
@@ -51,4 +55,5 @@ const App = () => {
     </div>
   );
 };
+
 export default App;
