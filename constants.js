@@ -1,15 +1,27 @@
-export const TAB_LABELS = {
+export const REGIONS = {
+  HUB: 'The Hub',
+  ORCHARD: 'The Orchard',
+  VINEYARD: 'The Vineyard',
+  GATEWAY: 'The Gateway'
+};
+
+export const MOODS = {
+  RUN: 'Run Wild 🏃‍♂️',
+  COOL: 'Cool Down 💦',
+  SMART: 'Smarty Pants 🧠',
+  BREAK: 'Off Duty ☕'
+};
+
+export const WALLET = {
   ALL: 'All Fun',
   FREE: 'Free Fun',
   SUMMER: 'Summer',
   PAID: 'Paid Camps'
 };
 
-export const TAB_COLORS = {
-  ALL: '#6366f1',
-  FREE: '#22c55e',
-  SUMMER: '#f59e0b',
-  PAID: '#ec4899'
-};
-
-export const STATIC_ACTIVITIES = [];
+export const STATIC_ACTIVITIES = [
+  { id: 1, name: 'Washington Park', region: 'HUB', mood: 'RUN', wallet: 'FREE', city: 'Sunnyvale' },
+  { id: 2, name: 'Las Palmas Splash Pad', region: 'HUB', mood: 'COOL', wallet: 'FREE', city: 'Sunnyvale' },
+  { id: 3, name: 'Cupertino Library', region: 'ORCHARD', mood: 'SMART', wallet: 'FREE', city: 'Cupertino' },
+  { id: 4, name: 'Memorial Park', region: 'ORCHARD', mood: 'RUN', wallet: 'FREE', city: 'Cupertino' }
+];
