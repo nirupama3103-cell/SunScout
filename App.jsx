@@ -1,60 +1,41 @@
 import React, { useState } from 'react';
-import { Header } from './Header';
-import { Controls } from './Controls';
+import Header from './Header';
+import Controls from './Controls';
 import MapArea from './MapArea';
-import { ActivityCard } from './ActivityCard';
-import { usePlaces } from './usePlaces';
-import { TAB_LABELS } from './constants';
+import { STATIC_ACTIVITIES } from './constants';
 import styles from './App.module.css';
 
-const CATEGORY_TABS = [
-  { id: 'allFun', label: '🌈 All Fun' },
-  { id: 'freeFun', label: '🎡 Free Fun' },
-  { id: 'summer', label: '☀️ Summer' },
-  { id: 'paidCamps', label: '🏕️ Paid Camps' },
-];
+function App() {
+  const [filters, setFilters] = useState({
+    region: 'HUB',
+    mood: 'RUN',
+    wallet: 'ALL'
+  });
 
-const App = () => {
-  const [city, setCity] = useState('CA');
-  const [tab, setTab] = useState('allFun');
-  const { places, loading } = usePlaces(city, tab);
+  const handleFilterChange = (type, value) => {
+    setFilters(prev => ({ ...prev, [type]: value }));
+  };
+
+  // The Filter Logic:
+  const filteredActivities = STATIC_ACTIVITIES.filter(act => {
+    const regionMatch = act.region === filters.region;
+    const moodMatch = act.mood === filters.mood;
+    const walletMatch = filters.wallet === 'ALL' || act.wallet === filters.wallet;
+    return regionMatch && moodMatch && walletMatch;
+  });
 
   return (
-    <div className={styles.app}>
-      <Header city={TAB_LABELS[city]} />
+    <div className={styles.container}>
+      <Header />
+      <Controls filters={filters} onFilterChange={handleFilterChange} />
       <main className={styles.main}>
-        <Controls currentCity={city} onCityChange={setCity} />
-        
-        <div className={styles.categoryTabs}>
-          {CATEGORY_TABS.map(ct => (
-            <div key={ct.id} className={styles.tabItem}>
-               <button
-                className={tab === ct.id ? styles.categoryActive : styles.categoryTab}
-                onClick={() => setTab(ct.id)}
-              >
-                <span className={styles.tabIcon}>{ct.label.split(' ')[0]}</span>
-                <span className={styles.tabLabel}>{ct.label.split(' ').slice(1).join(' ')}</span>
-              </button>
-            </div>
-          ))}
-        </div>
-
-        <MapArea activities={places} centerCity={city} />
-
-        <section className={styles.activityGrid}>
-          {loading ? (
-            <p className={styles.statusMsg}>Searching for fun nearby...</p>
-          ) : places.length === 0 ? (
-            <p className={styles.statusMsg}>No activities found. Try another tab!</p>
-          ) : (
-            places.map(place => (
-              <ActivityCard key={place.id} activity={place} />
-            ))
-          )}
-        </section>
+        <MapArea 
+          filters={filters} 
+          activities={filteredActivities} 
+        />
       </main>
     </div>
   );
-};
+}
 
 export default App;
