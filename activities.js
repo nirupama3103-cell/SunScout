@@ -7,67 +7,55 @@ export const CITIES_BY_COUNTY = {
 };
 
 export const ACTIVITIES = [
-  // --- SAN JOAQUIN (FIXED IMAGES) ---
-  { 
-    name: "Children's Museum of Stockton", city: "Stockton", county: "San Joaquin", category: "indoor", 
-    image: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=500&q=80", 
-    mapUrl: "https://www.google.com/maps/search/Childrens+Museum+of+Stockton",
-    description: "Hands-on play and learning for younger children." 
-  },
-  { 
-    name: "Lodi Lake Nature Area", city: "Lodi", county: "San Joaquin", category: "weekend", 
-    image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=500&q=80", 
-    mapUrl: "https://www.google.com/maps/search/Lodi+Lake+Park",
-    description: "Kayaking, nature trails, and family picnic spots." 
-  },
-  { 
-    name: "Grand Theatre Center for the Arts", city: "Tracy", county: "San Joaquin", category: "free summer", 
-    image: "https://images.unsplash.com/photo-1514525253344-f814d873ee5d?w=500&q=80", 
-    mapUrl: "https://www.google.com/maps/search/Grand+Theatre+Tracy",
-    description: "Community art exhibitions and free youth workshops." 
-  },
-  { 
-    name: "Manteca BMX Track", city: "Manteca", county: "San Joaquin", category: "paid", 
-    image: "https://images.unsplash.com/photo-1509139562677-44bfec098ce3?w=500&q=80", 
-    mapUrl: "https://www.google.com/maps/search/Manteca+BMX",
-    description: "Summer racing clinics and professional skills camps." 
-  },
-
-  // --- SANTA CLARA ---
+  // --- SUNNYVALE ---
   { 
     name: "Sunnyvale Public Library", city: "Sunnyvale", county: "Santa Clara", category: "free summer", 
-    image: "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=500&q=80", 
+    image: "https://images.pexels.com/photos/1907785/pexels-photo-1907785.jpeg?auto=compress&cs=tinysrgb&w=400", 
     mapUrl: "https://www.google.com/maps/search/Sunnyvale+Public+Library",
-    description: "Free summer reading and DIY nature programs." 
+    description: "Free summer reading programs and DIY nature workshops for kids." 
   },
   { 
-    name: "Tech Interactive", city: "San Jose", county: "Santa Clara", category: "indoor", 
-    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=500&q=80", 
+    name: "Movement Sunnyvale", city: "Sunnyvale", county: "Santa Clara", category: "indoor", 
+    image: "https://images.pexels.com/photos/3039160/pexels-photo-3039160.jpeg?auto=compress&cs=tinysrgb&w=400", 
+    mapUrl: "https://www.google.com/maps/search/Movement+Sunnyvale",
+    description: "Indoor rock climbing and youth bouldering classes." 
+  },
+
+  // --- SAN JOSE ---
+  { 
+    name: "The Tech Interactive", city: "San Jose", county: "Santa Clara", category: "indoor", 
+    image: "https://images.pexels.com/photos/256381/pexels-photo-256381.jpeg?auto=compress&cs=tinysrgb&w=400", 
     mapUrl: "https://www.google.com/maps/search/The+Tech+Interactive+San+Jose",
-    description: "World-class science and technology exhibits." 
+    description: "Hands-on science and technology exhibits in the heart of San Jose." 
+  },
+  { 
+    name: "Happy Hollow Park & Zoo", city: "San Jose", county: "Santa Clara", category: "paid", 
+    image: "https://images.pexels.com/photos/704454/pexels-photo-704454.jpeg?auto=compress&cs=tinysrgb&w=400", 
+    mapUrl: "https://www.google.com/maps/search/Happy+Hollow+Park+Zoo",
+    description: "Family-friendly amusement park, zoo, and puppet theater." 
   },
 
-  // --- ALAMEDA ---
+  // --- CUPERTINO ---
   { 
-    name: "Chabot Space & Science Center", city: "Oakland", county: "Alameda", category: "weekend", 
-    image: "https://images.unsplash.com/photo-1454789548928-9efd52dc4031?w=500&q=80", 
-    mapUrl: "https://www.google.com/maps/search/Chabot+Space+Science+Center",
-    description: "Observatory tours, planetarium shows, and STEM fun." 
+    name: "Cupertino Library STEM", city: "Cupertino", county: "Santa Clara", category: "free summer", 
+    image: "https://images.pexels.com/photos/3912981/pexels-photo-3912981.jpeg?auto=compress&cs=tinysrgb&w=400", 
+    mapUrl: "https://www.google.com/maps/search/Cupertino+Library",
+    description: "Weekly STEM workshops and community art camps." 
   },
 
-  // --- SAN MATEO ---
+  // --- MOUNTAIN VIEW ---
   { 
-    name: "CuriOdyssey Science", city: "San Mateo", county: "San Mateo", category: "indoor", 
-    image: "https://images.unsplash.com/photo-1530210124550-912dc1381cb8?w=500&q=80", 
-    mapUrl: "https://www.google.com/maps/search/CuriOdyssey",
-    description: "Interactive science experiments and animal exhibits." 
+    name: "Computer History Museum", city: "Mountain View", county: "Santa Clara", category: "weekend", 
+    image: "https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&w=400", 
+    mapUrl: "https://www.google.com/maps/search/Computer+History+Museum",
+    description: "Weekend tours showcasing the history of the digital age." 
   },
 
-  // --- SAN FRANCISCO ---
+  // --- PALO ALTO ---
   { 
-    name: "Exploratorium", city: "Downtown", county: "San Francisco", category: "indoor", 
-    image: "https://images.unsplash.com/photo-1569437061241-a848be43cc82?w=500&q=80", 
-    mapUrl: "https://www.google.com/maps/search/Exploratorium+San+Francisco",
-    description: "Interactive museum exploring science, art, and perception." 
+    name: "Junior Museum & Zoo", city: "Palo Alto", county: "Santa Clara", category: "weekend", 
+    image: "https://images.pexels.com/photos/1072824/pexels-photo-1072824.jpeg?auto=compress&cs=tinysrgb&w=400", 
+    mapUrl: "https://www.google.com/maps/search/Palo+Alto+Junior+Museum",
+    description: "Interactive science exhibits and local wildlife encounters." 
   }
 ];
