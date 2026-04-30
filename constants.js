@@ -7,10 +7,10 @@ export const REGIONS = {
 };
 
 export const WALLETS = {
-  ALL: '🏛️ Indoor Activities 📚',
-  FREE: '🐾 Weekend Activities 🥾',
-  SUMMER: '☀️ Summer Free Fun 💦',
-  PAID: '🎟️ Paid Activities 🎒'
+  ALL: '🏛️ Indoor Activities',
+  FREE: '🐾 Weekend Activities',
+  SUMMER: '☀️ Summer Free Fun',
+  PAID: '🎟️ Paid Activities'
 };
 
 export const MOODS = {
