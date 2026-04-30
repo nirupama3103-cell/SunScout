@@ -37,9 +37,29 @@ const MapArea = ({ filters }) => {
             <div style={{padding: '15px'}}>
               <h3>{act.name}</h3>
               <button className={styles.actionBtn} onClick={() => window.open(act.link, '_blank')}>View on Map 🚗</button>
+      <div className="flex justify-center mt-6">
+        <button className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition hover:scale-105">
+          Explore More Adventures 🗺️
+        </button>
+      </div>
             </div>
+      <div className="flex justify-center mt-6">
+        <button className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition hover:scale-105">
+          Explore More Adventures 🗺️
+        </button>
+      </div>
           </div>
         ))}
+      <div className="flex justify-center mt-6">
+        <button className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition hover:scale-105">
+          Explore More Adventures 🗺️
+        </button>
+      </div>
+      </div>
+      <div className="flex justify-center mt-6">
+        <button className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition hover:scale-105">
+          Explore More Adventures 🗺️
+        </button>
       </div>
     </div>
   );
