@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Header from './Header';
 import Controls from './Controls';
 import MapArea from './MapArea';
-import { STATIC_ACTIVITIES } from './constants';
+
 import styles from './App.module.css';
 
 function App() {
