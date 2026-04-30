@@ -1,73 +1,14 @@
-.controls {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  padding: 20px;
-  background: #fff;
-  border-bottom: 1px solid #eee;
-}
+.controls { display: flex; flex-direction: column; gap: 15px; padding: 20px; background: #fff; border-bottom: 1px solid #eee; }
+.tabGroup { display: flex; justify-content: space-around; border-bottom: 2px solid #f0f0f0; }
+.tab { padding: 10px 20px; border: none; background: none; font-weight: 600; color: #666; cursor: pointer; border-bottom: 3px solid transparent; transition: 0.3s; }
 
-.tabGroup {
-  display: flex;
-  justify-content: space-around;
-  border-bottom: 2px solid #f0f0f0;
-}
+/* Rainbow County Logic */
+.tabGroup button:nth-child(1).activeTab { border-bottom-color: #ff3b30; color: #ff3b30; } 
+.tabGroup button:nth-child(2).activeTab { border-bottom-color: #ff9500; color: #ff9500; } 
+.tabGroup button:nth-child(3).activeTab { border-bottom-color: #ffcc00; color: #b89a00; } 
+.tabGroup button:nth-child(4).activeTab { border-bottom-color: #4cd964; color: #28a745; } 
 
-.tab {
-  padding: 10px 20px;
-  border: none;
-  background: none;
-  font-weight: 600;
-  color: #666;
-  cursor: pointer;
-  border-bottom: 3px solid transparent;
-  transition: 0.3s;
-}
-
-.activeTab {
-  color: #007bff;
-  border-bottom: 3px solid #007bff;
-}
-
-.chipGroup {
-  display: flex;
-  gap: 10px;
-  overflow-x: auto;
-  padding-bottom: 5px;
-  scrollbar-width: none;
-}
-
-.chip {
-  padding: 6px 15px;
-  border: 1px solid #ddd;
-  border-radius: 20px;
-  background: #f8f9fa;
-  white-space: nowrap;
-  cursor: pointer;
-}
-
-.activeChip {
-  background: #333;
-  color: #fff;
-  border-color: #333;
-}
-
-.section {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.filterBtn {
-  padding: 8px 12px;
-  border-radius: 5px;
-  border: 1px solid #eee;
-  background: white;
-  cursor: pointer;
-}
-
-.activeFilter {
-  background: #e7f3ff;
-  border-color: #007bff;
-  color: #007bff;
-}
+.chipGroup { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 5px; }
+.chip { padding: 6px 15px; border: 1px solid #ddd; border-radius: 20px; background: #f8f9fa; white-space: nowrap; cursor: pointer; }
+.activeChip { background: #333; color: #fff; }
+.cardImg { width: 100%; height: 140px; object-fit: cover; border-radius: 12px 12px 0 0; }
