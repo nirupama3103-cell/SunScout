@@ -8,9 +8,8 @@ import styles from './App.module.css';
 function App() {
   const [activeRegion, setActiveRegion] = useState('Santa Clara');
   const [activeCity, setActiveCity] = useState('Sunnyvale');
-  const [activeTab, setActiveTab] = useState('summer');
+  const [activeTab, setActiveTab] = useState('weekend');
 
-  // Filter the data based on Row 2 (City) and Row 3 (Category)
   const filteredActivities = ACTIVITIES.filter(activity => 
     activity.city === activeCity && activity.category === activeTab
   );
