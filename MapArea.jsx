@@ -20,9 +20,9 @@ const ViewMoreButton = () => (
 
 const MapArea = ({ activities }) => {
   return (
-    <div className="p-4">
+    <div style={{ backgroundColor: '#ffffff', minHeight: '100vh', padding: '16px' }}>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {activities.map((activity, index) => (
+        {activities && activities.map((activity, index) => (
           <ActivityCard key={index} activity={activity} />
         ))}
       </div>
