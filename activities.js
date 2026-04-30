@@ -7,73 +7,67 @@ export const CITIES_BY_COUNTY = {
 };
 
 export const ACTIVITIES = [
+  // --- SAN JOAQUIN (FIXED IMAGES) ---
+  { 
+    name: "Children's Museum of Stockton", city: "Stockton", county: "San Joaquin", category: "indoor", 
+    image: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=500&q=80", 
+    mapUrl: "https://www.google.com/maps/search/Childrens+Museum+of+Stockton",
+    description: "Hands-on play and learning for younger children." 
+  },
+  { 
+    name: "Lodi Lake Nature Area", city: "Lodi", county: "San Joaquin", category: "weekend", 
+    image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=500&q=80", 
+    mapUrl: "https://www.google.com/maps/search/Lodi+Lake+Park",
+    description: "Kayaking, nature trails, and family picnic spots." 
+  },
+  { 
+    name: "Grand Theatre Center for the Arts", city: "Tracy", county: "San Joaquin", category: "free summer", 
+    image: "https://images.unsplash.com/photo-1514525253344-f814d873ee5d?w=500&q=80", 
+    mapUrl: "https://www.google.com/maps/search/Grand+Theatre+Tracy",
+    description: "Community art exhibitions and free youth workshops." 
+  },
+  { 
+    name: "Manteca BMX Track", city: "Manteca", county: "San Joaquin", category: "paid", 
+    image: "https://images.unsplash.com/photo-1509139562677-44bfec098ce3?w=500&q=80", 
+    mapUrl: "https://www.google.com/maps/search/Manteca+BMX",
+    description: "Summer racing clinics and professional skills camps." 
+  },
+
   // --- SANTA CLARA ---
   { 
     name: "Sunnyvale Public Library", city: "Sunnyvale", county: "Santa Clara", category: "free summer", 
-    image: "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=400", 
+    image: "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=500&q=80", 
     mapUrl: "https://www.google.com/maps/search/Sunnyvale+Public+Library",
     description: "Free summer reading and DIY nature programs." 
   },
   { 
-    name: "Cupertino Library Art Class", city: "Cupertino", county: "Santa Clara", category: "free summer", 
-    image: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=400", 
-    mapUrl: "https://www.google.com/maps/search/Cupertino+Library",
-    description: "Free weekly art and STEM workshops." 
-  },
-  { 
-    name: "Computer History Museum", city: "Mountain View", county: "Santa Clara", category: "indoor", 
-    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400", 
-    mapUrl: "https://www.google.com/maps/search/Computer+History+Museum",
-    description: "Explore the history of computing with interactive exhibits." 
+    name: "Tech Interactive", city: "San Jose", county: "Santa Clara", category: "indoor", 
+    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=500&q=80", 
+    mapUrl: "https://www.google.com/maps/search/The+Tech+Interactive+San+Jose",
+    description: "World-class science and technology exhibits." 
   },
 
   // --- ALAMEDA ---
   { 
-    name: "Oakland Zoo Adventures", city: "Oakland", county: "Alameda", category: "weekend", 
-    image: "https://images.unsplash.com/photo-1504194184404-4aa3a74d32bc?w=400", 
-    mapUrl: "https://www.google.com/maps/search/Oakland+Zoo",
-    description: "Wildlife and nature interaction programs." 
-  },
-  { 
-    name: "Lawrence Hall of Science", city: "Berkeley", county: "Alameda", category: "paid", 
-    image: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=400", 
-    mapUrl: "https://www.google.com/maps/search/Lawrence+Hall+of+Science",
-    description: "STEM-focused summer camps and planetarium shows." 
+    name: "Chabot Space & Science Center", city: "Oakland", county: "Alameda", category: "weekend", 
+    image: "https://images.unsplash.com/photo-1454789548928-9efd52dc4031?w=500&q=80", 
+    mapUrl: "https://www.google.com/maps/search/Chabot+Space+Science+Center",
+    description: "Observatory tours, planetarium shows, and STEM fun." 
   },
 
   // --- SAN MATEO ---
   { 
     name: "CuriOdyssey Science", city: "San Mateo", county: "San Mateo", category: "indoor", 
-    image: "https://images.unsplash.com/photo-1530210124550-912dc1381cb8?w=400", 
+    image: "https://images.unsplash.com/photo-1530210124550-912dc1381cb8?w=500&q=80", 
     mapUrl: "https://www.google.com/maps/search/CuriOdyssey",
-    description: "Interactive science and animal exhibits." 
-  },
-  { 
-    name: "Leo J. Ryan Park Splash Pad", city: "Foster City", county: "San Mateo", category: "free summer", 
-    image: "https://images.unsplash.com/photo-1537651174759-170bc0a46600?w=400", 
-    mapUrl: "https://www.google.com/maps/search/Leo+J+Ryan+Park",
-    description: "Cool off at the waterfront splash pad and park." 
+    description: "Interactive science experiments and animal exhibits." 
   },
 
   // --- SAN FRANCISCO ---
   { 
     name: "Exploratorium", city: "Downtown", county: "San Francisco", category: "indoor", 
-    image: "https://images.unsplash.com/photo-1569437061241-a848be43cc82?w=400", 
-    mapUrl: "https://www.google.com/maps/search/Exploratorium",
-    description: "The museum of science, art, and human perception." 
-  },
-
-  // --- SAN JOAQUIN ---
-  { 
-    name: "Children's Museum of Stockton", city: "Stockton", county: "San Joaquin", category: "indoor", 
-    image: "https://images.unsplash.com/photo-1566140967404-b8b393ed4f3d?w=400", 
-    mapUrl: "https://www.google.com/maps/search/Childrens+Museum+of+Stockton",
-    description: "Hands-on play and learning for younger children." 
-  },
-  { 
-    name: "Lodi Lake Park", city: "Lodi", county: "San Joaquin", category: "weekend", 
-    image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400", 
-    mapUrl: "https://www.google.com/maps/search/Lodi+Lake+Park",
-    description: "Nature trails, kayaking, and family picnic spots." 
+    image: "https://images.unsplash.com/photo-1569437061241-a848be43cc82?w=500&q=80", 
+    mapUrl: "https://www.google.com/maps/search/Exploratorium+San+Francisco",
+    description: "Interactive museum exploring science, art, and perception." 
   }
 ];
