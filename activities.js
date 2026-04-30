@@ -6,61 +6,68 @@ export const CITIES_BY_COUNTY = {
   "San Joaquin": ["Stockton", "Lodi", "Tracy", "Manteca"]
 };
 
-const imageMap = {
-  stem: "1581092918056-0c4c3acd3789",
-  sport: "1526676037777-05a232554f77",
-  art: "1513364776144-60967b0f800f",
-  park: "1596464716127-f2a82984de30",
-  zoo: "1503919919749-642dd40f5d6d",
-  hiking: "1441974231531-c6227db76b6e",
-  movie: "1485846234645-a62644f84728",
-  ymca: "1571902258032-65a988355675"
-};
+const rawData = [
+  // SUNNYVALE
+  { name: "Sunnyvale Library STEM", city: "Sunnyvale", cat: "Free Summer", type: "stem" },
+  { name: "YMCA Summer Swim", city: "Sunnyvale", cat: "Paid Camps", type: "ymca" },
+  { name: "Washington Park Splash", city: "Sunnyvale", cat: "Weekend", type: "park" },
+  { name: "Community Center Arts", city: "Sunnyvale", cat: "Indoor", type: "art" },
+  { name: "Murphy Park Movie Night", city: "Sunnyvale", cat: "Free Summer", type: "movie" },
 
-const rawActivities = [
-  // --- SUNNYVALE (Best 5) ---
-  { name: "YMCA Summer Sports League", city: "Sunnyvale", cat: "Paid Camps", type: "ymca" },
-  { name: "Sunnyvale Library STEM Lab", city: "Sunnyvale", cat: "Free Summer", type: "stem" },
-  { name: "Washington Park Splash Pad", city: "Sunnyvale", cat: "Weekend", type: "park" },
-  { name: "Full Circle Farm Art Camp", city: "Sunnyvale", cat: "Paid Camps", type: "art" },
-  { name: "Community Center Movie Night", city: "Sunnyvale", cat: "Free Summer", type: "movie" },
+  // SAN JOSE
+  { name: "SJ Library Coding Club", city: "San Jose", cat: "Free Summer", type: "stem" },
+  { name: "Children's Discovery Museum", city: "San Jose", cat: "Indoor", type: "art" },
+  { name: "Happy Hollow Zoo", city: "San Jose", cat: "Weekend", type: "zoo" },
+  { name: "South Bay YMCA Sports", city: "San Jose", cat: "Paid Camps", type: "ymca" },
+  { name: "Alum Rock Hiking", city: "San Jose", cat: "Weekend", type: "hiking" },
 
-  // --- SAN JOSE (Best 5) ---
-  { name: "Discovery Museum Indoor Play", city: "San Jose", cat: "Indoor", type: "art" },
-  { name: "Happy Hollow Zoo Day", city: "San Jose", cat: "Weekend", type: "zoo" },
-  { name: "SJ Public Library Coding", city: "San Jose", cat: "Free Summer", type: "stem" },
-  { name: "Alum Rock Hiking Trail", city: "San Jose", cat: "Weekend", type: "hiking" },
-  { name: "Silver Creek YMCA Swimming", city: "San Jose", cat: "Paid Camps", type: "ymca" },
+  // CUPERTINO
+  { name: "Cupertino Library Robotics", city: "Cupertino", cat: "Free Summer", type: "stem" },
+  { name: "Blackberry Farm Pool", city: "Cupertino", cat: "Weekend", type: "park" },
+  { name: "Quinlan Center Indoor Art", city: "Cupertino", cat: "Indoor", type: "art" },
+  { name: "YMCA Youth Basketball", city: "Cupertino", cat: "Paid Camps", type: "ymca" },
+  { name: "Main Street Movie Event", city: "Cupertino", cat: "Free Summer", type: "movie" },
 
-  // --- SARATOGA (Best 5) ---
-  { name: "Saratoga Library Storytime", city: "Saratoga", cat: "Free Summer", type: "movie" },
-  { name: "Wildwood Park Nature Hike", city: "Saratoga", cat: "Weekend", type: "hiking" },
-  { name: "Saratoga Arts Youth Camp", city: "Saratoga", cat: "Paid Camps", type: "art" },
-  { name: "Prospect Center Indoor Gym", city: "Saratoga", cat: "Indoor", type: "sport" },
-  { name: "Hakone Gardens Family Day", city: "Saratoga", cat: "Weekend", type: "park" },
+  // SARATOGA
+  { name: "Saratoga Library Crafts", city: "Saratoga", cat: "Free Summer", type: "art" },
+  { name: "Wildwood Park Nature", city: "Saratoga", cat: "Weekend", type: "hiking" },
+  { name: "Prospect Center Gym", city: "Saratoga", cat: "Indoor", type: "sport" },
+  { name: "Montalvo Arts Camp", city: "Saratoga", cat: "Paid Camps", type: "art" },
+  { name: "Hakone Garden Tour", city: "Saratoga", cat: "Weekend", type: "zoo" },
 
-  // --- MOUNTAIN VIEW (Best 5) ---
-  { name: "Shoreline Lake Kayak Camp", city: "Mountain View", cat: "Paid Camps", type: "sport" },
-  { name: "MV Library Robotics", city: "Mountain View", cat: "Free Summer", type: "stem" },
-  { name: "Rengstorff Park Movie", city: "Mountain View", cat: "Free Summer", type: "movie" },
-  { name: "Deer Hollow Farm Visit", city: "Mountain View", cat: "Weekend", type: "zoo" },
-  { name: "Eagle Park Indoor Pool", city: "Mountain View", cat: "Indoor", type: "ymca" },
+  // MOUNTAIN VIEW
+  { name: "MV Library STEM Lab", city: "Mountain View", cat: "Free Summer", type: "stem" },
+  { name: "Rengstorff Park Pool", city: "Mountain View", cat: "Weekend", type: "park" },
+  { name: "Shoreline Lake Kayaking", city: "Mountain View", cat: "Paid Camps", type: "sport" },
+  { name: "Community Center Dance", city: "Mountain View", cat: "Indoor", type: "art" },
+  { name: "Deer Hollow Farm", city: "Mountain View", cat: "Free Summer", type: "zoo" },
 
-  // --- PALO ALTO (Best 5) ---
-  { name: "Junior Museum & Zoo", city: "Palo Alto", cat: "Indoor", type: "zoo" },
-  { name: "Magical Bridge Playground", city: "Palo Alto", cat: "Free Summer", type: "park" },
-  { name: "Palo Alto YMCA Fitness", city: "Palo Alto", cat: "Paid Camps", type: "ymca" },
-  { name: "Mitchell Park STEM Workshop", city: "Palo Alto", cat: "Free Summer", type: "stem" },
-  { name: "Foothills Park Hiking", city: "Palo Alto", cat: "Weekend", type: "hiking" }
+  // PALO ALTO
+  { name: "Mitchell Park Library", city: "Palo Alto", cat: "Free Summer", type: "stem" },
+  { name: "Palo Alto Junior Zoo", city: "Palo Alto", cat: "Indoor", type: "zoo" },
+  { name: "Magical Bridge Play", city: "Palo Alto", cat: "Weekend", type: "park" },
+  { name: "YMCA Teen Fitness", city: "Palo Alto", cat: "Paid Camps", type: "ymca" },
+  { name: "Gamble Garden Tour", city: "Palo Alto", cat: "Free Summer", type: "hiking" }
 ];
 
-export const ACTIVITIES = rawActivities.map((act, index) => ({
-  id: `sc-${index}`,
-  name: act.name,
-  city: act.city,
+const imgIDs = {
+  stem: "1581092918056-0c4c3acd3789",
+  ymca: "1571902258032-65a988355675",
+  park: "1596464716127-f2a82984de30",
+  art: "1513364776144-60967b0f800f",
+  movie: "1485846234645-a62644f84728",
+  zoo: "1503919919749-642dd40f5d6d",
+  hiking: "1441974231531-c6227db76b6e",
+  sport: "1526676037777-05a232554f77"
+};
+
+export const ACTIVITIES = rawData.map((a, i) => ({
+  id: `sc-${i}`,
+  name: a.name,
+  city: a.city,
   county: "Santa Clara",
-  category: act.cat,
-  image: `https://images.unsplash.com/photo-${imageMap[act.type]}?w=500&q=80`,
-  mapUrl: `https://www.google.com/maps/search/${act.name.replace(/ /g, '+')}+${act.city}`,
-  description: `Top-rated ${act.cat} activity for families in ${act.city}.`
+  category: a.cat,
+  image: `https://images.unsplash.com/photo-${imgIDs[a.type]}?w=500&q=80`,
+  mapUrl: `https://www.google.com/maps/search/${a.name.replace(/ /g, '+')}+${a.city}`,
+  description: `Best ${a.cat} activity for families in ${a.city}.`
 }));
