@@ -12,6 +12,9 @@ export const WALLETS = {
   PAID: 'Paid Camps'
 };
 
+// Adding this to satisfy Controls.jsx
+export const WALLET = WALLETS;
+
 export const MOODS = {
   RUN: 'Run Wild 🏃‍♂️',
   COOL: 'Cool Down 💦',
