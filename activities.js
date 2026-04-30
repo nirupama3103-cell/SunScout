@@ -6,52 +6,36 @@ export const CITIES_BY_COUNTY = {
   "San Joaquin": ["Stockton", "Lodi", "Tracy", "Manteca"]
 };
 
-export const ACTIVITIES = [
-  // --- SUNNYVALE ---
-  { 
-    name: "Sunnyvale Public Library", city: "Sunnyvale", county: "Santa Clara", category: "free summer", 
-    image: "https://images.unsplash.com/photo-1507738911748-9c73658d697a?w=500&q=80", 
-    mapUrl: "https://www.google.com/maps/search/Sunnyvale+Public+Library",
-    description: "Free storytime, LEGO builders club, and summer reading prizes." 
-  },
-  { 
-    name: "Washington Park Splash Pad", city: "Sunnyvale", county: "Santa Clara", category: "weekend", 
-    image: "https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=500&q=80", 
-    mapUrl: "https://www.google.com/maps/search/Washington+Park+Sunnyvale+Splash+Pad",
-    description: "Local favorite for water play and family picnics." 
-  },
-  { 
-    name: "Sunnyvale Community Center Events", city: "Sunnyvale", county: "Santa Clara", category: "indoor", 
-    image: "https://images.unsplash.com/photo-1529390079861-591de354faf5?w=500&q=80", 
-    mapUrl: "https://www.google.com/maps/search/Sunnyvale+Community+Center",
-    description: "Eventbrite-listed youth theater and indoor art workshops." 
-  },
+const rawData = [
+  // --- SARATOGA ---
+  { name: "Saratoga Library Kids' Zone", city: "Saratoga", cat: "free summer", img: "1481622235018-b7a999d14796" },
+  { name: "Wildwood Park Trails", city: "Saratoga", cat: "weekend", img: "1441974231531-c6227db76b6e" },
+  { name: "Saratoga Community Center Play", city: "Saratoga", cat: "indoor", img: "1526676037777-05a232554f77" },
+  { name: "Montalvo Arts Center Youth", city: "Saratoga", cat: "paid", img: "1460518451285-2cd9c8c9c5ad" },
+  { name: "Hakone Gardens Discovery", city: "Saratoga", cat: "weekend", img: "1590059040018-1bd93f9509ae" },
 
-  // --- SAN JOSE ---
-  { 
-    name: "Dr. Roberto Cruz Alum Rock Library", city: "San Jose", county: "Santa Clara", category: "free summer", 
-    image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=500&q=80", 
-    mapUrl: "https://www.google.com/maps/search/Alum+Rock+Library+San+Jose",
-    description: "Free summer lunch programs and youth coding workshops." 
-  },
-  { 
-    name: "Happy Hollow Park & Zoo", city: "San Jose", county: "Santa Clara", category: "paid", 
-    image: "https://images.unsplash.com/photo-1534567153574-2b12153a87f0?w=500&q=80", 
-    mapUrl: "https://www.google.com/maps/search/Happy+Hollow+Park+Zoo",
-    description: "Family-friendly amusement park, zoo, and puppet theater." 
-  },
+  // --- MOUNTAIN VIEW ---
+  { name: "MV Public Library STEM", city: "Mountain View", cat: "free summer", img: "1581092918056-0c4c3acd3789" },
+  { name: "Shoreline Lake Boating", city: "Mountain View", cat: "weekend", img: "1544551763-77ef2d09c847" },
+  { name: "Rengstorff Park Splash", city: "Mountain View", cat: "free summer", img: "1596464716127-f2a82984de30" },
+  { name: "Computer History Museum", city: "Mountain View", cat: "indoor", img: "1518770660439-4636190af475" },
+  { name: "Deer Hollow Farm", city: "Mountain View", cat: "weekend", img: "1500382017468-9049fed747ef" },
 
-  // --- CUPERTINO ---
-  { 
-    name: "Cupertino Library STEM Lab", city: "Cupertino", county: "Santa Clara", category: "free summer", 
-    image: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=500&q=80", 
-    mapUrl: "https://www.google.com/maps/search/Cupertino+Library",
-    description: "State-of-the-art STEM equipment for teen projects." 
-  },
-  { 
-    name: "Blackberry Farm", city: "Cupertino", county: "Santa Clara", category: "weekend", 
-    image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=500&q=80", 
-    mapUrl: "https://www.google.com/maps/search/Blackberry+Farm+Cupertino",
-    description: "Swimming pools, picnic sites, and playground fun." 
-  }
+  // --- PALO ALTO ---
+  { name: "Mitchell Park Library", city: "Palo Alto", cat: "free summer", img: "1521587760476-6c12a4b040da" },
+  { name: "Palo Alto Junior Museum", city: "Palo Alto", cat: "indoor", img: "1503919919749-642dd40f5d6d" },
+  { name: "Magical Bridge Playground", city: "Palo Alto", cat: "weekend", img: "1537655780520-1e9a48e6409b" },
+  { name: "Gamble Garden Exploration", city: "Palo Alto", cat: "free summer", img: "1464333507111-995579f1236f" },
+  { name: "The Guild Theatre Youth Events", city: "Palo Alto", cat: "paid", img: "1514525253344-f814d873ee5d" }
 ];
+
+export const ACTIVITIES = rawData.map((item, index) => ({
+  id: `act-${index}`,
+  name: item.name,
+  city: item.city,
+  county: "Santa Clara",
+  category: item.cat,
+  image: `https://images.unsplash.com/photo-${item.img}?w=500&q=80`,
+  mapUrl: `https://www.google.com/maps/search/${item.name.replace(/ /g, '+')}+${item.city}`,
+  description: `Top-rated community activity in ${item.city} for ages 0-teens.`
+}));
