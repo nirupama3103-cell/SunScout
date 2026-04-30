@@ -3,21 +3,22 @@ import ActivityCard from './ActivityCard';
 
 const MapArea = ({ activities }) => {
   return (
-    <div className="p-4 bg-white min-h-screen">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {activities && activities.length > 0 ? (
+    <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '40px 20px' }}>
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+        gap: '30px'
+      }}>
+        {activities.length > 0 ? (
           activities.map((activity, index) => (
             <ActivityCard key={index} activity={activity} />
           ))
         ) : (
-          <p className="text-center col-span-full text-gray-500">Finding adventures nearby...</p>
+          <div style={{ gridColumn: '1/-1', textAlign: 'center', padding: '40px', color: '#94a3b8' }}>
+            <h3>No adventures found in this city yet! 🏖️</h3>
+            <p>Try switching cities or categories.</p>
+          </div>
         )}
-      </div>
-      
-      <div className="flex justify-center mt-12 mb-8">
-        <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-full font-bold shadow-lg transition-transform hover:scale-105">
-          Explore More Adventures 🗺️
-        </button>
       </div>
     </div>
   );

@@ -1,31 +1,40 @@
 import React from 'react';
-import styles from './ActivityCard.module.css';
 
-export const ActivityCard = ({ activity }) => {
-  if (!activity) return null;
-
+const ActivityCard = ({ activity }) => {
   return (
-    <div className={styles.card}>
-      <div className={styles.imageContainer}>
-        {activity.image ? (
-          <img src={activity.image} alt={activity.name} className={styles.image} />
-        ) : (
-          <div className={styles.placeholder}>📍</div>
-        )}
-      </div>
-      <div className={styles.content}>
-        <h3 className={styles.title}>{activity.name || "Activity"}</h3>
-        <p className={styles.address}>{activity.address || ""}</p>
-        <div className={styles.footer}>
-          <a 
-            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(activity.name + ' ' + activity.address)}`}
-            target="_blank" 
-            rel="noopener noreferrer"
-            className={styles.mapLink}
-          >
-            View on Map
-          </a>
-        </div>
+    <div style={{
+      backgroundColor: 'white',
+      borderRadius: '20px',
+      overflow: 'hidden',
+      boxShadow: '0 4px 15px rgba(0,0,0,0.1)',
+      transition: 'transform 0.2s',
+      marginBottom: '20px'
+    }}>
+      <img 
+        src={activity.image} 
+        alt={activity.name} 
+        style={{ width: '100%', height: '200px', objectFit: 'cover' }} 
+      />
+      <div style={{ padding: '20px' }}>
+        <h3 style={{ margin: '0 0 10px 0', fontSize: '1.25rem', color: '#1e293b' }}>{activity.name}</h3>
+        <p style={{ color: '#64748b', fontSize: '0.9rem', marginBottom: '20px' }}>{activity.description}</p>
+        <a 
+          href={activity.mapUrl} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          style={{
+            display: 'block',
+            textAlign: 'center',
+            backgroundColor: '#f59e0b',
+            color: 'white',
+            padding: '10px',
+            borderRadius: '12px',
+            textDecoration: 'none',
+            fontWeight: 'bold'
+          }}
+        >
+          View on Map 🏎️
+        </a>
       </div>
     </div>
   );
