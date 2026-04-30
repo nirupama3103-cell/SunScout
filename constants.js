@@ -1,8 +1,8 @@
 export const REGIONS = {
-  ALAMEDA: 'Alameda',
-  SF: 'San Francisco',
-  SM: 'San Mateo',
-  SC: 'Santa Clara'
+  ALAMEDA: { name: 'Alameda', cities: ['Oakland', 'Fremont', 'Berkeley', 'Pleasanton'] },
+  SF: { name: 'San Francisco', cities: ['Downtown', 'Sunset', 'Richmond', 'Mission'] },
+  SM: { name: 'San Mateo', cities: ['San Mateo', 'Redwood City', 'Burlingame', 'Menlo Park'] },
+  SC: { name: 'Santa Clara', cities: ['Sunnyvale', 'San Jose', 'Cupertino', 'Saratoga'] }
 };
 
 export const WALLETS = {
@@ -19,6 +19,5 @@ export const MOODS = {
   BREAK: 'Off Duty ☕'
 };
 
-// Satisfy any singular imports
 export const WALLET = WALLETS;
 export const STATIC_ACTIVITIES = [];
