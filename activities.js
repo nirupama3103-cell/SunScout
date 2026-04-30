@@ -59,3 +59,51 @@ export const ACTIVITIES = [
     description: "Interactive science exhibits and local wildlife encounters." 
   }
 ];
+
+// --- ALAMEDA COUNTY ---
+// OAKLAND
+  { 
+    name: "Oakland Public Library: Kids' Crafting", city: "Oakland", county: "Alameda", category: "free summer", 
+    image: "https://images.pexels.com/photos/159823/kids-girl-pencil-drawing-159823.jpeg?auto=compress&cs=tinysrgb&w=400", 
+    mapUrl: "https://www.google.com/maps/search/Oakland+Public+Library+Main",
+    description: "Eventbrite-listed free art sessions for toddlers and elementary ages." 
+  },
+  { 
+    name: "Chabot Space & Science Center", city: "Oakland", county: "Alameda", category: "weekend", 
+    image: "https://images.pexels.com/photos/2156/sky-earth-space-working.jpg?auto=compress&cs=tinysrgb&w=400", 
+    mapUrl: "https://www.google.com/maps/search/Chabot+Space+Science+Center",
+    description: "Planetarium shows and interactive space exhibits for teens and families." 
+  },
+
+// BERKELEY
+  { 
+    name: "Lawrence Hall of Science: Summer Camps", city: "Berkeley", county: "Alameda", category: "paid", 
+    image: "https://images.pexels.com/photos/1706694/pexels-photo-1706694.jpeg?auto=compress&cs=tinysrgb&w=400", 
+    mapUrl: "https://www.google.com/maps/search/Lawrence+Hall+of+Science",
+    description: "STEM and physics workshops hosted by UC Berkeley for all ages." 
+  },
+
+// FREMONT
+  { 
+    name: "Fremont Community Center: Tiny Tots Art", city: "Fremont", county: "Alameda", category: "free summer", 
+    image: "https://images.pexels.com/photos/1148998/pexels-photo-1148998.jpeg?auto=compress&cs=tinysrgb&w=400", 
+    mapUrl: "https://www.google.com/maps/search/Fremont+Community+Center",
+    description: "Local city-sponsored summer classes for ages 0-5." 
+  },
+
+// HAYWARD
+  { 
+    name: "Hayward Shoreline Nature Center", city: "Hayward", county: "Alameda", category: "weekend", 
+    image: "https://images.pexels.com/photos/50924/pexels-photo-50924.jpeg?auto=compress&cs=tinysrgb&w=400", 
+    mapUrl: "https://www.google.com/maps/search/Hayward+Shoreline+Interpretive+Center",
+    description: "Weekend nature walks and salt marsh exploration for families." 
+  },
+
+// PLEASANTON
+  { 
+    name: "Firehouse Arts Center: Youth Theater", city: "Pleasanton", county: "Alameda", category: "indoor", 
+    image: "https://images.pexels.com/photos/269140/pexels-photo-269140.jpeg?auto=compress&cs=tinysrgb&w=400", 
+    mapUrl: "https://www.google.com/maps/search/Firehouse+Arts+Center+Pleasanton",
+    description: "Indoor youth theater workshops and art exhibitions." 
+  }
+];
