@@ -7,57 +7,51 @@ export const CITIES_BY_COUNTY = {
 };
 
 export const ACTIVITIES = [
-  // --- SUNNYVALE (Eventbrite: Free Summer Camp) ---
+  // --- SUNNYVALE ---
   { 
-    name: "Sunnyvale STEM Workshop", city: "Sunnyvale", county: "Santa Clara", category: "free summer", 
-    image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=500&q=80", 
-    mapUrl: "https://www.google.com/maps/search/Sunnyvale+Community+Center",
-    description: "Free hands-on STEM sessions for kids 0-teens." 
+    name: "Sunnyvale Public Library", city: "Sunnyvale", county: "Santa Clara", category: "free summer", 
+    image: "https://images.unsplash.com/photo-1507738911748-9c73658d697a?w=500&q=80", 
+    mapUrl: "https://www.google.com/maps/search/Sunnyvale+Public+Library",
+    description: "Free storytime, LEGO builders club, and summer reading prizes." 
   },
   { 
-    name: "Sunnyvale Indoor Sports", city: "Sunnyvale", county: "Santa Clara", category: "indoor", 
-    image: "https://images.unsplash.com/photo-1526676037777-05a232554f77?w=500&q=80", 
-    mapUrl: "https://www.google.com/maps/search/Sunnyvale+Sports+Center",
-    description: "Indoor basketball and gym activities for youth." 
+    name: "Washington Park Splash Pad", city: "Sunnyvale", county: "Santa Clara", category: "weekend", 
+    image: "https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=500&q=80", 
+    mapUrl: "https://www.google.com/maps/search/Washington+Park+Sunnyvale+Splash+Pad",
+    description: "Local favorite for water play and family picnics." 
+  },
+  { 
+    name: "Sunnyvale Community Center Events", city: "Sunnyvale", county: "Santa Clara", category: "indoor", 
+    image: "https://images.unsplash.com/photo-1529390079861-591de354faf5?w=500&q=80", 
+    mapUrl: "https://www.google.com/maps/search/Sunnyvale+Community+Center",
+    description: "Eventbrite-listed youth theater and indoor art workshops." 
   },
 
   // --- SAN JOSE ---
   { 
-    name: "San Jose Art & Design Camp", city: "San Jose", county: "Santa Clara", category: "paid", 
-    image: "https://images.pexels.com/photos/159823/kids-girl-pencil-drawing-159823.jpeg?auto=compress&cs=tinysrgb&w=400", 
-    mapUrl: "https://www.google.com/maps/search/Childrens+Discovery+Museum+San+Jose",
-    description: "Creative summer arts camp for all age groups." 
+    name: "Dr. Roberto Cruz Alum Rock Library", city: "San Jose", county: "Santa Clara", category: "free summer", 
+    image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=500&q=80", 
+    mapUrl: "https://www.google.com/maps/search/Alum+Rock+Library+San+Jose",
+    description: "Free summer lunch programs and youth coding workshops." 
+  },
+  { 
+    name: "Happy Hollow Park & Zoo", city: "San Jose", county: "Santa Clara", category: "paid", 
+    image: "https://images.unsplash.com/photo-1534567153574-2b12153a87f0?w=500&q=80", 
+    mapUrl: "https://www.google.com/maps/search/Happy+Hollow+Park+Zoo",
+    description: "Family-friendly amusement park, zoo, and puppet theater." 
   },
 
   // --- CUPERTINO ---
   { 
-    name: "Cupertino Library Robotics", city: "Cupertino", county: "Santa Clara", category: "weekend", 
-    image: "https://images.unsplash.com/photo-1561557944-6e7860d1a7eb?w=500&q=80", 
+    name: "Cupertino Library STEM Lab", city: "Cupertino", county: "Santa Clara", category: "free summer", 
+    image: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=500&q=80", 
     mapUrl: "https://www.google.com/maps/search/Cupertino+Library",
-    description: "Weekend robotics club for teens and elementary students." 
+    description: "State-of-the-art STEM equipment for teen projects." 
   },
-
-  // --- SARATOGA ---
   { 
-    name: "Saratoga Nature Exploration", city: "Saratoga", county: "Santa Clara", category: "free summer", 
-    image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=500&q=80", 
-    mapUrl: "https://www.google.com/maps/search/Wildwood+Park+Saratoga",
-    description: "Free community nature walks and outdoor summer learning." 
-  },
-
-  // --- MOUNTAIN VIEW ---
-  { 
-    name: "MV Computer History Museum", city: "Mountain View", county: "Santa Clara", category: "indoor", 
-    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=500&q=80", 
-    mapUrl: "https://www.google.com/maps/search/Computer+History+Museum",
-    description: "Exploring the digital world—great for middle and high schoolers." 
-  },
-
-  // --- PALO ALTO ---
-  { 
-    name: "Palo Alto Junior Zoo", city: "Palo Alto", county: "Santa Clara", category: "weekend", 
-    image: "https://images.unsplash.com/photo-1503919919749-642dd40f5d6d?w=500&q=80", 
-    mapUrl: "https://www.google.com/maps/search/Palo+Alto+Junior+Museum+and+Zoo",
-    description: "Weekend zoo visits and animal interaction for younger children." 
+    name: "Blackberry Farm", city: "Cupertino", county: "Santa Clara", category: "weekend", 
+    image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=500&q=80", 
+    mapUrl: "https://www.google.com/maps/search/Blackberry+Farm+Cupertino",
+    description: "Swimming pools, picnic sites, and playground fun." 
   }
 ];
