@@ -5,16 +5,16 @@ export const REGIONS = {
   SC: 'Santa Clara'
 };
 
-export const MOODS = {
-  RUN: 'Run Wild 🏃‍♂️',
-  COOL: 'Cool Down 💦',
-  SMART: 'Smarty Pants 🧠',
-  BREAK: 'Off Duty ☕'
-};
-
 export const WALLETS = {
   ALL: 'All Fun',
   FREE: 'Free Fun',
   SUMMER: 'Summer',
   PAID: 'Paid Camps'
+};
+
+export const MOODS = {
+  RUN: 'Run Wild 🏃‍♂️',
+  COOL: 'Cool Down 💦',
+  SMART: 'Smarty Pants 🧠',
+  BREAK: 'Off Duty ☕'
 };
