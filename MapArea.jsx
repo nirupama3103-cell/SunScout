@@ -39,29 +39,42 @@ const MapArea = ({ filters }) => {
               <button className={styles.actionBtn} onClick={() => window.open(act.link, '_blank')}>View on Map 🚗</button>
       <div className="flex justify-center mt-6">
         <button className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition hover:scale-105">
-          Explore More Adventures 🗺️
         </button>
       </div>
             </div>
       <div className="flex justify-center mt-6">
         <button className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition hover:scale-105">
-          Explore More Adventures 🗺️
         </button>
       </div>
           </div>
         ))}
       <div className="flex justify-center mt-6">
         <button className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition hover:scale-105">
-          Explore More Adventures 🗺️
         </button>
       </div>
       </div>
       <div className="flex justify-center mt-6">
         <button className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition hover:scale-105">
-          Explore More Adventures 🗺️
         </button>
       </div>
     </div>
   );
 };
 export default MapArea;
+
+const ViewMoreButton = () => (
+  <div style={{ display: 'flex', justifyContent: 'center', margin: '40px 0' }}>
+    <button style={{
+      backgroundColor: '#f59e0b',
+      color: 'white',
+      padding: '12px 30px',
+      borderRadius: '9999px',
+      border: 'none',
+      fontWeight: 'bold',
+      cursor: 'pointer',
+      boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+    }}>
+      Explore More Adventures 🗺️
+    </button>
+  </div>
+);
