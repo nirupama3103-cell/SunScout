@@ -1,53 +1,29 @@
 import React from 'react';
-import { REGIONS, MOODS, WALLETS } from './constants';
-import styles from './Controls.module.css';
+import { WALLETS } from './constants';
 
-const Controls = ({ filters, setFilters }) => {
-  const currentCities = REGIONS[filters.region]?.cities || [];
+const Controls = ({ activeTab, setActiveTab }) => {
+  const colors = [
+    'from-blue-500 to-indigo-600', 
+    'from-green-500 to-emerald-600', 
+    'from-orange-400 to-yellow-500', 
+    'from-pink-500 to-rose-600'
+  ];
 
   return (
-    <div className={styles.controls}>
-      {/* Primary County Tabs */}
-      <div className={styles.tabGroup}>
-        {Object.entries(REGIONS).map(([key, data]) => (
-          <button 
-            key={key}
-            className={`${styles.tab} ${filters.region === key ? styles.activeTab : ''}`}
-            onClick={() => setFilters({...filters, region: key, city: data.cities[0]})}
-          >
-            {data.name}
-          </button>
-        ))}
-      </div>
-
-      {/* Quick-Switch City Chips */}
-      <div className={styles.chipGroup}>
-        {currentCities.map(city => (
-          <button 
-            key={city}
-            className={`${styles.chip} ${filters.city === city ? styles.activeChip : ''}`}
-            onClick={() => setFilters({...filters, city: city})}
-          >
-            {city}
-          </button>
-        ))}
-      </div>
-
-      {/* Category Selection */}
-      <div className={styles.section}>
-        {Object.entries(WALLETS).map(([key, name]) => (
-          <button 
-            key={key}
-            className={`${styles.filterBtn} ${filters.wallet === key ? styles.activeFilter : ''}`}
-            onClick={() => setFilters({...filters, wallet: key})}
-          >
-            {name}
-          </button>
-        ))}
-      </div>
+    <div className="flex flex-wrap gap-2 justify-center mt-4">
+      {Object.entries(WALLETS).map(([key, label], index) => (
+        <button
+          key={key}
+          onClick={() => setActiveTab(key)}
+          className={`px-4 py-2 rounded-full text-white font-bold transition-all shadow-md transform hover:scale-105 ${
+            activeTab === key ? colors[index] : 'bg-gray-400'
+          }`}
+        >
+          {label}
+        </button>
+      ))}
     </div>
   );
 };
 
 export default Controls;
- 
