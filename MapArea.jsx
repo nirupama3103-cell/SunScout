@@ -2,47 +2,41 @@ import React, { useState } from 'react';
 import ActivityCard from './ActivityCard';
 
 const MapArea = ({ activities }) => {
-  const [visibleCount, setVisibleCount] = useState(6);
-  const showMore = () => setVisibleCount(prev => prev + 6);
+  const [limit, setLimit] = useState(6);
 
   return (
-    <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '20px' }}>
+    <section>
       <div style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-        gap: '25px',
-        justifyContent: 'center'
+        gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
+        gap: '20px',
+        padding: '20px'
       }}>
-        {activities.slice(0, visibleCount).map((activity, index) => (
-          <ActivityCard key={index} activity={activity} />
+        {activities.slice(0, limit).map((act, i) => (
+          <ActivityCard key={i} activity={act} />
         ))}
       </div>
 
-      {activities.length > visibleCount && (
-        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '40px' }}>
+      {activities.length > limit && (
+        <div style={{ textAlign: 'center', margin: '40px 0' }}>
           <button 
-            onClick={showMore}
-            aria-label="Load more activities"
+            onClick={() => setLimit(limit + 6)}
             style={{
-              padding: '15px 40px',
-              borderRadius: '50px',
-              backgroundColor: '#f59e0b',
+              backgroundColor: '#ef4444',
               color: 'white',
-              fontSize: '18px',
+              padding: '15px 35px',
+              borderRadius: '50px',
+              fontSize: '1.1rem',
               fontWeight: 'bold',
               border: 'none',
-              cursor: 'pointer',
-              boxShadow: '0 4px 15px rgba(245, 158, 11, 0.4)',
-              transition: 'transform 0.2s'
+              cursor: 'pointer'
             }}
-            onMouseOver={(e) => e.target.style.transform = 'scale(1.05)'}
-            onMouseOut={(e) => e.target.style.transform = 'scale(1)'}
           >
             Explore More Adventures 🗺️
           </button>
         </div>
       )}
-    </div>
+    </section>
   );
 };
 
