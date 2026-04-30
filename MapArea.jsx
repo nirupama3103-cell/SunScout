@@ -40,23 +40,31 @@ const MapArea = ({ filters }) => {
       <div className="flex justify-center mt-6">
         <button className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition hover:scale-105">
         </button>
+      <ViewMoreButton />
       </div>
+      <ViewMoreButton />
             </div>
       <div className="flex justify-center mt-6">
         <button className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition hover:scale-105">
         </button>
+      <ViewMoreButton />
       </div>
+      <ViewMoreButton />
           </div>
         ))}
       <div className="flex justify-center mt-6">
         <button className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition hover:scale-105">
         </button>
+      <ViewMoreButton />
       </div>
+      <ViewMoreButton />
       </div>
       <div className="flex justify-center mt-6">
         <button className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition hover:scale-105">
         </button>
+      <ViewMoreButton />
       </div>
+      <ViewMoreButton />
     </div>
   );
 };
@@ -76,5 +84,6 @@ const ViewMoreButton = () => (
     }}>
       Explore More Adventures 🗺️
     </button>
+      <ViewMoreButton />
   </div>
 );
