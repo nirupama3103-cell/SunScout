@@ -4,54 +4,47 @@ const Controls = ({ activeRegion, setActiveRegion, activeCity, setActiveCity, ac
   const regions = ['Alameda', 'San Francisco', 'San Mateo', 'Santa Clara'];
   const cities = ['Sunnyvale', 'San Jose', 'Cupertino', 'Saratoga', 'Mountain View', 'Palo Alto'];
   const categories = [
-    { id: 'indoor', label: '🏛️ Indoor Activities', color: 'bg-blue-500' },
-    { id: 'weekend', label: '🐾 Weekend Activities', color: 'bg-green-500' },
-    { id: 'summer', label: '☀️ Summer Free Fun', color: 'bg-orange-500' },
-    { id: 'paid', label: '🎟️ Paid Activities', color: 'bg-rose-500' }
+    { id: 'indoor', label: '🏛️ Indoor Activities', color: '#3b82f6' },
+    { id: 'weekend', label: '🐾 Weekend Activities', color: '#10b981' },
+    { id: 'summer', label: '☀️ Summer Free Fun', color: '#f59e0b' },
+    { id: 'paid', label: '🎟️ Paid Activities', color: '#ef4444' }
   ];
 
+  const btnStyle = {
+    padding: '8px 20px',
+    borderRadius: '9999px',
+    border: 'none',
+    fontWeight: 'bold',
+    cursor: 'pointer',
+    transition: 'all 0.2s',
+    boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+  };
+
   return (
-    <div className="flex flex-col gap-6 items-center mt-6">
-      {/* Row 1: Regions (Underlined Style) */}
-      <div className="flex flex-wrap gap-8 justify-center border-b border-gray-200 pb-2 w-full max-w-2xl">
-        {regions.map(region => (
-          <button
-            key={region}
-            onClick={() => setActiveRegion(region)}
-            className={`text-lg font-bold transition-all ${
-              activeRegion === region ? 'text-red-500 border-b-2 border-red-500' : 'text-gray-500 hover:text-gray-700'
-            }`}
-          >
-            {region}
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center', marginTop: '30px', padding: '0 20px' }}>
+      
+      {/* Row 1: Regions */}
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '30px', justifyContent: 'center', borderBottom: '2px solid #eee', paddingBottom: '10px', width: '100%', maxWidth: '600px' }}>
+        {regions.map(r => (
+          <button key={r} onClick={() => setActiveRegion(r)} style={{ background: 'none', border: 'none', fontSize: '18px', fontWeight: 'bold', cursor: 'pointer', color: activeRegion === r ? '#ef4444' : '#94a3b8', borderBottom: activeRegion === r ? '3px solid #ef4444' : 'none' }}>
+            {r}
           </button>
         ))}
       </div>
 
-      {/* Row 2: Cities (Ovals) */}
-      <div className="flex flex-wrap gap-3 justify-center">
-        {cities.map(city => (
-          <button
-            key={city}
-            onClick={() => setActiveCity(city)}
-            className={`px-4 py-2 rounded-full font-medium transition-all shadow-sm border ${
-              activeCity === city ? 'bg-white border-blue-500 text-blue-600' : 'bg-gray-50 border-gray-200 text-gray-600'
-            }`}
-          >
-            {city}
+      {/* Row 2: Cities */}
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', justifyContent: 'center' }}>
+        {cities.map(c => (
+          <button key={c} onClick={() => setActiveCity(c)} style={{ ...btnStyle, backgroundColor: activeCity === c ? '#fff' : '#f8fafc', color: activeCity === c ? '#3b82f6' : '#64748b', border: activeCity === c ? '2px solid #3b82f6' : '1px solid #e2e8f0' }}>
+            {c}
           </button>
         ))}
       </div>
 
-      {/* Row 3: Categories (Rainbow Ovals) */}
-      <div className="flex flex-wrap gap-3 justify-center">
+      {/* Row 3: Categories */}
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', justifyContent: 'center' }}>
         {categories.map(cat => (
-          <button
-            key={cat.id}
-            onClick={() => setActiveTab(cat.id)}
-            className={`px-5 py-2 rounded-full text-white font-bold transition-all shadow-md transform hover:scale-105 ${
-              activeTab === cat.id ? cat.color : 'bg-gray-400'
-            }`}
-          >
+          <button key={cat.id} onClick={() => setActiveTab(cat.id)} style={{ ...btnStyle, backgroundColor: activeTab === cat.id ? cat.color : '#94a3b8', color: 'white' }}>
             {cat.label}
           </button>
         ))}
