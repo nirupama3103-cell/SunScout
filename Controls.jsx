@@ -50,3 +50,4 @@ const Controls = ({ filters, setFilters }) => {
 };
 
 export default Controls;
+ 
