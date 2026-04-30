@@ -1,34 +1,26 @@
 export const ACTIVITIES = [
   {
-    name: "Kids' DIY Workshop",
+    name: "Steve & Kate's Camp",
     city: "Sunnyvale",
-    category: "summer",
-    image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80",
-    mapUrl: "https://www.google.com/maps/search/Home+Depot+Sunnyvale",
-    description: "Free hands-on building workshops for children. Tools and kits provided!"
+    category: "paid",
+    image: "https://images.unsplash.com/photo-1533222481259-ce20eda1e20b?auto=format&fit=crop&w=800&q=80",
+    mapUrl: "https://www.google.com/maps/search/Steve+and+Kates+Camp+Sunnyvale",
+    description: "The ultimate choice-based camp. Kids pick from coding, baking, or sports!"
   },
   {
-    name: "Summer Library Storytime",
+    name: "Animal Assisted Happiness",
     city: "Sunnyvale",
-    category: "summer",
-    image: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=800&q=80",
-    mapUrl: "https://www.google.com/maps/search/Sunnyvale+Public+Library",
-    description: "Interactive reading sessions with songs and puppets for toddlers and preschoolers."
+    category: "weekend",
+    image: "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&w=800&q=80",
+    mapUrl: "https://www.google.com/maps/search/Animal+Assisted+Happiness+Sunnyvale",
+    description: "A magical 'Smile Farm' where kids can interact with goats and bunnies. Great for sensory-friendly play."
   },
   {
-    name: "Junior Coder Intro Class",
-    city: "Palo Alto",
-    category: "summer",
-    image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80",
-    mapUrl: "https://www.google.com/maps/search/Apple+Store+Palo+Alto",
-    description: "Free beginner coding sessions where kids learn to create their first app."
-  },
-  {
-    name: "Family Yoga in the Plaza",
-    city: "Mountain View",
-    category: "summer",
-    image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=800&q=80",
-    mapUrl: "https://www.google.com/maps/search/Mountain+View+City+Hall+Plaza",
-    description: "Open-air yoga class designed for parents and kids to move together."
+    name: "The Tech Interactive",
+    city: "San Jose",
+    category: "indoor",
+    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80",
+    mapUrl: "https://www.google.com/maps/search/The+Tech+Interactive+San+Jose",
+    description: "Hands-on science and technology exhibits. Accessible and family-oriented."
   }
 ];
