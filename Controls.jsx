@@ -6,7 +6,7 @@ const Controls = ({ activeRegion, setActiveRegion, activeCity, setActiveCity, ac
   const categories = [
     { id: 'indoor', label: '🏛️ Indoor Activities', color: '#3b82f6' },
     { id: 'weekend', label: '🐾 Weekend Activities', color: '#10b981' },
-    { id: 'summer', label: '☀️ Summer Free Fun', color: '#f59e0b' },
+    { id: 'summer', label: '☀️ Free Summer Classes', color: '#f59e0b' },
     { id: 'paid', label: '🎟️ Paid Activities', color: '#ef4444' }
   ];
 
