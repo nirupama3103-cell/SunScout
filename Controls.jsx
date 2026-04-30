@@ -7,12 +7,12 @@ const Controls = ({ filters, setFilters }) => {
 
   return (
     <div className={styles.controls}>
-      {/* County Row */}
-      <div className={styles.section}>
+      {/* Primary County Tabs */}
+      <div className={styles.tabGroup}>
         {Object.entries(REGIONS).map(([key, data]) => (
           <button 
             key={key}
-            className={`${styles.btn} ${filters.region === key ? styles.active : ''}`}
+            className={`${styles.tab} ${filters.region === key ? styles.activeTab : ''}`}
             onClick={() => setFilters({...filters, region: key, city: data.cities[0]})}
           >
             {data.name}
@@ -20,24 +20,25 @@ const Controls = ({ filters, setFilters }) => {
         ))}
       </div>
 
-      {/* NEW: City Dropdown/Selector */}
-      <div className={styles.citySection}>
-        <select 
-          className={styles.select}
-          value={filters.city} 
-          onChange={(e) => setFilters({...filters, city: e.target.value})}
-        >
-          {currentCities.map(city => (
-            <option key={city} value={city}>{city}</option>
-          ))}
-        </select>
+      {/* Quick-Switch City Chips */}
+      <div className={styles.chipGroup}>
+        {currentCities.map(city => (
+          <button 
+            key={city}
+            className={`${styles.chip} ${filters.city === city ? styles.activeChip : ''}`}
+            onClick={() => setFilters({...filters, city: city})}
+          >
+            {city}
+          </button>
+        ))}
       </div>
 
+      {/* Category Selection */}
       <div className={styles.section}>
         {Object.entries(WALLETS).map(([key, name]) => (
           <button 
             key={key}
-            className={`${styles.btn} ${filters.wallet === key ? styles.active : ''}`}
+            className={`${styles.filterBtn} ${filters.wallet === key ? styles.activeFilter : ''}`}
             onClick={() => setFilters({...filters, wallet: key})}
           >
             {name}

@@ -1,38 +1,73 @@
-.controlsContainer {
-  padding: 15px;
+.controls {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 15px;
+  padding: 20px;
+  background: #fff;
+  border-bottom: 1px solid #eee;
 }
 
-.row {
+.tabGroup {
   display: flex;
-  gap: 8px;
+  justify-content: space-around;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.tab {
+  padding: 10px 20px;
+  border: none;
+  background: none;
+  font-weight: 600;
+  color: #666;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: 0.3s;
+}
+
+.activeTab {
+  color: #007bff;
+  border-bottom: 3px solid #007bff;
+}
+
+.chipGroup {
+  display: flex;
+  gap: 10px;
   overflow-x: auto;
   padding-bottom: 5px;
-  scrollbar-width: none; /* Hide scrollbar for clean look */
+  scrollbar-width: none;
 }
 
-.btn {
-  padding: 10px 18px;
-  border-radius: 25px;
-  border: 1px solid #e2e8f0;
-  background: #f1f5f9;
-  color: #64748b;
-  font-size: 0.9rem;
-  font-weight: 600;
+.chip {
+  padding: 6px 15px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  background: #f8f9fa;
   white-space: nowrap;
   cursor: pointer;
-  transition: all 0.2s ease;
 }
 
-.activeWallet {
-  padding: 10px 18px;
-  border-radius: 25px;
-  border: 1px solid #1e293b;
-  background: #1e293b;
-  color: white;
-  font-size: 0.9rem;
-  font-weight: 600;
-  white-space: nowrap;
+.activeChip {
+  background: #333;
+  color: #fff;
+  border-color: #333;
+}
+
+.section {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.filterBtn {
+  padding: 8px 12px;
+  border-radius: 5px;
+  border: 1px solid #eee;
+  background: white;
+  cursor: pointer;
+}
+
+.activeFilter {
+  background: #e7f3ff;
+  border-color: #007bff;
+  color: #007bff;
 }
