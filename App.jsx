@@ -15,7 +15,7 @@ function App() {
   );
 
   return (
-    <div className={styles.app}>
+    <div className={styles.app} style={{ backgroundColor: '#fffdf5', minHeight: '100vh' }}>
       <Header />
       <main className={styles.main}>
         <Controls 
@@ -28,5 +28,4 @@ function App() {
     </div>
   );
 }
-
 export default App;

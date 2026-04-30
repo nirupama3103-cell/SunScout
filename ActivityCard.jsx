@@ -21,7 +21,7 @@ const ActivityCard = ({ activity }) => {
           style={{
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center',
+            justifyContent: 'center'
             gap: '10px',
             backgroundColor: '#ef4444',
             color: 'white',
