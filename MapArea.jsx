@@ -6,47 +6,23 @@ const MapArea = ({ filters }) => {
   const [activities, setActivities] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // Live April 2026 Schedule Data
-  const LIVE_EVENTS = {
-    SF: [
-      { name: 'Gills Club (STEM)', type: 'SMART', address: 'Aquarium of the Bay', wallet: 'Free Fun', link: 'https://www.aquariumofthebay.org/' },
-      { name: 'Bridge to Bridge Cruise', type: 'COOL', address: 'Pier 43 1/2', wallet: 'Summer' }
-    ],
-    ALAMEDA: [
-      { name: 'Starlight Movie: The Little Mermaid', type: 'RUN', address: 'Alameda Point Field', wallet: 'Free Fun' },
-      { name: 'National Kids to Parks Day', type: 'RUN', address: 'Jean Sweeney Park', wallet: 'Free Fun' }
-    ],
-    SM: [
-      { name: 'Downtown Boba Day', type: 'BREAK', address: 'San Mateo Downtown', wallet: 'Free Fun' },
-      { name: 'Library Day with the Giants', type: 'SMART', address: 'SM County Library', wallet: 'Free Fun' }
-    ],
-    SC: [
-      { name: 'STEM Zone Showcase', type: 'SMART', address: 'SC Convention Center', wallet: 'Free Fun' },
-      { name: 'Heart and Soles Kids Run', type: 'RUN', address: 'Santa Clara University', wallet: 'Summer' }
-    ]
-  };
-
   useEffect(() => {
     const fetchPlaces = () => {
+      if (!window.google) return;
       setLoading(true);
-      const countyEvents = LIVE_EVENTS[filters.region] || [];
-      const filteredEvents = countyEvents.filter(e => filters.wallet === 'All Fun' || e.wallet === filters.wallet);
-
-      if (!window.google) {
-        setActivities(filteredEvents);
-        setLoading(false);
-        return;
-      }
 
       const queryMap = { 
-        RUN: 'parks and playgrounds', 
-        COOL: 'splash pads and pools', 
-        SMART: 'public libraries', 
-        BREAK: 'family friendly cafes' 
+        RUN: 'parks', 
+        COOL: 'splash pads', 
+        SMART: 'libraries', 
+        BREAK: 'cafes' 
       };
       
       const county = REGIONS[filters.region];
-      const searchTerm = `${queryMap[filters.mood]} in ${county} County, CA`;
+      const category = queryMap[filters.mood];
+      // Search logic: If 'FREE', add 'free' to query. If 'PAID', look for 'camps'
+      const walletMod = filters.wallet === 'FREE' ? 'free' : filters.wallet === 'PAID' ? 'summer camp' : '';
+      const searchTerm = `${walletMod} ${category} in ${county} County, CA`;
 
       const service = new window.google.maps.places.PlacesService(document.createElement('div'));
       const request = { query: searchTerm, radius: '20000' };
@@ -57,12 +33,11 @@ const MapArea = ({ filters }) => {
             id: place.place_id,
             name: place.name,
             address: place.formatted_address.split(',')[0],
-            link: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place.name + " " + place.formatted_address)}`,
-            wallet: filters.wallet
+            link: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place.name + " " + place.formatted_address)}`
           }));
-          setActivities([...filteredEvents, ...apiData]);
+          setActivities(apiData);
         } else {
-          setActivities(filteredEvents);
+          setActivities([]);
         }
         setLoading(false);
       });
@@ -74,23 +49,28 @@ const MapArea = ({ filters }) => {
   return (
     <div className={styles.mapContainer}>
       <div className={styles.statusBanner}>
-        📍 {REGIONS[filters.region]} County | {filters.wallet}
+        📍 {REGIONS[filters.region]} County | {WALLETS[filters.wallet]}
       </div>
       <div className={styles.grid}>
-        {activities.map((act, i) => (
-          <div key={act.id || i} className={styles.adventureCard}>
-            <div className={styles.cardHeader}>
-              <span className={styles.categoryBadge}>{act.wallet || filters.wallet}</span>
-              <h3>{act.name}</h3>
+        {loading ? (
+          <div className={styles.loader}>Searching {REGIONS[filters.region]}...</div>
+        ) : activities.length > 0 ? (
+          activities.map(act => (
+            <div key={act.id} className={styles.adventureCard}>
+              <div className={styles.cardHeader}>
+                <h3>{act.name}</h3>
+              </div>
+              <div className={styles.cardBody}>
+                <p>📍 {act.address}</p>
+                <button className={styles.actionBtn} onClick={() => window.open(act.link, '_blank')}>
+                   Go 🚗
+                </button>
+              </div>
             </div>
-            <div className={styles.cardBody}>
-              <p>📍 {act.address}</p>
-              <button className={styles.actionBtn} onClick={() => window.open(act.link, '_blank')}>
-                {act.wallet === 'Paid Camps' ? 'Register 🎒' : 'Go 🚗'}
-              </button>
-            </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <div className={styles.noResults}>No spots found. Try another tab! ☀️</div>
+        )}
       </div>
     </div>
   );

@@ -12,8 +12,6 @@ export const WALLETS = {
   PAID: 'Paid Camps'
 };
 
-export const WALLET = WALLETS;
-
 export const MOODS = {
   RUN: 'Run Wild 🏃‍♂️',
   COOL: 'Cool Down 💦',
@@ -21,5 +19,6 @@ export const MOODS = {
   BREAK: 'Off Duty ☕'
 };
 
-// Placeholder to prevent any other import errors
-export const STATIC_ACTIVITIES = []; 
+// Satisfy any singular imports
+export const WALLET = WALLETS;
+export const STATIC_ACTIVITIES = [];
