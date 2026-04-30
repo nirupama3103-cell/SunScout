@@ -1,3 +1,4 @@
+// Final Clean Build for SunScout
 export const ACTIVITIES = [
   { name: "Animal Assisted Happiness", city: "Sunnyvale", category: "weekend", image: "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=800", mapUrl: "https://www.google.com/maps/search/Animal+Assisted+Happiness+Sunnyvale", description: "Farm-based smiles with bunnies and goats." },
   { name: "Sunnyvale Public Library", city: "Sunnyvale", category: "summer", image: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=800", mapUrl: "https://www.google.com/maps/search/Sunnyvale+Public+Library", description: "Free summer reading and storytime sessions." },
