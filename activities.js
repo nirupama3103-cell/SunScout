@@ -7,49 +7,57 @@ export const CITIES_BY_COUNTY = {
 };
 
 export const ACTIVITIES = [
-  // --- SANTA CLARA ---
+  // --- SUNNYVALE (Eventbrite: Free Summer Camp) ---
   { 
-    name: "Sunnyvale Public Library", city: "Sunnyvale", county: "Santa Clara", category: "free summer", 
-    image: "https://images.pexels.com/photos/1907785/pexels-photo-1907785.jpeg?auto=compress&cs=tinysrgb&w=400", 
-    mapUrl: "https://www.google.com/maps/search/Sunnyvale+Public+Library",
-    description: "Free summer reading programs and DIY nature workshops for kids." 
+    name: "Sunnyvale STEM Workshop", city: "Sunnyvale", county: "Santa Clara", category: "free summer", 
+    image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=500&q=80", 
+    mapUrl: "https://www.google.com/maps/search/Sunnyvale+Community+Center",
+    description: "Free hands-on STEM sessions for kids 0-teens." 
   },
   { 
-    name: "Movement Sunnyvale", city: "Sunnyvale", county: "Santa Clara", category: "indoor", 
-    image: "https://images.pexels.com/photos/3039160/pexels-photo-3039160.jpeg?auto=compress&cs=tinysrgb&w=400", 
-    mapUrl: "https://www.google.com/maps/search/Movement+Sunnyvale",
-    description: "Indoor rock climbing and youth bouldering classes." 
-  },
-  { 
-    name: "The Tech Interactive", city: "San Jose", county: "Santa Clara", category: "indoor", 
-    image: "https://images.pexels.com/photos/256381/pexels-photo-256381.jpeg?auto=compress&cs=tinysrgb&w=400", 
-    mapUrl: "https://www.google.com/maps/search/The+Tech+Interactive+San+Jose",
-    description: "Hands-on science and technology exhibits from Eventbrite listings." 
+    name: "Sunnyvale Indoor Sports", city: "Sunnyvale", county: "Santa Clara", category: "indoor", 
+    image: "https://images.unsplash.com/photo-1526676037777-05a232554f77?w=500&q=80", 
+    mapUrl: "https://www.google.com/maps/search/Sunnyvale+Sports+Center",
+    description: "Indoor basketball and gym activities for youth." 
   },
 
-  // --- ALAMEDA ---
+  // --- SAN JOSE ---
   { 
-    name: "Oakland Library: Kids' Crafting", city: "Oakland", county: "Alameda", category: "free summer", 
+    name: "San Jose Art & Design Camp", city: "San Jose", county: "Santa Clara", category: "paid", 
     image: "https://images.pexels.com/photos/159823/kids-girl-pencil-drawing-159823.jpeg?auto=compress&cs=tinysrgb&w=400", 
-    mapUrl: "https://www.google.com/maps/search/Oakland+Public+Library+Main",
-    description: "Community center art sessions for toddlers and elementary ages." 
+    mapUrl: "https://www.google.com/maps/search/Childrens+Discovery+Museum+San+Jose",
+    description: "Creative summer arts camp for all age groups." 
   },
+
+  // --- CUPERTINO ---
   { 
-    name: "Chabot Space & Science", city: "Oakland", county: "Alameda", category: "weekend", 
-    image: "https://images.pexels.com/photos/2156/sky-earth-space-working.jpg?auto=compress&cs=tinysrgb&w=400", 
-    mapUrl: "https://www.google.com/maps/search/Chabot+Space+Science+Center",
-    description: "Planetarium shows and space exhibits for teens and families." 
+    name: "Cupertino Library Robotics", city: "Cupertino", county: "Santa Clara", category: "weekend", 
+    image: "https://images.unsplash.com/photo-1561557944-6e7860d1a7eb?w=500&q=80", 
+    mapUrl: "https://www.google.com/maps/search/Cupertino+Library",
+    description: "Weekend robotics club for teens and elementary students." 
   },
+
+  // --- SARATOGA ---
   { 
-    name: "Fremont Tiny Tots Art", city: "Fremont", county: "Alameda", category: "free summer", 
-    image: "https://images.pexels.com/photos/1148998/pexels-photo-1148998.jpeg?auto=compress&cs=tinysrgb&w=400", 
-    mapUrl: "https://www.google.com/maps/search/Fremont+Community+Center",
-    description: "Local city-sponsored summer classes for ages 0-5." 
+    name: "Saratoga Nature Exploration", city: "Saratoga", county: "Santa Clara", category: "free summer", 
+    image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=500&q=80", 
+    mapUrl: "https://www.google.com/maps/search/Wildwood+Park+Saratoga",
+    description: "Free community nature walks and outdoor summer learning." 
   },
+
+  // --- MOUNTAIN VIEW ---
   { 
-    name: "Firehouse Arts Center", city: "Pleasanton", county: "Alameda", category: "indoor", 
-    image: "https://images.pexels.com/photos/269140/pexels-photo-269140.jpeg?auto=compress&cs=tinysrgb&w=400", 
-    mapUrl: "https://www.google.com/maps/search/Firehouse+Arts+Center+Pleasanton",
-    description: "Indoor youth theater workshops and community art exhibitions." 
+    name: "MV Computer History Museum", city: "Mountain View", county: "Santa Clara", category: "indoor", 
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=500&q=80", 
+    mapUrl: "https://www.google.com/maps/search/Computer+History+Museum",
+    description: "Exploring the digital world—great for middle and high schoolers." 
+  },
+
+  // --- PALO ALTO ---
+  { 
+    name: "Palo Alto Junior Zoo", city: "Palo Alto", county: "Santa Clara", category: "weekend", 
+    image: "https://images.unsplash.com/photo-1503919919749-642dd40f5d6d?w=500&q=80", 
+    mapUrl: "https://www.google.com/maps/search/Palo+Alto+Junior+Museum+and+Zoo",
+    description: "Weekend zoo visits and animal interaction for younger children." 
   }
 ];
