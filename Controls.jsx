@@ -3,23 +3,33 @@ import { WALLETS } from './constants';
 
 const Controls = ({ activeTab, setActiveTab }) => {
   const colors = [
-    'from-blue-500 to-indigo-600', 
-    'from-green-500 to-emerald-600', 
-    'from-orange-400 to-yellow-500', 
-    'from-pink-500 to-rose-600'
+    { bg: '#3b82f6', label: '🏛️ Indoor Activities' },
+    { bg: '#10b981', label: '🐾 Weekend Activities' },
+    { bg: '#f59e0b', label: '☀️ Summer Free Fun' },
+    { bg: '#ef4444', label: '🎟️ Paid Activities' }
   ];
 
   return (
-    <div className="flex flex-wrap gap-2 justify-center mt-4">
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', justifyContent: 'center', marginTop: '16px' }}>
       {Object.entries(WALLETS).map(([key, label], index) => (
         <button
           key={key}
           onClick={() => setActiveTab(key)}
-          className={`px-4 py-2 rounded-full text-white font-bold transition-all shadow-md transform hover:scale-105 ${
-            activeTab === key ? colors[index] : 'bg-gray-400'
-          }`}
+          style={{
+            backgroundColor: activeTab === key ? colors[index].bg : '#9ca3af',
+            color: 'white',
+            fontWeight: 'bold',
+            padding: '10px 20px',
+            borderRadius: '9999px',
+            border: 'none',
+            cursor: 'pointer',
+            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+            transition: 'transform 0.2s'
+          }}
+          onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+          onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
         >
-          {label}
+          {colors[index].label}
         </button>
       ))}
     </div>
