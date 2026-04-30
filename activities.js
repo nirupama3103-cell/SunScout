@@ -1,34 +1,34 @@
 export const ACTIVITIES = [
   {
-    name: "Ortega Park",
+    name: "Kids' DIY Workshop",
     city: "Sunnyvale",
     category: "summer",
-    image: "https://images.unsplash.com/photo-1596438411095-65b46de36706?auto=format&fit=crop&w=800&q=80",
-    mapUrl: "https://goo.gl/maps/xyz1",
-    description: "Famous for its splash pad and large playground."
+    image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80",
+    mapUrl: "https://www.google.com/maps/search/Home+Depot+Sunnyvale",
+    description: "Free hands-on building workshops for children. Tools and kits provided!"
   },
   {
-    name: "Braly Park",
+    name: "Summer Library Storytime",
     city: "Sunnyvale",
-    category: "weekend",
-    image: "https://images.unsplash.com/photo-1519331379826-f10be5486c6f?auto=format&fit=crop&w=800&q=80",
-    mapUrl: "https://goo.gl/maps/xyz2",
-    description: "Sand volleyball, tennis, and plenty of green space."
+    category: "summer",
+    image: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=800&q=80",
+    mapUrl: "https://www.google.com/maps/search/Sunnyvale+Public+Library",
+    description: "Interactive reading sessions with songs and puppets for toddlers and preschoolers."
   },
   {
-    name: "Magical Bridge Playground",
+    name: "Junior Coder Intro Class",
     city: "Palo Alto",
     category: "summer",
-    image: "https://images.unsplash.com/photo-1596438411095-65b46de36706?auto=format&fit=crop&w=800&q=80",
-    mapUrl: "https://goo.gl/maps/xyz3",
-    description: "World-famous inclusive playground for all abilities."
+    image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80",
+    mapUrl: "https://www.google.com/maps/search/Apple+Store+Palo+Alto",
+    description: "Free beginner coding sessions where kids learn to create their first app."
   },
   {
-    name: "Seven Seas Park",
-    city: "Sunnyvale",
+    name: "Family Yoga in the Plaza",
+    city: "Mountain View",
     category: "summer",
-    image: "https://images.unsplash.com/photo-1581442220912-32a033289053?auto=format&fit=crop&w=800&q=80",
-    mapUrl: "https://goo.gl/maps/xyz4",
-    description: "Incredible pirate-themed splash pad and ship playground."
+    image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=800&q=80",
+    mapUrl: "https://www.google.com/maps/search/Mountain+View+City+Hall+Plaza",
+    description: "Open-air yoga class designed for parents and kids to move together."
   }
 ];
