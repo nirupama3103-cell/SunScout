@@ -1,32 +1,24 @@
 import React from 'react';
 import ActivityCard from './ActivityCard';
 
-const ViewMoreButton = () => (
-  <div style={{ display: 'flex', justifyContent: 'center', margin: '40px 0' }}>
-    <button style={{
-      backgroundColor: '#f59e0b',
-      color: 'white',
-      padding: '12px 30px',
-      borderRadius: '9999px',
-      border: 'none',
-      fontWeight: 'bold',
-      cursor: 'pointer',
-      boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
-    }}>
-      Explore More Adventures 🗺️
-    </button>
-  </div>
-);
-
 const MapArea = ({ activities }) => {
   return (
-    <div style={{ backgroundColor: '#ffffff', minHeight: '100vh', padding: '16px' }}>
+    <div className="p-4 bg-white min-h-screen">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {activities && activities.map((activity, index) => (
-          <ActivityCard key={index} activity={activity} />
-        ))}
+        {activities && activities.length > 0 ? (
+          activities.map((activity, index) => (
+            <ActivityCard key={index} activity={activity} />
+          ))
+        ) : (
+          <p className="text-center col-span-full text-gray-500">Finding adventures nearby...</p>
+        )}
       </div>
-      <ViewMoreButton />
+      
+      <div className="flex justify-center mt-12 mb-8">
+        <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-full font-bold shadow-lg transition-transform hover:scale-105">
+          Explore More Adventures 🗺️
+        </button>
+      </div>
     </div>
   );
 };
