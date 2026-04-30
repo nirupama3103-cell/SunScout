@@ -5,74 +5,64 @@ import styles from './MapArea.module.css';
 const MapArea = ({ filters }) => {
   const [activities, setActivities] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+
+  // Helper to get thematic images based on activity
+  const getImageUrl = (mood) => {
+    const images = {
+      RUN: 'https://images.unsplash.com/photo-1519331379826-f10be5486c6f?auto=format&fit=crop&w=400&q=80', // Park
+      COOL: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=400&q=80', // Water
+      SMART: 'https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=400&q=80', // Library
+      BREAK: 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=400&q=80'  // Cafe
+    };
+    return images[mood] || images.RUN;
+  };
 
   useEffect(() => {
-    const fetchPlaces = () => {
-      if (!window.google) {
-        console.error("Google Maps SDK not loaded yet.");
-        return;
+    if (!window.google) return;
+    setLoading(true);
+
+    const queryMap = { RUN: 'public park', COOL: 'splash pad', SMART: 'library', BREAK: 'family cafe' };
+    const city = filters.city || 'Sunnyvale';
+    const searchTerm = `${queryMap[filters.mood]} in ${city}, CA`;
+
+    const service = new window.google.maps.places.PlacesService(document.createElement('div'));
+    const request = { query: searchTerm, radius: '10000' };
+
+    service.textSearch(request, (results, status) => {
+      if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+        const apiData = results.slice(0, 6).map(place => ({
+          id: place.place_id,
+          name: place.name,
+          address: place.formatted_address.split(',')[0],
+          img: getImageUrl(filters.mood),
+          link: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place.name + ' ' + place.formatted_address)}`
+        }));
+        setActivities(apiData);
       }
-      
-      setLoading(true);
-      setError(null);
-
-      const queryMap = { RUN: 'parks', COOL: 'splash pads', SMART: 'libraries', BREAK: 'cafes' };
-      const county = REGIONS[filters.region]?.name || 'Santa Clara';
-      const city = filters.city || 'Sunnyvale';
-      const searchTerm = `${queryMap[filters.mood]} in ${city}, ${county} County, CA`;
-
-      console.log("Searching for:", searchTerm);
-
-      const service = new window.google.maps.places.PlacesService(document.createElement('div'));
-      const request = { query: searchTerm, radius: '10000' };
-
-      service.textSearch(request, (results, status) => {
-        if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-          console.log("Results found:", results.length);
-          const apiData = results.slice(0, 6).map(place => ({
-            id: place.place_id,
-            name: place.name,
-            address: place.formatted_address.split(',')[0],
-            link: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place.name + " " + place.formatted_address)}`
-          }));
-          setActivities(apiData);
-        } else {
-          console.error("Google API Error Status:", status);
-          setError(`Google API Error: ${status}`);
-          setActivities([]);
-        }
-        setLoading(false);
-      });
-    };
-
-    fetchPlaces();
+      setLoading(false);
+    });
   }, [filters]);
 
   return (
     <div className={styles.mapContainer}>
       <div className={styles.statusBanner}>
-        📍 {filters.city} ({REGIONS[filters.region]?.name}) | {WALLETS[filters.wallet]}
+        📍 Scouting {filters.city}...
       </div>
-      
-      {error && <div className={styles.error}>{error}</div>}
-
       <div className={styles.grid}>
         {loading ? (
-          <div className={styles.loader}>Searching {filters.city}...</div>
-        ) : activities.length > 0 ? (
-          activities.map(act => (
-            <div key={act.id} className={styles.adventureCard}>
-              <div className={styles.cardHeader}><h3>{act.name}</h3></div>
-              <div className={styles.cardBody}>
-                <p>📍 {act.address}</p>
-                <button className={styles.actionBtn} onClick={() => window.open(act.link, '_blank')}>Go 🚗</button>
-              </div>
+          <div className={styles.loader}>Loading fun...</div>
+        ) : activities.map(act => (
+          <div key={act.id} className={styles.adventureCard}>
+            <img src={act.img} alt={act.name} className={styles.cardImg} />
+            <div className={styles.cardContent}>
+              <h3>{act.name}</h3>
+              <p>{act.address}</p>
+              <button className={styles.actionBtn} onClick={() => window.open(act.link, '_blank')}>
+                Take Me There 🚗
+              </button>
             </div>
-          ))
-        ) : (
-          !loading && <div className={styles.noResults}>No spots found. Try a different city! ☀️</div>
-        )}
+          </div>
+        ))}
       </div>
     </div>
   );

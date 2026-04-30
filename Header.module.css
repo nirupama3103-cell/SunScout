@@ -1,62 +1,36 @@
 .header {
-  background: linear-gradient(135deg, var(--sky) 0%, #48CAE4 50%, var(--sun) 100%);
-  padding: 20px 24px 16px;
-  position: relative;
-  overflow: hidden;
+  background: linear-gradient(135deg, #007bff, #00d2ff);
+  color: white;
+  padding: 20px;
+  text-align: center;
 }
 
-.sunBg {
-  position: absolute;
-  font-size: 80px;
-  right: -10px;
-  top: -20px;
-  opacity: 0.25;
-  animation: spin 20s linear infinite;
-  pointer-events: none;
-}
-
-.title {
-  font-family: 'Fredoka One', cursive;
-  font-size: 28px;
-  color: #fff;
-  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.15);
-}
-
-.location {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 13px;
-  font-weight: 600;
-  margin-top: 2px;
-}
-
-.weatherBar {
+.topBar {
   display: flex;
-  gap: 10px;
+  justify-content: space-between;
   align-items: center;
-  background: rgba(255, 255, 255, 0.25);
-  border-radius: 12px;
-  padding: 8px 14px;
-  margin-top: 12px;
-  flex-wrap: wrap;
+  margin-bottom: 20px;
 }
 
-.temp {
-  color: #fff;
-  font-weight: 700;
-  font-size: 13px;
-}
-
-.desc {
-  color: #fff;
-  font-weight: 700;
-  font-size: 13px;
-}
-
-.pill {
-  background: rgba(255, 255, 255, 0.35);
+.weatherAlert {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 5px 15px;
   border-radius: 20px;
-  padding: 3px 10px;
-  font-size: 12px;
-  color: #fff;
+  font-size: 0.9rem;
   font-weight: 600;
+}
+
+.pulse {
+  color: #00ff00;
+  margin-right: 8px;
+  animation: blink 2s infinite;
+}
+
+.hero h2 { font-size: 2rem; margin: 0; }
+.hero p { opacity: 0.9; max-width: 600px; margin: 10px auto; }
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0.3; }
+  100% { opacity: 1; }
 }
