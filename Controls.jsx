@@ -1,56 +1,37 @@
 import React from 'react';
+import { TABS } from './constants';
 
-const Controls = ({ activeRegion, setActiveRegion, activeCity, setActiveCity, activeTab, setActiveTab }) => {
-  const regions = ['Alameda', 'San Francisco', 'San Mateo', 'Santa Clara'];
-  const cities = ['Sunnyvale', 'San Jose', 'Cupertino', 'Saratoga', 'Mountain View', 'Palo Alto'];
-  const categories = [
-    { id: 'indoor', label: '🏛️ Indoor Activities', color: '#3b82f6' },
-    { id: 'weekend', label: '🐾 Weekend Activities', color: '#10b981' },
-    { id: 'summer', label: '☀️ Free Summer Classes', color: '#f59e0b' },
-    { id: 'paid', label: '🎟️ Paid Activities', color: '#ef4444' }
-  ];
+const CITIES = ['Sunnyvale', 'San Jose', 'Cupertino', 'Mountain View', 'Palo Alto', 'Saratoga'];
 
-  const btnStyle = {
-    padding: '8px 20px',
-    borderRadius: '9999px',
-    border: 'none',
-    fontWeight: 'bold',
-    cursor: 'pointer',
-    transition: 'all 0.2s',
-    boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-  };
-
+export default function Controls({ activeCity, setActiveCity, activeTab, setActiveTab }) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center', marginTop: '30px', padding: '0 20px' }}>
-      
-      {/* Row 1: Regions */}
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '30px', justifyContent: 'center', borderBottom: '2px solid #eee', paddingBottom: '10px', width: '100%', maxWidth: '600px' }}>
-        {regions.map(r => (
-          <button key={r} onClick={() => setActiveRegion(r)} style={{ background: 'none', border: 'none', fontSize: '18px', fontWeight: 'bold', cursor: 'pointer', color: activeRegion === r ? '#ef4444' : '#94a3b8', borderBottom: activeRegion === r ? '3px solid #ef4444' : 'none' }}>
-            {r}
-          </button>
+    <div style={{ padding: '20px 16px 0', display: 'flex', flexDirection: 'column', gap: '14px', alignItems: 'center' }}>
+      {/* City Pills */}
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', justifyContent: 'center' }}>
+        {CITIES.map(c => (
+          <button key={c} onClick={() => setActiveCity(c)} style={{
+            padding: '6px 16px', borderRadius: '20px', border: 'none', fontFamily: 'Nunito, sans-serif',
+            fontWeight: '700', fontSize: '13px', cursor: 'pointer', transition: 'all 0.2s',
+            background: activeCity === c ? '#7c3aed' : '#e2e8f0',
+            color: activeCity === c ? '#fff' : '#475569',
+            boxShadow: activeCity === c ? '0 2px 8px rgba(124,58,237,0.3)' : 'none'
+          }}>{c}</button>
         ))}
       </div>
 
-      {/* Row 2: Cities */}
+      {/* Tab Pills */}
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', justifyContent: 'center' }}>
-        {cities.map(c => (
-          <button key={c} onClick={() => setActiveCity(c)} style={{ ...btnStyle, backgroundColor: activeCity === c ? '#fff' : '#f8fafc', color: activeCity === c ? '#3b82f6' : '#64748b', border: activeCity === c ? '2px solid #3b82f6' : '1px solid #e2e8f0' }}>
-            {c}
-          </button>
-        ))}
-      </div>
-
-      {/* Row 3: Categories */}
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', justifyContent: 'center' }}>
-        {categories.map(cat => (
-          <button key={cat.id} onClick={() => setActiveTab(cat.id)} style={{ ...btnStyle, backgroundColor: activeTab === cat.id ? cat.color : '#94a3b8', color: 'white' }}>
-            {cat.label}
-          </button>
+        {TABS.map(tab => (
+          <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={{
+            padding: '8px 20px', borderRadius: '20px', border: 'none', fontFamily: 'Nunito, sans-serif',
+            fontWeight: '700', fontSize: '14px', cursor: 'pointer', transition: 'all 0.2s',
+            background: activeTab === tab.id ? tab.color : '#94a3b8',
+            color: '#fff',
+            boxShadow: activeTab === tab.id ? `0 3px 10px ${tab.color}55` : 'none',
+            transform: activeTab === tab.id ? 'scale(1.05)' : 'scale(1)',
+          }}>{tab.label}</button>
         ))}
       </div>
     </div>
   );
-};
-
-export default Controls;
+}
