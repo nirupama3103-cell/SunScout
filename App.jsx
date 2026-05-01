@@ -1,84 +1,91 @@
 import React, { useState, useEffect } from 'react';
-import { ACTIVITIES, CITIES_BY_COUNTY, fetchActivitiesForCity } from './activities';
-import SummerCamps from './SummerCamps';
-import styles from './App.module.css';
+import { fetchActivitiesForCity, CITIES_BY_COUNTY } from './activities';
+import './App.css';
 
-export default function App() {
-  const [county, setCounty] = useState('Santa Clara');
-  const [city, setCity] = useState('Sunnyvale');
-  const [cat, setCat] = useState('free summer');
+function App() {
+  const [activeCounty, setActiveCounty] = useState("Santa Clara");
+  const [activeCity, setActiveCity] = useState("Sunnyvale");
+  const [activeCategory, setActiveCategory] = useState("free summer");
+  const [activities, setActivities] = useState([]);
 
-  useEffect(() => { setCity(CITIES_BY_COUNTY[county][0]); }, [county]);
-
-  const [liveActivities, setLiveActivities] = useState(ACTIVITIES);
+  // Load data whenever city or category changes
   useEffect(() => {
-    fetchActivitiesForCity(city, county).then(setLiveActivities);
-  }, [city, county]);
-
-  const filtered = liveActivities.filter(a => {
-    if (cat === 'indoor') return a.city === city;
-    if (cat === 'weekend') return a.city === city;
-    return a.city === city && a.category === cat;
-  });
-
-  const isSummerTab = cat === 'free summer' || cat === 'paid';
+    const loadData = async () => {
+      const data = await fetchActivitiesForCity(activeCity, activeCounty);
+      // Filter by the selected category (e.g., "free summer" or "paid camps")
+      const filtered = data.filter(act => act.category === activeCategory);
+      setActivities(filtered);
+    };
+    loadData();
+  }, [activeCity, activeCounty, activeCategory]);
 
   return (
-    <div className={styles.app}>
-      <h1 style={{textAlign:'center', fontSize:'2.5rem', marginBottom:'30px'}}>SunScout STEM Camps</h1>
+    <div className="app-container">
+      <header>
+        <h1>SunScout STEM Camps</h1>
+      </header>
 
-      {/* Row 1: Counties */}
-      <div style={{display:'flex', justifyContent:'center', gap:'15px', marginBottom:'20px', flexWrap:'wrap'}}>
-        {Object.keys(CITIES_BY_COUNTY).map(c => (
-          <button key={c} onClick={() => setCounty(c)}
-            className={styles.tabBase}
-            style={{
-              background: 'none',
-              color: county === c ? '#ff4757' : 'white',
-              borderBottom: county === c ? '3px solid #ff4757' : 'none'
-            }}>{c}</button>
+      {/* 1. County Selector */}
+      <nav className="county-nav">
+        {Object.keys(CITIES_BY_COUNTY).map(county => (
+          <button 
+            key={county}
+            className={activeCounty === county ? "active" : ""}
+            onClick={() => {
+              setActiveCounty(county);
+              setActiveCity(CITIES_BY_COUNTY[county][0]); // Auto-select first city
+            }}
+          >
+            {county}
+          </button>
+        ))}
+      </nav>
+
+      {/* 2. City Selector (The White Pills) */}
+      <div className="city-nav">
+        {CITIES_BY_COUNTY[activeCounty].map(city => (
+          <button 
+            key={city}
+            className={activeCity === city ? "active-city" : ""}
+            onClick={() => setActiveCity(city)}
+          >
+            {city}
+          </button>
         ))}
       </div>
 
-      {/* Row 2: Cities */}
-      <div style={{display:'flex', justifyContent:'center', gap:'10px', marginBottom:'20px', flexWrap:'wrap'}}>
-        {CITIES_BY_COUNTY[county].map(cit => (
-          <button key={cit} onClick={() => setCity(cit)}
-            className={styles.tabBase}
-            style={{
-              background: city === cit ? '#3b82f6' : 'white',
-              color: city === cit ? 'white' : '#333'
-            }}>{cit}</button>
+      {/* 3. Category Tabs (The Rainbow Bar) */}
+      <div className="category-nav">
+        {["indoor", "weekend", "free summer", "paid camps"].map(cat => (
+          <button 
+            key={cat}
+            className={`tab-${cat.replace(' ', '-')} ${activeCategory === cat ? "active-tab" : ""}`}
+            onClick={() => setActiveCategory(cat)}
+          >
+            {cat.toUpperCase()}
+          </button>
         ))}
       </div>
 
-      {/* Row 3: Category tabs */}
-      <div style={{display:'flex', justifyContent:'center', gap:'10px', marginBottom:'40px', flexWrap:'wrap'}}>
-        <button onClick={() => setCat('indoor')} className={styles.tabBase} style={{background: cat==='indoor' ? '#2563eb' : '#3b82f6', color:'white'}}>🏢 Indoor</button>
-        <button onClick={() => setCat('weekend')} className={styles.tabBase} style={{background: cat==='weekend' ? '#16a34a' : '#2ecc71', color:'white'}}>📅 Weekend</button>
-        <button onClick={() => setCat('free summer')} className={styles.tabBase} style={{background: cat==='free summer' ? '#d97706' : '#f1c40f', color:'white'}}>☀️ Free Summer</button>
-        <button onClick={() => setCat('paid')} className={styles.tabBase} style={{background: cat==='paid' ? '#be185d' : '#e84393', color:'white'}}>🎟️ Paid Camps</button>
-      </div>
-
-      {/* Summer Camps component — strictly city-filtered */}
-      {isSummerTab ? (
-        <SummerCamps city={city} defaultTab={cat === 'free summer' ? 'free' : 'paid'} />
-      ) : (
-        <div className={styles.grid}>
-          {filtered.map((item, i) => (
-            <div key={i} className={styles.card}>
-              <img src={item.image} style={{width:'100%', height:'200px', objectFit:'cover'}} />
-              <div style={{padding:'15px'}}>
-                <h3 style={{color:'#1e40af', margin:'0 0 10px 0'}}>{item.name}</h3>
-                <p style={{fontSize:'0.9rem', color:'#666', marginBottom:'15px'}}>{item.description}</p>
-                <button className={styles.mapBtn} onClick={() => window.open(item.mapUrl, '_blank')}>
-                  View on Map 🏎️
-                </button>
-              </div>
+      {/* 4. Activity Display */}
+      <main className="results-grid">
+        {activities.length > 0 ? (
+          activities.map(act => (
+            <div key={act.id} className="activity-card">
+              <img src={act.image} alt={act.name} />
+              <h3>{act.name}</h3>
+              <p>{act.description}</p>
+              <a href={act.mapUrl} target="_blank" rel="noreferrer">View on Map</a>
             </div>
-          ))}
-        </div>
-      )}
+          ))
+        ) : (
+          <div className="no-results">
+            <p>No {activeCategory} listed yet for {activeCity}.</p>
+          </div>
+        )}
+      </main>
     </div>
   );
 }
+
+export default App;
