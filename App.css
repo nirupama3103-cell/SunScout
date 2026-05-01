@@ -1,68 +1,48 @@
+/* Change the overall background to deep black/charcoal */
 .sunscout-app {
-  background-color: #FFF9E6; /* Cream background from image */
+  background-color: #121212; 
+  color: #e0e0e0;
   min-height: 100vh;
   font-family: 'Segoe UI', sans-serif;
 }
 
+/* Update the header to a dark gradient */
 .hero-banner {
-  background: linear-gradient(to right, #AEEEEE, #E6E6FA, #FFC0CB);
+  background: linear-gradient(135deg, #1f1f1f 0%, #2c3e50 100%);
   padding: 40px 20px;
   text-align: center;
+  border-bottom: 1px solid #333;
 }
 
-.weather-alert-container { display: flex; justify-content: center; margin-bottom: 20px; }
+.hero-banner h1 { color: #ffffff; }
+.subtitle { color: #b0b0b0; }
+
+/* Weather Alert in dark mode */
 .weather-alert {
-  background: white;
-  padding: 10px 25px;
-  border-radius: 30px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-  font-size: 0.9rem;
+  background: #2a2a2a;
+  color: #ffffff;
+  border: 1px solid #444;
 }
 
-.hero-banner h1 { font-size: 2.5rem; color: #444; margin: 10px 0; }
-.subtitle { color: #666; margin-bottom: 30px; }
-
-.county-tabs { display: flex; justify-content: center; gap: 25px; }
+/* Update County Tabs */
 .county-tabs button {
-  background: none; border: none; font-size: 1.1rem; font-weight: 600;
-  color: #888; cursor: pointer; padding-bottom: 5px;
+  color: #777;
 }
-.county-tabs button.active { color: #f43f5e; border-bottom: 3px solid #f43f5e; }
-
-/* Body Content */
-.app-body { max-width: 1200px; margin: 0 auto; padding: 20px; }
-
-.category-navigation {
-  display: flex; justify-content: center; gap: 15px; margin: 30px 0;
-}
-.cat-pill {
-  background: #bdc3c7; color: white; border: none; padding: 8px 20px;
-  border-radius: 20px; cursor: pointer; font-weight: 600;
-}
-.active-cat { background: #95a5a6; color: white; border: none; padding: 8px 20px; border-radius: 20px; font-weight: 600; }
-
-.main-layout { display: flex; gap: 40px; align-items: flex-start; }
-
-.activities-grid { flex: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-
-.card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-.image-placeholder { height: 180px; background-size: cover; background-position: center; }
-.card-content { padding: 15px; text-align: center; }
-.card h3 { margin: 0 0 10px 0; font-size: 1rem; color: #333; }
-
-.view-map-btn {
-  background: #f39c12; color: white; border: none; width: 100%;
-  padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer;
+.county-tabs button.active {
+  color: #ff4757; /* Brighter red for contrast */
+  border-bottom: 3px solid #ff4757;
 }
 
+/* Card Styling for Dark Mode */
+.card {
+  background: #1e1e1e;
+  border: 1px solid #333;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+.card h3 { color: #ffffff; }
+
+/* Sidebar text color update */
 .sidebar-text {
-  flex: 1; color: #eb4d4b; font-size: 1.2rem; line-height: 1.6;
-}
-.tagline { margin-top: 20px; color: #eb4d4b; }
-
-.footer-action { text-align: center; margin-top: 50px; }
-.view-more-main {
-  background: linear-gradient(to right, #ff7979, #70a1ff);
-  color: white; border: none; padding: 15px 60px; border-radius: 30px;
-  font-size: 1.2rem; font-weight: bold; cursor: pointer;
+  color: #ff7979; /* Soft coral for readability on black */
 }
