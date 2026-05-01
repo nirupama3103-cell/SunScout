@@ -52,10 +52,42 @@ export async function fetchActivitiesForCity(city, county) {
   const lat = coords[0];
   const lng = coords[1];
   const [tmRes, libRes, ccRes] = await Promise.allSettled([
-    fetch("/api/eventbrite?lat=" + lat + "&lng=" + lng).then(function(r){ return r.json(); }),
-    fetch("/api/places?query=" + encodeURIComponent("library kids " + city) + "&category=library").then(function(r){ return r.json(); }),
-    fetch("/api/places?query=" + encodeURIComponent("community center kids " + city) + "&category=community").then(function(r){ return r.json(); })
+   import cityDataRaw from './sunscout_all_cities.json'; 
+
+export async function fetchActivitiesForCity(city, county) {
+  // 1. Get curated data for this specific city/county
+  const cityActivities = cityDataRaw[county]?.[city] || [];
+
+  // 2. Fetch extra dynamic data from APIs (Libraries/Community Centers)
+  const [libRes, ccRes] = await Promise.allSettled([
+    fetch("/api/places?query=" + encodeURIComponent("library kids " + city)).then(r => r.json()),
+    fetch("/api/places?query=" + encodeURIComponent("community center " + city)).then(r => r.json())
   ]);
+
+  const apiResults = [];
+  const places = [
+    ...((libRes.status === "fulfilled" && libRes.value.places) || []),
+    ...((ccRes.status === "fulfilled" && ccRes.value.places) || [])
+  ];
+
+  places.forEach((p, i) => {
+    apiResults.push({
+      id: p.id || ("api-" + i),
+      name: p.displayName?.text || p.name || "Local Activity",
+      city: city, // Force current city tag
+      category: "free summer",
+      image: `https://picsum.photos/seed/${p.id || i}/500/300`,
+      mapUrl: "https://www.google.com/maps/search/" + encodeURIComponent((p.name || "") + " " + city),
+      description: p.formattedAddress || "Free local library/community activity."
+    });
+  });
+
+  // 3. Combine curated JSON data + dynamic API data
+  const combined = [...cityActivities, ...apiResults];
+
+  // 4. FINAL STRICTURE: Ensure only items for the selected city are returned
+  return combined.filter(item => item.city === city);
+}
   const results = [];
   const tmEvents = (tmRes.status === "fulfilled" && tmRes.value.events) || [];
   tmEvents.forEach(function(e, i) {

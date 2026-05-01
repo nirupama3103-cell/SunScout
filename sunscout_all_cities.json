@@ -1,0 +1,34 @@
+{
+    "Santa Clara": {
+        "Sunnyvale": [
+            { "name": "Coding & Robotics Camp", "category": "paid", "city": "Sunnyvale", "desc": "Ages 7-14: Elite STEM learning and battle-bots.", "isSponsored": true },
+            { "name": "Library Storytime & Play", "category": "free summer", "city": "Sunnyvale", "desc": "Ages 0-5: Songs and stories for toddlers at Public Library." },
+            { "name": "Ortega Park Egg Hunter", "category": "free summer", "city": "Sunnyvale", "desc": "Ages 2-10: Annual community spring event at the park." },
+            { "name": "YMCA Summer Day Camp", "category": "paid", "city": "Sunnyvale", "desc": "Ages 5-12: Traditional summer camp activities and swimming." }
+        ],
+        "San Jose": [
+            { "name": "Happy Hollow Zoo Camp", "category": "paid", "city": "San Jose", "desc": "Ages 5-13: Animal encounters and conservation." },
+            { "name": "SJ Library Tech Lab", "category": "free summer", "city": "San Jose", "desc": "Ages 8-15: Free coding and robotics labs." }
+        ],
+        "Cupertino": [
+            { "name": "De Anza Youth Academy", "category": "paid", "city": "Cupertino", "desc": "Ages 11-17: Advanced STEM and writing courses." },
+            { "name": "Arts in the Park", "category": "free summer", "city": "Cupertino", "desc": "Ages 4-12: Free community art workshops." }
+        ],
+        "Mountain View": [
+            { "name": "Shoreline Lake Sailing", "category": "paid", "city": "Mountain View", "desc": "Ages 8-16: Learn to sail and kayak." },
+            { "name": "MV Library Reading Program", "category": "free summer", "city": "Mountain View", "desc": "Ages 0-18: Weekly challenges and prizes." }
+        ]
+    },
+    "San Francisco": {
+        "Downtown": [
+            { "name": "Camp SFS Animation", "category": "paid", "city": "Downtown", "desc": "Ages 10-16: Digital film and animation studio.", "isSponsored": true },
+            { "name": "SF Library Teen Center", "category": "free summer", "city": "Downtown", "desc": "Ages 13-18: Free gaming and workshop lounge." }
+        ]
+    },
+    "Alameda": {
+        "Fremont": [
+            { "name": "Aqua Adventure Camp", "category": "paid", "city": "Fremont", "desc": "All ages: Water park and lifeguard training camp." },
+            { "name": "Central Park Kids Fest", "category": "free summer", "city": "Fremont", "desc": "Ages 0-12: Weekly outdoor summer concerts." }
+        ]
+    }
+}

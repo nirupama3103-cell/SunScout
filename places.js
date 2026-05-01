@@ -7,3 +7,4 @@ export async function fetchNearbyPlaces(lat, lon, query, radius = 50000) {
   const data = await response.json();
   return data.places || [];
 }
+
