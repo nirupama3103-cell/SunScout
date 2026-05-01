@@ -1,43 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { REGIONS } from './constants';
+import { activitiesData } from './activities';
+import Header from './Header';
+import Controls from './Controls';
+import Activities from './activities'; // import component
 
-const Activities = ({ city = "Sunnyvale", category = "summer" }) => {
-  // Hardcoded data as a fallback to prevent ReferenceErrors
-  const activitiesData = [
-    { id: 1, name: 'Ortega Park', city: 'Sunnyvale', category: 'summer', mapQuery: 'Ortega Park Sunnyvale' },
-    { id: 2, name: 'Seven Seas Park', city: 'Sunnyvale', category: 'summer', mapQuery: 'Seven Seas Park Sunnyvale' },
-    { id: 3, name: 'Magical Bridge', city: 'Sunnyvale', category: 'summer', mapQuery: 'Magical Bridge Playground Sunnyvale' }
-  ];
-
-  // Defensive filtering: handle undefined city and category
-  const filtered = activitiesData.filter(a => {
-    const targetCity = city || "Sunnyvale";
-    const targetCategory = category || "summer";
-    
-    return a.city === targetCity && (a.category === targetCategory || targetCategory === 'summer');
-  });
+function App() {
+  const [activeRegion, setActiveRegion] = useState('Santa Clara');
+  const [activeCity, setActiveCity] = useState('Sunnyvale');
+  const [activeTab, setActiveTab] = useState('summer');
 
   return (
-    <div className="activities-grid">
-      {filtered.length > 0 ? (
-        filtered.map(act => (
-          <div key={act.id} className="card">
-            <div className="card-content">
-              <h3>{act.name}</h3>
-              <button 
-                className="view-map-btn" 
-                onClick={() => window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(act.mapQuery)}`, '_blank')}
-              >
-                View on Map 🏎️
-              </button>
-            </div>
-          </div>
-        ))
-      ) : (
-        /* The fallback city handles the display if the prop is missing */
-        <p>No activities found for {city || "Sunnyvale"}.</p>
-      )}
+    <div className="sunscout-app">
+      <Header cityName={activeCity} />
+      
+      <Controls 
+        activeRegion={activeRegion} 
+        setActiveRegion={(r) => {
+          setActiveRegion(r);
+          // Auto-select the first city of the new region to avoid "No activities found"
+          const firstCity = Object.values(REGIONS).find(reg => reg.name === r)?.cities[0];
+          setActiveCity(firstCity || '');
+        }}
+        activeCity={activeCity}
+        setActiveCity={setActiveCity}
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+      />
+
+      <Activities city={activeCity} category={activeTab} />
     </div>
   );
-};
-
-export default Activities;
+}

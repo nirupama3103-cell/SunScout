@@ -1,31 +1,18 @@
-import React from 'react';
+// activities.jsx
+export const activitiesData = [
+  // SANTA CLARA (SC)
+  { id: 1, name: 'Ortega Park', city: 'Sunnyvale', category: 'summer', mapQuery: 'Ortega Park Sunnyvale' },
+  { id: 2, name: 'Seven Seas Park', city: 'Sunnyvale', category: 'summer', mapQuery: 'Seven Seas Park Sunnyvale' },
+  { id: 3, name: 'Children’s Discovery Museum', city: 'San Jose', category: 'indoor', mapQuery: 'Children’s Discovery Museum San Jose' },
+  
+  // SAN MATEO (SM)
+  { id: 4, name: 'CuriOdyssey', city: 'San Mateo', category: 'indoor', mapQuery: 'CuriOdyssey San Mateo' },
+  { id: 5, name: 'Magical Bridge Redwood City', city: 'Redwood City', category: 'summer', mapQuery: 'Magical Bridge Redwood City' },
 
-// IMPORTANT: If activitiesData is in a separate file, import it here:
-// import { activitiesData } from './activitiesDataFile'; 
+  // ALAMEDA
+  { id: 6, name: 'Lawrence Hall of Science', city: 'Berkeley', category: 'indoor', mapQuery: 'Lawrence Hall of Science Berkeley' },
+  { id: 7, name: 'Fremont Central Park', city: 'Fremont', category: 'summer', mapQuery: 'Fremont Central Park' },
 
-const Activities = ({ city, category }) => {
-  // If the data is not imported, we define a fallback or mock it here 
-  // to prevent the ReferenceError while you link your real data source.
-  const activitiesData = [
-    { id: 1, name: 'Ortega Park', city: 'Sunnyvale', category: 'summer', mapQuery: 'Ortega Park Sunnyvale' },
-    { id: 2, name: 'Seven Seas Park', city: 'Sunnyvale', category: 'summer', mapQuery: 'Seven Seas Park Sunnyvale' },
-    // ... add more or import them
-  ];
-
-  const filtered = activitiesData.filter(a => a.city === city && a.category === category);
-
-  return (
-    <div className="activities-grid">
-      {filtered.length > 0 ? filtered.map(act => (
-        <div key={act.id} className="card">
-          <h3>{act.name}</h3>
-          <button className="view-map-btn">View on Map 🏎️</button>
-        </div>
-      )) : (
-        <p>No activities found for this selection.</p>
-      )}
-    </div>
-  );
-};
-
-export default Activities;
+  // SAN FRANCISCO (SF)
+  { id: 8, name: 'California Academy of Sciences', city: 'San Francisco', category: 'indoor', mapQuery: 'California Academy of Sciences' }
+];
