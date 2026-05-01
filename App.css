@@ -1,48 +1,24 @@
-/* Change the overall background to deep black/charcoal */
-.sunscout-app {
-  background-color: #121212; 
-  color: #e0e0e0;
-  min-height: 100vh;
-  font-family: 'Segoe UI', sans-serif;
-}
-
-/* Update the header to a dark gradient */
-.hero-banner {
-  background: linear-gradient(135deg, #1f1f1f 0%, #2c3e50 100%);
-  padding: 40px 20px;
-  text-align: center;
-  border-bottom: 1px solid #333;
-}
-
-.hero-banner h1 { color: #ffffff; }
-.subtitle { color: #b0b0b0; }
-
-/* Weather Alert in dark mode */
-.weather-alert {
-  background: #2a2a2a;
-  color: #ffffff;
-  border: 1px solid #444;
-}
-
-/* Update County Tabs */
-.county-tabs button {
-  color: #777;
-}
-.county-tabs button.active {
-  color: #ff4757; /* Brighter red for contrast */
-  border-bottom: 3px solid #ff4757;
-}
-
-/* Card Styling for Dark Mode */
 .card {
-  background: #1e1e1e;
-  border: 1px solid #333;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  margin-bottom: 15px;
+}.card {
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  margin-bottom: 15px;
+  border: 1px solid #eee;
 }
 
-.card h3 { color: #ffffff; }
-
-/* Sidebar text color update */
-.sidebar-text {
-  color: #ff7979; /* Soft coral for readability on black */
+.view-map-btn {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
 }
