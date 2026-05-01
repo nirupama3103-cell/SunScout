@@ -4,17 +4,20 @@ export default async function handler(req, res) {
   const token = process.env.TICKETMASTER_API_KEY;
   if (!token) return res.status(500).json({ error: "Missing TICKETMASTER_API_KEY" });
   const base = "https://app.ticketmaster.com/discovery/v2/events.json";
-  const common = "&latlong=" + lat + "," + lng + "&radius=15&unit=miles&sort=date,asc&apikey=" + token;
+  const loc = "&latlong=" + lat + "," + lng + "&radius=25&unit=miles&sort=date,asc&apikey=" + token;
   try {
-    const [r1, r2, r3] = await Promise.all([
-      fetch(base + "?classificationName=family&size=50" + common).then(r => r.json()),
-      fetch(base + "?keyword=kids&size=20" + common).then(r => r.json()),
-      fetch(base + "?keyword=camp&size=20" + common).then(r => r.json()),
+    const fetches = await Promise.allSettled([
+      fetch(base + "?classificationName=family&size=50" + loc).then(r => r.json()),
+      fetch(base + "?keyword=kids&size=20" + loc).then(r => r.json()),
+      fetch(base + "?keyword=summer+camp&size=20" + loc).then(r => r.json()),
+      fetch(base + "?keyword=children&size=20" + loc).then(r => r.json()),
+      fetch(base + "?keyword=toddler&size=20" + loc).then(r => r.json()),
     ]);
     const seen = {};
     const events = [];
-    [r1, r2, r3].forEach(data => {
-      ((data._embedded && data._embedded.events) || []).forEach(e => {
+    fetches.forEach(result => {
+      if (result.status !== "fulfilled") return;
+      ((result.value._embedded && result.value._embedded.events) || []).forEach(e => {
         if (seen[e.id]) return;
         seen[e.id] = true;
         const dateStr = e.dates && e.dates.start && e.dates.start.localDate;
