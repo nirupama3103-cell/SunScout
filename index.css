@@ -1,38 +1,45 @@
-/* Matching the 'Mage' UI look */
 .app-container {
-  background-color: #FFF9E6; /* Light cream background */
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #FFF9E6; /* Same to same cream background */
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
 }
 
-header {
-  background: linear-gradient(90deg, #A7F3D0, #C4B5FD, #FBCFE8); /* Sparkle gradient */
-  padding: 40px;
+.hero-header {
+  background: linear-gradient(90deg, #A7F3D0, #C4B5FD, #FBCFE8);
+  padding: 60px 20px;
   text-align: center;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
-}
-
-.activity-card {
-  background: white;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-
-.view-on-map-btn {
-  background: #F59E0B; /* Orange button from image */
-  color: white;
-  border: none;
-  padding: 10px;
-  width: 100%;
-  font-weight: bold;
+  border-radius: 0 0 40px 40px;
+  position: relative;
 }
 
 .weather-widget {
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 15px;
-  padding: 10px;
-  position: absolute;
-  right: 20px;
-  top: 20px;
+  position: absolute; top: 20px; right: 40px;
+  background: white; padding: 10px 20px; border-radius: 20px;
+  display: flex; gap: 10px; align-items: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.main-content-wrapper {
+  display: grid; grid-template-columns: 2fr 1fr; /* Cards left, Text right */
+  gap: 40px; max-width: 1200px; margin: 40px auto; padding: 0 20px;
+}
+
+.results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+.activity-card {
+  background: white; border-radius: 15px; overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.view-map-button {
+  background: #F59E0B; color: white; border: none; /* Orange button */
+  width: 100%; padding: 12px; font-weight: bold; cursor: pointer;
+}
+
+.promo-text { color: #D946EF; font-size: 1.4rem; line-height: 1.6; }
+
+.view-more-gradient-btn {
+  background: linear-gradient(90deg, #F472B6, #38BDF8);
+  color: white; padding: 15px 60px; border-radius: 50px;
+  border: none; font-weight: bold; cursor: pointer;
 }
