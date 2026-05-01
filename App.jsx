@@ -81,14 +81,14 @@ export default function App() {
           {/* Right tagline panel */}
           <div style={{ position: 'sticky', top: '24px' }}>
             <div style={{ background: '#fff', borderRadius: '24px', padding: '32px 28px', boxShadow: '0 4px 20px rgba(0,0,0,0.07)' }}>
-              <div style={{ fontSize: '52px', marginBottom: '16px', lineHeight: 1 }}>{tagline.emoji}</div>
-              <p style={{
-                fontSize: '17px', fontWeight: '800', lineHeight: 1.6,
-                color: '#374151',
-                marginBottom: '20px',
-              }}>{tagline.text}</p>
-              <p style={{ fontSize: '20px', fontWeight: '800', color: activeColor }}>Let's go exploring!</p>
-              {loading && <p style={{ marginTop: '12px', fontSize: '13px', color: '#94a3b8' }}>⏳ Loading live spots near {activeCity}…</p>}
+              <div style={{ fontSize: '48px', marginBottom: '14px' }}>{tagline.emoji}</div>
+              <p style={{ fontSize: '17px', fontWeight: '800', color: '#374151', lineHeight: 1.6, marginBottom: '20px' }}>
+                {tagline.text}
+              </p>
+              <p style={{ fontSize: '20px', fontWeight: '900', color: activeColor }}>
+                Let's go exploring!
+              </p>
+              {loading && <p style={{ marginTop: '12px', fontSize: '13px', color: '#94a3b8' }}>⏳ Loading near {activeCity}…</p>}
             </div>
           </div>
         </div>
