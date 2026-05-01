@@ -36,7 +36,7 @@ const generateStatic = () => {
         all.push({
           id: city + "-" + i,
           name: city + " " + ["Community","YMCA","Library","Park","Eventbrite"][i] + " Activity",
-          city: city, county: county, category: CATS[i % 4],
+          city: city, county: county, category: ["indoor","weekend","free summer","paid"][i % 4],
           image: IMAGES[i],
           mapUrl: "https://www.google.com/maps/search/" + city + "+Activity",
           description: "Top-rated activity for kids age 0-teens."
@@ -61,7 +61,7 @@ export async function fetchActivitiesForCity(city, county) {
   tmEvents.forEach(function(e, i) {
     results.push({
       id: e.id, name: e.title, city: city, county: county,
-      category: e.isFree ? "Free Summer" : "Paid Camps",
+      category: e.isFree ? "free summer" : "paid",
       image: IMAGES[i % IMAGES.length],
       mapUrl: e.url || "https://www.google.com/maps/search/" + encodeURIComponent(e.title),
       description: [e.venue, e.start, e.minPrice > 0 ? "$" + e.minPrice : "Free"].filter(Boolean).join(" - ")
@@ -75,7 +75,7 @@ export async function fetchActivitiesForCity(city, county) {
     const name = (p.displayName && p.displayName.text) || p.name || p.title || "Local Activity";
     results.push({
       id: p.id || p.placeId || ("p-" + i), name: name,
-      city: city, county: county, category: "Free Summer",
+      city: city, county: county, category: "free summer",
       image: IMAGES[i % IMAGES.length],
       mapUrl: "https://www.google.com/maps/search/" + encodeURIComponent(name + " " + city),
       description: p.formattedAddress || p.address || "Free local activity for kids"
