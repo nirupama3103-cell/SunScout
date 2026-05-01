@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { fetchActivitiesForCity, CITIES_BY_COUNTY } from './activities';
-import './App.css';
+import './index.css';
 
 function App() {
   const [activeCounty, setActiveCounty] = useState("Santa Clara");
