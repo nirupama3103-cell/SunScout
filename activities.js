@@ -60,9 +60,35 @@ export async function fetchActivitiesForCity(city, county) {
 
   // 2. Fetch extra dynamic data from APIs (Libraries/Community Centers)
   const [libRes, ccRes] = await Promise.allSettled([
-    fetch("/api/places?query=" + encodeURIComponent("library kids " + city)).then(r => r.json()),
-    fetch("/api/places?query=" + encodeURIComponent("community center " + city)).then(r => r.json())
-  ]);
+   export async function fetchActivitiesForCity(city, county) {
+  const cityData = cityDataRaw[county]?.[city] || [];
+  
+  // If we have NO data for this city in our JSON, pull local highlights instead
+  if (cityData.length === 0) {
+    return [
+      {
+        id: `${city}-park`,
+        name: `${city} Regional Park & Trails`,
+        city: city,
+        category: "free summer",
+        image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=500",
+        mapUrl: `https://www.google.com/maps/search/${city}+parks+hiking`,
+        description: "Explore local hiking trails and nature spots nearby."
+      },
+      {
+        id: `${city}-indoor`,
+        name: "Local Library & Indoor Play",
+        city: city,
+        category: "indoor",
+        image: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=500",
+        mapUrl: `https://www.google.com/maps/search/${city}+public+library`,
+        description: "Perfect for a hot day—check out local library events and indoor zones."
+      }
+    ];
+  }
+
+  return cityData;
+}
 
   const apiResults = [];
   const places = [
