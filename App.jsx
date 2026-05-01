@@ -83,9 +83,8 @@ export default function App() {
             <div style={{ background: '#fff', borderRadius: '24px', padding: '32px 28px', boxShadow: '0 4px 20px rgba(0,0,0,0.07)' }}>
               <div style={{ fontSize: '52px', marginBottom: '16px', lineHeight: 1 }}>{tagline.emoji}</div>
               <p style={{
-                fontSize: '22px', fontWeight: '800', lineHeight: 1.55,
-                background: `linear-gradient(135deg, ${activeColor}, #f97316, #ec4899)`,
-                WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+                fontSize: '17px', fontWeight: '800', lineHeight: 1.6,
+                color: '#374151',
                 marginBottom: '20px',
               }}>{tagline.text}</p>
               <p style={{ fontSize: '20px', fontWeight: '800', color: activeColor }}>Let's go exploring!</p>
