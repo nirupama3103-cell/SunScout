@@ -13,7 +13,11 @@ export default function App() {
 useEffect(() => {
   fetchActivitiesForCity(city, county).then(setLiveActivities);
 }, [city, county]);
-const filtered = liveActivities.filter(a => a.city === city && a.category === cat);
+const filtered = liveActivities.filter(a => {
+  if (cat === 'indoor') return a.city === city;
+  if (cat === 'weekend') return a.city === city;
+  return a.city === city && a.category === cat;
+});
 
   return (
     <div className={styles.app}>
