@@ -1,58 +1,141 @@
-.app {
+/* General App Container */
+.app-container {
   min-height: 100vh;
-  background: radial-gradient(circle at top, #ff71cd 0%, #2d0b5a 40%, #00d2ff 100%);
-  background-attachment: fixed;
-  color: white;
+  background-color: #FFF9E6; /* Light cream background from image */
+  color: #333;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Header & Weather Widget */
+.hero-header {
+  background: linear-gradient(90deg, #A7F3D0, #C4B5FD, #FBCFE8); /* Sparkle gradient */
+  padding: 60px 40px;
+  text-align: center;
+  position: relative;
+  border-radius: 0 0 40px 40px;
+  color: white;
+}
+
+.weather-widget {
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  background: white;
+  padding: 12px 20px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #4B5563;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.weather-icon { font-size: 1.5rem; }
+.weather-info { text-align: left; font-size: 0.85rem; display: flex; flex-direction: column; }
+
+/* Category Navigation (Gray/Colored Pills) */
+.category-pill-nav {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: -25px; /* Pulls pills up slightly into the header area */
+  padding-bottom: 40px;
+}
+
+.category-pill-nav button {
+  background: #E5E7EB; /* Light gray pill */
+  border: none;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #6B7280;
+  transition: 0.3s;
+}
+
+.active-pill {
+  background: #F472B6 !important; /* Pink active state as seen in image */
+  color: white !important;
+}
+
+/* Two-Column Main Layout */
+.main-content-wrapper {
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* Cards get 2/3, Text gets 1/3 */
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 20px;
 }
 
-/* Uniform Oval Shape for ALL Tabs */
-.tabBase {
-  width: 160px;
-  height: 45px;
-  border-radius: 50px; /* Perfect Oval */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid transparent;
-  cursor: pointer;
-  font-weight: bold;
-  transition: all 0.3s ease;
-  font-size: 0.9rem;
-}
-
-.grid {
+/* Results Grid */
+.results-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 columns for 8-card grid */
+  grid-template-columns: repeat(2, 1fr); /* 2 columns of cards */
   gap: 20px;
-  max-width: 1200px;
-  margin: 40px auto;
 }
 
-/* Card Styling from STEM Camp Reference */
-.card {
+.activity-card {
   background: white;
-  border-radius: 12px;
+  border-radius: 15px;
   overflow: hidden;
-  color: #333;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
 
-.mapBtn {
-  background: #ff4757;
+.card-image-container img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-info { padding: 15px; }
+.card-info h3 { margin: 0 0 10px 0; font-size: 1.1rem; }
+
+/* The Orange Button from the image */
+.view-map-button {
+  background: #F59E0B;
   color: white;
+  border: none;
   width: 100%;
   padding: 12px;
-  border: none;
+  border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
 }
 
-@media (max-width: 1024px) {
-  .grid { grid-template-columns: repeat(2, 1fr); }
+/* Poetic Text Column */
+.promo-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #D946EF; /* Matching the pink text color */
+}
+
+.promo-text {
+  font-size: 1.4rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.promo-footer {
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+/* Bottom Gradient Button */
+.view-more-container {
+  text-align: center;
+  padding: 60px 0;
+}
+
+.view-more-gradient-btn {
+  background: linear-gradient(90deg, #F472B6, #38BDF8);
+  color: white;
+  padding: 15px 60px;
+  border-radius: 50px;
+  border: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  cursor: pointer;
 }
