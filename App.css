@@ -4,6 +4,7 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Header & Weather Logic */
 .hero-banner {
   background: linear-gradient(135deg, #AEEEEE 0%, #E6E6FA 50%, #FFC0CB 100%);
   padding: 50px 20px;
@@ -12,45 +13,74 @@
   color: #444;
 }
 
-.weather-widget {
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  background: white;
-  padding: 8px 15px;
-  border-radius: 20px;
+.weather-alert {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 10px 20px;
+  border-radius: 15px;
+  display: inline-block;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  font-weight: bold;
   font-size: 0.9rem;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.navigation-section {
+/* County Tabs (Top Row) */
+.tabs {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 20px;
-  align-items: center;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 25px;
 }
 
-.nav-row { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
-
-.counties button {
-  background: none; border: none; font-weight: bold; cursor: pointer; padding: 5px 10px;
+.tabs button {
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: 600;
   color: #888;
+  cursor: pointer;
+  padding: 5px 0;
+  transition: all 0.2s;
 }
 
-.active-tab { color: #f43f5e !important; border-bottom: 2px solid #f43f5e; }
+.tabs button.active {
+  color: #f43f5e;
+  border-bottom: 2px solid #f43f5e;
+}
+
+/* City & Category Navigation (Pill Rows) */
+.city-navigation, .category-navigation {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  padding: 15px 20px;
+  flex-wrap: wrap;
+}
 
 .pill {
-  background: #E5E7EB; border: none; padding: 8px 16px; border-radius: 20px;
-  font-weight: 600; cursor: pointer; color: #4B5563;
+  background: #E5E7EB;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #4B5563;
+  transition: transform 0.1s;
 }
 
 .active-pill {
-  background: #3B82F6; color: white; border: none; padding: 8px 16px; border-radius: 20px;
+  background: #3B82F6;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 20px;
   font-weight: 600;
 }
 
-.main-layout {
+.pill:hover { transform: translateY(-1px); }
+
+/* Main Content Area */
+.content-container {
   display: flex;
   max-width: 1200px;
   margin: 0 auto;
@@ -58,36 +88,56 @@
   gap: 30px;
 }
 
-.activities-grid { flex: 2; display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
-
-.activity-card {
-  background: white; border-radius: 15px; overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+.grid {
+  flex: 2;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
 }
 
-.activity-card img { width: 100%; height: 160px; object-fit: cover; }
-
-.card-info { padding: 15px; }
-
-.view-map-btn {
-  background: #F59E0B; color: white; border: none; width: 100%;
-  padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px;
+/* Activity Cards */
+.card {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
-.description-sidebar {
-  flex: 1; color: #EC4899; font-size: 1.1rem; line-height: 1.6; font-style: italic;
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
 }
 
-.sidebar-footer { font-weight: bold; font-size: 1.3rem; margin-top: 15px; }
+.card h3 { padding: 15px 15px 5px; margin: 0; color: #1F2937; }
+.card p { padding: 0 15px 15px; margin: 0; color: #6B7280; font-size: 0.95rem; }
 
-.fallback-card {
-  grid-column: 1 / -1; background: white; padding: 40px; border-radius: 15px; text-align: center;
+.map-btn {
+  background: #F59E0B;
+  color: white;
+  border: none;
+  width: calc(100% - 30px);
+  margin: 0 15px 15px;
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-.view-more-container { text-align: center; padding: 40px; }
+/* Sidebar & Empty State */
+.quote-sidebar {
+  flex: 1;
+  color: #EC4899;
+  font-size: 1.2rem;
+  line-height: 1.7;
+  font-style: italic;
+  padding-top: 10px;
+}
 
-.view-more-btn {
-  background: linear-gradient(to right, #F472B6, #3B82F6);
-  color: white; border: none; padding: 12px 40px; border-radius: 25px;
-  font-weight: bold; cursor: pointer; font-size: 1.1rem;
+.fallback {
+  grid-column: 1 / -1;
+  background: white;
+  padding: 50px;
+  border-radius: 15px;
+  text-align: center;
 }
