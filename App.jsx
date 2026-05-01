@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ACTIVITIES, CITIES_BY_COUNTY } from './activities';
+import { ACTIVITIES, CITIES_BY_COUNTY, fetchActivitiesForCity } from './activities';
 import styles from './App.module.css';
 
 export default function App() {
@@ -9,7 +9,11 @@ export default function App() {
 
   useEffect(() => { setCity(CITIES_BY_COUNTY[county][0]); }, [county]);
 
-  const filtered = ACTIVITIES.filter(a => a.county === county && a.city === city && a.category === cat);
+ const [liveActivities, setLiveActivities] = useState(ACTIVITIES);
+useEffect(() => {
+  fetchActivitiesForCity(city, county).then(setLiveActivities);
+}, [city, county]);
+const filtered = liveActivities.filter(a => a.city === city && a.category === cat);
 
   return (
     <div className={styles.app}>
