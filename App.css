@@ -1,34 +1,55 @@
-.app-container {
+.sunscout-app {
   min-height: 100vh;
-  background-color: #FFF9E6;
+  background: radial-gradient(circle at center, #5b21b6, #1e1b4b);
+  color: white;
   font-family: sans-serif;
-}
-.hero-header {
-  background: linear-gradient(90deg, #A7F3D0, #C4B5FD, #FBCFE8);
-  padding: 40px;
+  padding: 20px;
   text-align: center;
+}
+
+.nav-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+/* Row 1 County Styling */
+.counties button {
+  background: none;
+  border: none;
+  color: #cbd5e1;
+  font-weight: bold;
+  padding: 10px;
+  cursor: pointer;
+}
+.active-county {
+  color: #f43f5e !important;
+  border-bottom: 3px solid #f43f5e !important;
+}
+
+/* Row 2 & 3 Pill Styling */
+.city-pill, .cat-pill {
+  background: white;
+  color: #333;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  min-width: 120px;
+}
+
+.active-pill.city-pill {
+  background: #3b82f6;
   color: white;
 }
-.main-content-wrapper {
-  display: flex !important;
-  gap: 20px;
-  padding: 40px;
+
+.results-container {
+  margin-top: 100px;
+  opacity: 0.8;
 }
-.results-grid {
-  display: grid !important;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  flex: 2;
-}
-.activity-card {
-  background: white;
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-.activity-card img { width: 100%; height: 150px; object-fit: cover; }
-.card-info { padding: 15px; }
-.view-map-button { background: #F59E0B; color: white; border: none; padding: 10px; width: 100%; border-radius: 5px; }
-.promo-column { flex: 1; color: #D946EF; font-size: 1.2rem; }
-.active-pill { background: #F472B6 !important; color: white !important; }
-.category-pill-nav button { border-radius: 20px; padding: 8px 15px; margin: 5px; border: 1px solid #ccc; cursor: pointer; }
+
+.status-message h2 { margin-top: 20px; font-size: 1.5rem; }
+.status-message p { color: #94a3b8; max-width: 400px; margin: 10px auto; }

@@ -1,50 +1,85 @@
 import React, { useState } from 'react';
 import './App.css';
 
-const activitiesData = [
-  { id: 1, name: "Ortega Park", category: "summer free fun", image: "https://images.unsplash.com/photo-1519331379826-f10be5486c6f?w=400" },
-  { id: 2, name: "Seven Seas Park", category: "summer free fun", image: "https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=400" },
-  { id: 3, name: "Sunnyvale Baylands Park", category: "summer free fun", image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400" },
-  { id: 4, name: "Magical Bridge Playground", category: "summer free fun", image: "https://images.unsplash.com/photo-1533227268428-f9ed0900fb3b?w=400" }
+const geoData = {
+  "Santa Clara": ["Sunnyvale", "Santa Clara", "San Jose", "Cupertino"],
+  "Alameda": ["Fremont", "Hayward", "Oakland", "Berkeley"],
+  "San Mateo": ["San Mateo", "Redwood City", "Menlo Park"],
+  "San Francisco": ["San Francisco"],
+  "San Joaquin": ["Stockton", "Lodi", "Tracy", "Manteca"]
+};
+
+const activityCategories = [
+  { label: "Indoor", icon: "🏢", color: "#3B82F6" },
+  { label: "Weekend", icon: "📅", color: "#10B981" },
+  { label: "Free Summer", icon: "☀️", color: "#D97706" },
+  { label: "Paid Camps", icon: "🛍️", color: "#DB2777" }
 ];
 
 function App() {
-  const [activeCategory, setActiveCategory] = useState('summer free fun');
+  const [selectedCounty, setSelectedCounty] = useState("San Joaquin");
+  const [selectedCity, setSelectedCity] = useState("Manteca");
+  const [selectedCategory, setSelectedCategory] = useState("Free Summer");
+
   return (
-    <div className="app-container">
-      <header className="hero-header">
-        <h1>Your Adventure, Simplified.</h1>
-        <p>SunScout finds the best free spots in seconds.</p>
+    <div className="sunscout-app">
+      <header className="main-header">
+        <h1>SunScout STEM Camps</h1>
       </header>
-      <nav className="category-pill-nav">
-        {["Indoor Activities", "Weekend Activities", "Summer Free Fun", "Paid Activities"].map(cat => (
+
+      {/* Row 1: Counties */}
+      <nav className="nav-row counties">
+        {Object.keys(geoData).map(county => (
           <button 
-            key={cat} 
-            className={activeCategory === cat.toLowerCase() ? 'active-pill' : ''}
-            onClick={() => setActiveCategory(cat.toLowerCase())}
+            key={county}
+            className={selectedCounty === county ? "active-county" : ""}
+            onClick={() => {
+              setSelectedCounty(county);
+              setSelectedCity(geoData[county][0]);
+            }}
           >
-            ● {cat}
+            {county}
           </button>
         ))}
       </nav>
-      <div className="main-content-wrapper">
-        <div className="results-grid">
-          {activitiesData.map(activity => (
-            <div key={activity.id} className="activity-card">
-              <img src={activity.image} alt={activity.name} />
-              <div className="card-info">
-                <h3>{activity.name}</h3>
-                <button className="view-map-button">View on Map 🏎️</button>
-              </div>
-            </div>
-          ))}
+
+      {/* Row 2: Cities */}
+      <nav className="nav-row cities">
+        {geoData[selectedCounty].map(city => (
+          <button 
+            key={city}
+            className={selectedCity === city ? "active-pill city-pill" : "city-pill"}
+            onClick={() => setSelectedCity(city)}
+          >
+            {city}
+          </button>
+        ))}
+      </nav>
+
+      {/* Row 3: Categories (Rainbow Mode) */}
+      <nav className="nav-row categories">
+        {activityCategories.map(cat => (
+          <button 
+            key={cat.label}
+            className={selectedCategory === cat.label ? "active-pill cat-pill" : "cat-pill"}
+            style={{ backgroundColor: selectedCategory === cat.label ? cat.color : "" }}
+            onClick={() => setSelectedCategory(cat.label)}
+          >
+            {cat.icon} {cat.label}
+          </button>
+        ))}
+      </nav>
+
+      {/* Content Area */}
+      <main className="results-container">
+        <div className="status-message">
+          <img src="https://cdn-icons-png.flaticon.com/512/3306/3306613.png" alt="books" width="60" />
+          <h2>No {selectedCategory.toLowerCase()} programs listed yet for {selectedCity}</h2>
+          <p>Check your local library — most cities offer free summer reading, STEM events, and storytimes.</p>
         </div>
-        <aside className="promo-column">
-          <p>From the tallest slides to the quietest library corners, SunScout is here to help.</p>
-          <strong>Let's go exploring!</strong>
-        </aside>
-      </div>
+      </main>
     </div>
   );
 }
+
 export default App;
