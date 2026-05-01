@@ -1,5 +1,8 @@
 import cityDataRaw from './sunscout_all_cities.json';
 
+// 1. Export ACTIVITIES here at the top level for App.jsx
+export const ACTIVITIES = [];
+
 export const CITIES_BY_COUNTY = {
   "Santa Clara": ["Sunnyvale", "San Jose", "Cupertino", "Saratoga", "Mountain View", "Palo Alto"],
   "Alameda": ["Oakland", "Berkeley", "Fremont", "Hayward", "Pleasanton"],
@@ -24,19 +27,11 @@ const CITY_COORDS = {
   "Manteca":[37.7974,-121.2161]
 };
 
-const IMAGES = [
-  "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=500",
-  "https://picsum.photos/seed/act2/500/300",
-  "https://picsum.photos/seed/act3/500/300",
-  "https://picsum.photos/seed/act4/500/300",
-  "https://picsum.photos/seed/act5/500/300"
-];
-
 export async function fetchActivitiesForCity(city, county) {
   // 1. Get curated data from JSON
   let cityActivities = cityDataRaw[county]?.[city] || [];
 
-  // 2. Fetch extra dynamic data from APIs
+  // 2. Fetch extra dynamic data from APIs (Restored Logic)
   const [libRes, ccRes] = await Promise.allSettled([
     fetch("/api/places?query=" + encodeURIComponent("library kids " + city)).then(r => r.json()),
     fetch("/api/places?query=" + encodeURIComponent("community center " + city)).then(r => r.json())
