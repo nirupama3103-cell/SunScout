@@ -1,0 +1,34 @@
+.app-container {
+  min-height: 100vh;
+  background-color: #FFF9E6;
+  font-family: sans-serif;
+}
+.hero-header {
+  background: linear-gradient(90deg, #A7F3D0, #C4B5FD, #FBCFE8);
+  padding: 40px;
+  text-align: center;
+  color: white;
+}
+.main-content-wrapper {
+  display: flex !important;
+  gap: 20px;
+  padding: 40px;
+}
+.results-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  flex: 2;
+}
+.activity-card {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+.activity-card img { width: 100%; height: 150px; object-fit: cover; }
+.card-info { padding: 15px; }
+.view-map-button { background: #F59E0B; color: white; border: none; padding: 10px; width: 100%; border-radius: 5px; }
+.promo-column { flex: 1; color: #D946EF; font-size: 1.2rem; }
+.active-pill { background: #F472B6 !important; color: white !important; }
+.category-pill-nav button { border-radius: 20px; padding: 8px 15px; margin: 5px; border: 1px solid #ccc; cursor: pointer; }
