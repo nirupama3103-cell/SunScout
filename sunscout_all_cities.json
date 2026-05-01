@@ -1,7 +1,7 @@
 {
     "Santa Clara": {
         "Sunnyvale": [
-            { "name": "Coding & Robotics Camp", "category": "paid", "city": "Sunnyvale", "desc": "Ages 7-14: Elite STEM learning and battle-bots.", "isSponsored": true },
+            { "name": "Coding & Robotics Camp", "category": "paid", "city": "Sunnyvale", "desc": "Ages 7-14: Elite STEM learning and battle-bots." },
             { "name": "Library Storytime & Play", "category": "free summer", "city": "Sunnyvale", "desc": "Ages 0-5: Songs and stories for toddlers at Public Library." },
             { "name": "Ortega Park Egg Hunter", "category": "free summer", "city": "Sunnyvale", "desc": "Ages 2-10: Annual community spring event at the park." },
             { "name": "YMCA Summer Day Camp", "category": "paid", "city": "Sunnyvale", "desc": "Ages 5-12: Traditional summer camp activities and swimming." }
@@ -21,7 +21,7 @@
     },
     "San Francisco": {
         "Downtown": [
-            { "name": "Camp SFS Animation", "category": "paid", "city": "Downtown", "desc": "Ages 10-16: Digital film and animation studio.", "isSponsored": true },
+            { "name": "Camp SFS Animation", "category": "paid", "city": "Downtown", "desc": "Ages 10-16: Digital film and animation studio." },
             { "name": "SF Library Teen Center", "category": "free summer", "city": "Downtown", "desc": "Ages 13-18: Free gaming and workshop lounge." }
         ]
     },
