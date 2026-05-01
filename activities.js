@@ -21,11 +21,11 @@ const CITY_COORDS = {
   "Manteca":[37.7974,-121.2161]
 };
 const IMAGES = [
-  "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=500&q=80",
-  "https://images.unsplash.com/photo-1571902258032-65a988355675?w=500&q=80",
-  "https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=500&q=80",
-  "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=500&q=80",
-  "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=500&q=80"
+  "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=500",
+  "https://picsum.photos/seed/act2/500/300",
+  "https://picsum.photos/seed/act3/500/300",
+  "https://picsum.photos/seed/act4/500/300",
+  "https://picsum.photos/seed/act5/500/300"
 ];
 const CATS = ["Indoor", "Weekend", "Free Summer", "Paid Camps"];
 const generateStatic = () => {
