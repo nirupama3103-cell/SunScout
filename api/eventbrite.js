@@ -1,24 +1,23 @@
 export default async function handler(req, res) {
   const lat = req.query.lat || "37.3688";
   const lng = req.query.lng || "-122.0363";
-  const token = process.env.EVENTBRITE_API_KEY;
-  if (!token) return res.status(500).json({ error: "Missing EVENTBRITE_API_KEY" });
+  const token = process.env.TICKETMASTER_API_KEY;
+  if (!token) return res.status(500).json({ error: "Missing TICKETMASTER_API_KEY" });
   const url =
-    "https://www.eventbriteapi.com/v3/events/search/?token=" + token +
-    "&location.latitude=" + lat +
-    "&location.longitude=" + lng +
-    "&location.within=10mi&expand=venue,ticket_classes&page_size=50";
+    "https://app.ticketmaster.com/discovery/v2/events.json?apikey=" + token +
+    "&latlong=" + lat + "," + lng +
+    "&radius=10&unit=miles&classificationName=family&size=50&sort=date,asc";
   try {
     const r = await fetch(url);
     const data = await r.json();
-    if (data.error) return res.status(400).json({ raw: data });
-    const outdoorWords = ["outdoor","trail","garden","beach","lake"];
-    const events = (data.events || []).map(function(e) {
-      const dow = new Date(e.start && e.start.local).getDay();
-      const tc = e.ticket_classes;
-      const minCost = (tc && tc[0] && tc[0].cost && tc[0].cost.major_value) || 0;
-      const text = ((e.name && e.name.text) || "") + " " + ((e.description && e.description.text) || "");
-      const tl = text.toLowerCase();
+    const rawEvents = (data._embedded && data._embedded.events) || [];
+    const events = rawEvents.map(function(e) {
+      const dateStr = e.dates && e.dates.start && e.dates.start.localDate;
+      const dow = dateStr ? new Date(dateStr).getDay() : -1;
+      const venue = e._embedded && e._embedded.venues && e._embedded.venues[0];
+      const price = e.priceRanges && e.priceRanges[0];
+      const minCost = (price && price.min) || 0;
+      const tl = (e.name || "").toLowerCase();
       const tags = [];
       if (/stem|science|robot|coding|tech/.test(tl)) tags.push("stem");
       if (/art|craft|draw|paint/.test(tl)) tags.push("art");
@@ -27,18 +26,18 @@ export default async function handler(req, res) {
       if (/teen/.test(tl)) tags.push("teen");
       if (/camp/.test(tl)) tags.push("camp");
       return {
-        id: "eb-" + e.id,
-        source: "eventbrite",
-        title: (e.name && e.name.text) || "Untitled",
+        id: "tm-" + e.id,
+        source: "ticketmaster",
+        title: e.name || "Untitled",
         url: e.url,
-        start: e.start && e.start.local,
-        venue: (e.venue && e.venue.name) || null,
-        address: (e.venue && e.venue.address && e.venue.address.localized_address_display) || null,
-        lat: parseFloat((e.venue && e.venue.latitude) || 0) || null,
-        lng: parseFloat((e.venue && e.venue.longitude) || 0) || null,
-        isFree: e.is_free || Number(minCost) === 0,
-        minPrice: Number(minCost),
-        isIndoor: outdoorWords.every(function(w) { return tl.indexOf(w) === -1; }),
+        start: dateStr,
+        venue: (venue && venue.name) || null,
+        address: (venue && venue.address && venue.address.line1) || null,
+        lat: (venue && venue.location && parseFloat(venue.location.latitude)) || null,
+        lng: (venue && venue.location && parseFloat(venue.location.longitude)) || null,
+        isFree: minCost === 0,
+        minPrice: minCost,
+        isIndoor: true,
         isWeekend: dow === 0 || dow === 6,
         isCamp: tl.indexOf("camp") !== -1,
         tags: tags,
