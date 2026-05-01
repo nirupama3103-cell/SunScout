@@ -1,65 +1,38 @@
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+/* Matching the 'Mage' UI look */
+.app-container {
+  background-color: #FFF9E6; /* Light cream background */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-:root {
-  --sun: #FFB703;
-  --sky: #219EBC;
-  --grass: #52B788;
-  --coral: #FF6B6B;
-  --lavender: #A594F9;
-  --cream: #FFFBF0;
-  --card-bg: #fff;
-  --text: #1A1A2E;
-  --subtext: #555;
-  --border: #e8e0d0;
-  --active-color: #FF4444;
-  --active-r: 255;
-  --active-g: 68;
-  --active-b: 68;
+header {
+  background: linear-gradient(90deg, #A7F3D0, #C4B5FD, #FBCFE8); /* Sparkle gradient */
+  padding: 40px;
+  text-align: center;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --card-bg: #1e2030;
-    --text: #f0eee8;
-    --subtext: #aaa;
-    --border: #333;
-    --cream: #12121e;
-  }
+.activity-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
-body {
-  font-family: 'Nunito', sans-serif;
-  background: var(--cream);
-  color: var(--text);
-  min-height: 100vh;
+.view-on-map-btn {
+  background: #F59E0B; /* Orange button from image */
+  color: white;
+  border: none;
+  padding: 10px;
+  width: 100%;
+  font-weight: bold;
 }
 
-/* Shimmer animation */
-@keyframes shimmer-sweep {
-  0%   { left: -100%; }
-  100% { left: 160%; }
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-@keyframes bounce-in {
-  0%   { transform: translate(-50%, -80%) scale(0); opacity: 0; }
-  70%  { transform: translate(-50%, -110%) scale(1.15); }
-  100% { transform: translate(-50%, -100%) scale(1); opacity: 1; }
-}
-
-@keyframes pulse-loc {
-  0%, 100% { box-shadow: 0 0 0 4px rgba(33, 158, 188, 0.25); }
-  50%       { box-shadow: 0 0 0 8px rgba(33, 158, 188, 0.1); }
-}
-
-@keyframes fade-in {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: translateY(0); }
+.weather-widget {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 15px;
+  padding: 10px;
+  position: absolute;
+  right: 20px;
+  top: 20px;
 }
