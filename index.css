@@ -224,3 +224,23 @@ body {
 .sun, .sun3d, .sun-wrapper, .sun-ray, .sun-body, .sun-eye, .sun-smile { display: none !important; }
 /* Fix horizontal scroll */
 html, body { overflow-x: hidden !important; max-width: 100vw !important; }
+
+.share-btn {
+  position: fixed !important;
+  top: 16px !important;
+  left: 16px !important;
+  right: auto !important;
+  z-index: 10000 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 9px 20px !important;
+  border: none !important;
+  border-radius: 999px !important;
+  background: linear-gradient(135deg, #FF6B00, #FFB300) !important;
+  color: #fff !important;
+  font-size: 14px !important;
+  font-weight: 800 !important;
+  cursor: pointer !important;
+  box-shadow: 0 4px 18px rgba(255,107,0,0.4) !important;
+}
