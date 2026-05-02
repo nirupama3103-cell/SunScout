@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { REGIONS } from './constants';
-import Activities from './activities';   // default export (the component)
+import { CITIES_BY_COUNTY } from './activities';
+import Activities from './activities';
 import Header from './Header';
 import Controls from './Controls';
 
 function App() {
-  const [activeRegion, setActiveRegion] = useState('Santa Clara');
-  const [activeCity, setActiveCity]     = useState('Sunnyvale');
-  const [activeTab, setActiveTab]       = useState('summer');
+  const counties = Object.keys(CITIES_BY_COUNTY);
+  const [activeRegion, setActiveRegion] = useState(counties[0]);
+  const [activeCity,   setActiveCity]   = useState(CITIES_BY_COUNTY[counties[0]][0]);
+  const [activeTab,    setActiveTab]    = useState('summer');
 
   return (
     <div className="sunscout-app">
@@ -16,8 +17,7 @@ function App() {
         activeRegion={activeRegion}
         setActiveRegion={(r) => {
           setActiveRegion(r);
-          const firstCity = Object.values(REGIONS).find(reg => reg.name === r)?.cities[0];
-          setActiveCity(firstCity || '');
+          setActiveCity(CITIES_BY_COUNTY[r]?.[0] || '');
         }}
         activeCity={activeCity}
         setActiveCity={setActiveCity}
