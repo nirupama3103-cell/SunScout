@@ -63,7 +63,7 @@ const ActivityCard = ({ activity, onClick }) => (
           borderRadius: '12px', textDecoration: 'none', fontWeight: 600, fontSize: '0.9rem',
         }}
       >
-        View on Map 🏎️
+        View on Map
       </a>
     </div>
   </div>
