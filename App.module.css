@@ -150,3 +150,7 @@
     overflow-x: hidden;
   }
 }
+
+@media (max-width: 768px) {
+  .results-grid { grid-template-columns: 1fr !important; }
+}
