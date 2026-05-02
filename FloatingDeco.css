@@ -15,3 +15,17 @@
 .deco-sun-svg{width:90px;height:90px;animation:sunBob 4s ease-in-out infinite,sunGlow 2s ease-in-out infinite alternate;filter:drop-shadow(0 0 10px rgba(255,200,0,.7))}
 @keyframes sunBob{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-10px) scale(1.05)}}
 @keyframes sunGlow{from{filter:drop-shadow(0 0 6px rgba(255,200,0,.5))}to{filter:drop-shadow(0 0 20px rgba(255,220,0,1))}}
+
+@media (max-width: 768px) {
+  .deco-logo-wrap { display: none; }
+  .deco-sun-wrap { top: auto; bottom: 80px; right: 8px; }
+  .deco-sun-svg { width: 55px; height: 55px; }
+}
+
+/* Fix horizontal scroll */
+body, #root { overflow-x: hidden; max-width: 100vw; }
+
+/* Bigger logo */
+
+/* Fix card images */
+img { max-width: 100%; height: auto; }
