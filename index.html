@@ -14,14 +14,12 @@
     
   <!-- 3D Scene -->
   <div class="scene">
-
-    <!-- Sun with face -->
+    <!-- Sun -->
     <div class="sun3d">
-      <div class="sun-face">
-        <div class="sun-eye left"></div>
-        <div class="sun-eye right"></div>
-        <div class="sun-smile"></div>
-      </div>
+      <div class="sun-body"></div>
+      <div class="sun-eye l"></div>
+      <div class="sun-eye r"></div>
+      <div class="sun-smile"></div>
       <div class="sun-ray" style="transform:rotate(0deg)"></div>
       <div class="sun-ray" style="transform:rotate(45deg)"></div>
       <div class="sun-ray" style="transform:rotate(90deg)"></div>
@@ -31,52 +29,36 @@
       <div class="sun-ray" style="transform:rotate(270deg)"></div>
       <div class="sun-ray" style="transform:rotate(315deg)"></div>
     </div>
-
-    <!-- Clouds -->
+    <!-- Clouds left -->
     <div class="cloud3d c1"><div class="cb"></div><div class="ct t1"></div><div class="ct t2"></div></div>
     <div class="cloud3d c2"><div class="cb"></div><div class="ct t1"></div><div class="ct t2"></div></div>
+    <!-- Clouds right -->
     <div class="cloud3d c3"><div class="cb"></div><div class="ct t1"></div><div class="ct t2"></div></div>
     <div class="cloud3d c4"><div class="cb"></div><div class="ct t1"></div><div class="ct t2"></div></div>
     <div class="cloud3d c5"><div class="cb"></div><div class="ct t1"></div><div class="ct t2"></div></div>
-
-    <!-- Trees left -->
-    <div class="tree3d" style="left:1%;bottom:0;--h:110px;--w:60px;--tc:#2d6a2d;--ts:#1a4a1a">
-      <div class="t-top"></div><div class="t-mid"></div><div class="t-trunk"></div>
-    </div>
-    <div class="tree3d" style="left:5%;bottom:0;--h:140px;--w:75px;--tc:#3a7a3a;--ts:#2d6a2d">
-      <div class="t-top"></div><div class="t-mid"></div><div class="t-trunk"></div>
-    </div>
-    <div class="tree3d" style="left:9%;bottom:0;--h:90px;--w:50px;--tc:#4a8a4a;--ts:#3a7a3a">
-      <div class="t-top"></div><div class="t-mid"></div><div class="t-trunk"></div>
-    </div>
-
-    <!-- Trees right -->
-    <div class="tree3d" style="right:1%;bottom:0;--h:130px;--w:70px;--tc:#2d6a2d;--ts:#1a4a1a">
-      <div class="t-top"></div><div class="t-mid"></div><div class="t-trunk"></div>
-    </div>
-    <div class="tree3d" style="right:5%;bottom:0;--h:100px;--w:58px;--tc:#3a7a3a;--ts:#2d6a2d">
-      <div class="t-top"></div><div class="t-mid"></div><div class="t-trunk"></div>
-    </div>
-    <div class="tree3d" style="right:9%;bottom:0;--h:155px;--w:82px;--tc:#4a8a4a;--ts:#3a7a3a">
-      <div class="t-top"></div><div class="t-mid"></div><div class="t-trunk"></div>
-    </div>
-
-    <!-- Flowers left -->
-    <div class="flower" style="left:13%;bottom:8px;--fc:#ff6b9d"></div>
-    <div class="flower" style="left:16%;bottom:6px;--fc:#ffd93d"></div>
-    <div class="flower" style="left:19%;bottom:9px;--fc:#ff6b6b"></div>
-    <div class="flower" style="left:22%;bottom:7px;--fc:#a8edea"></div>
-
-    <!-- Flowers right -->
-    <div class="flower" style="right:13%;bottom:8px;--fc:#ffd93d"></div>
-    <div class="flower" style="right:16%;bottom:6px;--fc:#ff6b9d"></div>
-    <div class="flower" style="right:19%;bottom:9px;--fc:#a8edea"></div>
-    <div class="flower" style="right:22%;bottom:7px;--fc:#ff6b6b"></div>
-
+    <!-- Trees LEFT -->
+    <div class="tree3d" style="left:0%;bottom:60px;--h:100px;--w:55px;--tc:#2d6a2d;--ts:#1a4a1a"><div class="t-top"></div><div class="t-mid"></div><div class="t-trunk"></div></div>
+    <div class="tree3d" style="left:4%;bottom:60px;--h:130px;--w:70px;--tc:#3a7a3a;--ts:#2d5a2d"><div class="t-top"></div><div class="t-mid"></div><div class="t-trunk"></div></div>
+    <div class="tree3d" style="left:8%;bottom:60px;--h:85px;--w:48px;--tc:#4a8a4a;--ts:#3a7a3a"><div class="t-top"></div><div class="t-mid"></div><div class="t-trunk"></div></div>
+    <!-- Trees RIGHT -->
+    <div class="tree3d" style="right:0%;bottom:60px;--h:140px;--w:75px;--tc:#2d6a2d;--ts:#1a4a1a"><div class="t-top"></div><div class="t-mid"></div><div class="t-trunk"></div></div>
+    <div class="tree3d" style="right:4%;bottom:60px;--h:105px;--w:58px;--tc:#3a7a3a;--ts:#2d5a2d"><div class="t-top"></div><div class="t-mid"></div><div class="t-trunk"></div></div>
+    <div class="tree3d" style="right:8%;bottom:60px;--h:120px;--w:65px;--tc:#4a8a4a;--ts:#3a7a3a"><div class="t-top"></div><div class="t-mid"></div><div class="t-trunk"></div></div>
+    <!-- Flowers LEFT -->
+    <div class="flower" style="left:12%;bottom:68px;">🌸</div>
+    <div class="flower" style="left:15%;bottom:66px;animation-delay:0.5s">🌼</div>
+    <div class="flower" style="left:18%;bottom:70px;animation-delay:1s">🌺</div>
+    <div class="flower" style="left:21%;bottom:65px;animation-delay:1.5s">🌻</div>
+    <div class="flower" style="left:24%;bottom:69px;animation-delay:0.8s">🌷</div>
+    <!-- Flowers RIGHT -->
+    <div class="flower" style="right:12%;bottom:68px;animation-delay:0.3s">🌼</div>
+    <div class="flower" style="right:15%;bottom:66px;animation-delay:0.9s">🌸</div>
+    <div class="flower" style="right:18%;bottom:70px;animation-delay:1.4s">🌻</div>
+    <div class="flower" style="right:21%;bottom:65px;animation-delay:0.6s">🌺</div>
+    <div class="flower" style="right:24%;bottom:69px;animation-delay:1.2s">🌷</div>
     <!-- Grass -->
     <div class="grass"></div>
   </div>
-
   <div id="root"></div>
     <script type="module" src="/main.jsx"></script>
   <div class="cloud cloud-5"></div><div class="cloud cloud-6"></div><div class="cloud cloud-7"></div><div class="cloud cloud-8"></div><div class="cloud cloud-9"></div><div class="cloud cloud-10"></div></body>
