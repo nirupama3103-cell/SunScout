@@ -2,7 +2,7 @@
 
 body {
   font-family: 'Nunito', sans-serif;
-  background: linear-gradient(180deg, #ffecd2 0%, #fcb69f 20%, #f8c8d4 40%, #c9d6f0 70%, #fdf6ec 100%); background-attachment: fixed;
+  background: linear-gradient(180deg, #87CEEB 0%, #FFB347 55%, #FF8C69 80%, #FFD4A3 100%); background-attachment: fixed;
   min-height: 100vh;
 }
 
@@ -65,3 +65,25 @@ body {
   }
   .city-pills::-webkit-scrollbar { display: none; }
 }
+
+.sun{position:fixed;top:40px;left:50%;transform:translateX(-50%);width:80px;height:80px;background:radial-gradient(circle at 40% 40%,#FFF7AA,#FFD700 40%,#FFA500);border-radius:50%;box-shadow:0 0 0 12px rgba(255,215,0,0.15),0 0 60px rgba(255,165,0,0.4);animation:sunPulse 4s ease-in-out infinite;z-index:0;pointer-events:none}
+@keyframes sunPulse{0%,100%{box-shadow:0 0 0 12px rgba(255,215,0,0.15),0 0 60px rgba(255,165,0,0.4)}50%{box-shadow:0 0 0 20px rgba(255,215,0,0.2),0 0 80px rgba(255,165,0,0.5)}}
+.cloud{position:fixed;background:rgba(255,255,255,0.88);border-radius:50px;pointer-events:none;z-index:0}
+.cloud::before,.cloud::after{content:'';position:absolute;background:rgba(255,255,255,0.88);border-radius:50%}
+.cloud-1{width:120px;height:38px;top:100px;animation:drift1 28s linear infinite}
+.cloud-1::before{width:60px;height:55px;top:-28px;left:18px}
+.cloud-1::after{width:45px;height:45px;top:-22px;left:55px}
+.cloud-2{width:90px;height:30px;top:160px;animation:drift2 36s linear infinite;opacity:.8}
+.cloud-2::before{width:45px;height:42px;top:-22px;left:14px}
+.cloud-2::after{width:35px;height:35px;top:-18px;left:42px}
+.cloud-3{width:150px;height:45px;top:80px;animation:drift3 44s linear infinite;opacity:.75}
+.cloud-3::before{width:70px;height:65px;top:-32px;left:22px}
+.cloud-3::after{width:55px;height:52px;top:-26px;left:70px}
+.cloud-4{width:100px;height:32px;top:200px;animation:drift4 32s linear infinite;opacity:.7}
+.cloud-4::before{width:50px;height:46px;top:-24px;left:16px}
+.cloud-4::after{width:38px;height:38px;top:-19px;left:48px}
+@keyframes drift1{from{left:-160px}to{left:110%}}
+@keyframes drift2{from{left:110%}to{left:-130px}}
+@keyframes drift3{from{left:-200px}to{left:110%}}
+@keyframes drift4{from{left:110%}to{left:-140px}}
+#root > div{position:relative;z-index:1}
