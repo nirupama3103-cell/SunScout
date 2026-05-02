@@ -10,22 +10,20 @@ const IMGS = {
   camp:      'https://images.unsplash.com/photo-1510672981848-a1c4f1cb5ccf?w=500&auto=format',
   ymca:      'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=500&auto=format',
   coding:    'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=500&auto=format',
-  egg:       'https://images.unsplash.com/photo-1457530378978-8bac673b8062?w=500&auto=format',
 };
 
 function getImage(activity) {
   const name = (activity.name || '').toLowerCase();
   const cat  = (activity.category || '').toLowerCase();
-  if (name.includes('library') || name.includes('free library') || name.includes('storytime')) return IMGS.library;
-  if (name.includes('splash') || name.includes('pool') || name.includes('aqua'))               return IMGS.splash;
-  if (name.includes('museum'))                                                                   return IMGS.museum;
-  if (name.includes('coding') || name.includes('robotics') || name.includes('stem'))            return IMGS.coding;
-  if (name.includes('camp'))                                                                     return IMGS.camp;
-  if (name.includes('ymca') || name.includes('fitness'))                                        return IMGS.ymca;
-  if (name.includes('egg') || name.includes('hunt'))                                            return IMGS.egg;
-  if (name.includes('community') || name.includes('center'))                                    return IMGS.community;
-  if (name.includes('park') || name.includes('trail') || name.includes('nature'))               return IMGS.park;
-  if (cat === 'indoor')                                                                          return IMGS.indoor;
+  if (name.includes('library') || name.includes('storytime')) return IMGS.library;
+  if (name.includes('splash') || name.includes('pool'))       return IMGS.splash;
+  if (name.includes('museum'))                                 return IMGS.museum;
+  if (name.includes('coding') || name.includes('robotics'))   return IMGS.coding;
+  if (name.includes('camp'))                                   return IMGS.camp;
+  if (name.includes('ymca') || name.includes('fitness'))      return IMGS.ymca;
+  if (name.includes('community') || name.includes('center'))  return IMGS.community;
+  if (name.includes('park') || name.includes('trail'))        return IMGS.park;
+  if (cat === 'indoor')                                        return IMGS.indoor;
   return IMGS.park;
 }
 
