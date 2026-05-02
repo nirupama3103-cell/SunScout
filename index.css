@@ -185,7 +185,7 @@ body {
 @keyframes spinRays{to{transform:rotate(360deg)}}
 .waving-hand{font-size:2rem;display:inline-block;transform-origin:bottom right;animation:wave 1.6s ease-in-out infinite}
 @keyframes wave{0%,100%{transform:rotate(0deg)}20%{transform:rotate(22deg)}40%{transform:rotate(-10deg)}60%{transform:rotate(20deg)}80%{transform:rotate(-8deg)}}
-.share-btn{position:absolute;top:188px;right:22px;z-index:10;display:flex;align-items:center;gap:6px;padding:9px 20px;border:none;border-radius:999px;background:#fff;color:#333;font-size:.88rem;font-weight:700;font-family:inherit;cursor:pointer;box-shadow:0 4px 18px rgba(0,0,0,.12);transition:transform .15s,box-shadow .15s}
+.share-btn{position:fixed;top:12px;right:150px;z-index:10000;display:flex;align-items:center;gap:6px;padding:9px 20px;border:none;border-radius:999px;background:#fff;color:#333;font-size:.88rem;font-weight:700;font-family:inherit;cursor:pointer;box-shadow:0 4px 18px rgba(0,0,0,.12);transition:transform .15s,box-shadow .15s}
 .share-btn:hover{transform:scale(1.08)}
 .share-icon{font-size:1.1rem}
 .tree3d{position:absolute;width:var(--w,60px);display:flex;flex-direction:column;align-items:center;transform-origin:bottom center;animation:treeRise .9s ease-out both var(--delay,0s),treeSway 3.5s ease-in-out infinite var(--delay,0s)}
