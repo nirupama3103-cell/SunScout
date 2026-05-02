@@ -3,63 +3,55 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SunScout ☀️</title>
-    <!--
-      NOTE: Google Maps API key is injected dynamically in JS via import.meta.env
-      so Vite can substitute it. Do NOT use %VITE_*% placeholders in HTML —
-      Vite only substitutes those inside JS/JSX files.
-    -->
+    <title>SunScout</title>
   </head>
   <body>
-    
-  <!-- 3D Scene -->
   <div class="scene">
-    <!-- Sun -->
-    <div class="sun3d">
-      <div class="sun-body"></div>
-      <div class="sun-eye l"></div>
-      <div class="sun-eye r"></div>
-      <div class="sun-smile"></div>
-      <div class="sun-ray" style="transform:rotate(0deg)"></div>
-      <div class="sun-ray" style="transform:rotate(45deg)"></div>
-      <div class="sun-ray" style="transform:rotate(90deg)"></div>
-      <div class="sun-ray" style="transform:rotate(135deg)"></div>
-      <div class="sun-ray" style="transform:rotate(180deg)"></div>
-      <div class="sun-ray" style="transform:rotate(225deg)"></div>
-      <div class="sun-ray" style="transform:rotate(270deg)"></div>
-      <div class="sun-ray" style="transform:rotate(315deg)"></div>
+    <div class="sun-wrapper">
+      <div class="sun3d">
+        <div class="sun-body"></div>
+        <div class="sun-eye l"></div>
+        <div class="sun-eye r"></div>
+        <div class="sun-smile"></div>
+        <div class="sun-ray" style="transform:rotate(0deg)"></div>
+        <div class="sun-ray" style="transform:rotate(45deg)"></div>
+        <div class="sun-ray" style="transform:rotate(90deg)"></div>
+        <div class="sun-ray" style="transform:rotate(135deg)"></div>
+        <div class="sun-ray" style="transform:rotate(180deg)"></div>
+        <div class="sun-ray" style="transform:rotate(225deg)"></div>
+        <div class="sun-ray" style="transform:rotate(270deg)"></div>
+        <div class="sun-ray" style="transform:rotate(315deg)"></div>
+      </div>
+      <div class="waving-hand">&#x1F44B;</div>
     </div>
-    <!-- Clouds left -->
+    <button class="share-btn" style="position:fixed;bottom:24px;right:24px;z-index:10000;background:linear-gradient(135deg,#FF6B00,#FFB300);color:#fff;border:none;border-radius:999px;padding:14px 28px;font-size:16px;font-weight:900;cursor:pointer;box-shadow:0 6px 24px rgba(255,107,0,0.5);display:flex;align-items:center;gap:8px;" onclick="if(navigator.share){navigator.share({title:'SunScout',url:location.href});}else{navigator.clipboard.writeText(location.href).then(()=>{var b=this;b.textContent='Copied!';setTimeout(()=>{b.innerHTML='Share';},1800);});}">
+      <span class="share-icon">&#x1F4E4;</span><span>Share</span>
+    </button>
     <div class="cloud3d c1"><div class="cb"></div><div class="ct t1"></div><div class="ct t2"></div></div>
     <div class="cloud3d c2"><div class="cb"></div><div class="ct t1"></div><div class="ct t2"></div></div>
-    <!-- Clouds right -->
     <div class="cloud3d c3"><div class="cb"></div><div class="ct t1"></div><div class="ct t2"></div></div>
     <div class="cloud3d c4"><div class="cb"></div><div class="ct t1"></div><div class="ct t2"></div></div>
-    <div class="cloud3d c5"><div class="cb"></div><div class="ct t1"></div><div class="ct t2"></div></div>
-    <!-- Trees LEFT -->
-    <div class="tree3d" style="left:0%;bottom:60px;--h:100px;--w:55px;--tc:#2d6a2d;--ts:#1a4a1a"><div class="t-top"></div><div class="t-mid"></div><div class="t-trunk"></div></div>
-    <div class="tree3d" style="left:4%;bottom:60px;--h:130px;--w:70px;--tc:#3a7a3a;--ts:#2d5a2d"><div class="t-top"></div><div class="t-mid"></div><div class="t-trunk"></div></div>
-    <div class="tree3d" style="left:8%;bottom:60px;--h:85px;--w:48px;--tc:#4a8a4a;--ts:#3a7a3a"><div class="t-top"></div><div class="t-mid"></div><div class="t-trunk"></div></div>
-    <!-- Trees RIGHT -->
-    <div class="tree3d" style="right:0%;bottom:60px;--h:140px;--w:75px;--tc:#2d6a2d;--ts:#1a4a1a"><div class="t-top"></div><div class="t-mid"></div><div class="t-trunk"></div></div>
-    <div class="tree3d" style="right:4%;bottom:60px;--h:105px;--w:58px;--tc:#3a7a3a;--ts:#2d5a2d"><div class="t-top"></div><div class="t-mid"></div><div class="t-trunk"></div></div>
-    <div class="tree3d" style="right:8%;bottom:60px;--h:120px;--w:65px;--tc:#4a8a4a;--ts:#3a7a3a"><div class="t-top"></div><div class="t-mid"></div><div class="t-trunk"></div></div>
-    <!-- Flowers LEFT -->
-    <div class="flower" style="left:12%;bottom:68px;">🌸</div>
-    <div class="flower" style="left:15%;bottom:66px;animation-delay:0.5s">🌼</div>
-    <div class="flower" style="left:18%;bottom:70px;animation-delay:1s">🌺</div>
-    <div class="flower" style="left:21%;bottom:65px;animation-delay:1.5s">🌻</div>
-    <div class="flower" style="left:24%;bottom:69px;animation-delay:0.8s">🌷</div>
-    <!-- Flowers RIGHT -->
-    <div class="flower" style="right:12%;bottom:68px;animation-delay:0.3s">🌼</div>
-    <div class="flower" style="right:15%;bottom:66px;animation-delay:0.9s">🌸</div>
-    <div class="flower" style="right:18%;bottom:70px;animation-delay:1.4s">🌻</div>
-    <div class="flower" style="right:21%;bottom:65px;animation-delay:0.6s">🌺</div>
-    <div class="flower" style="right:24%;bottom:69px;animation-delay:1.2s">🌷</div>
-    <!-- Grass -->
+    <div class="tree3d" style="left:0%;bottom:60px;--h:110px;--w:60px;--tc:#2d6a2d;--ts:#1a4a1a;--delay:0s"><div class="t-top"></div><div class="t-mid"></div><div class="t-trunk"></div></div>
+    <div class="tree3d" style="left:4%;bottom:60px;--h:145px;--w:76px;--tc:#3a7a3a;--ts:#2d5a2d;--delay:.4s"><div class="t-top"></div><div class="t-mid"></div><div class="t-trunk"></div></div>
+    <div class="tree3d" style="left:8%;bottom:60px;--h:90px;--w:50px;--tc:#4a8a4a;--ts:#3a7a3a;--delay:.8s"><div class="t-top"></div><div class="t-mid"></div><div class="t-trunk"></div></div>
+    <div class="tree3d" style="right:0%;bottom:60px;--h:150px;--w:80px;--tc:#2d6a2d;--ts:#1a4a1a;--delay:.1s"><div class="t-top"></div><div class="t-mid"></div><div class="t-trunk"></div></div>
+    <div class="tree3d" style="right:4%;bottom:60px;--h:112px;--w:62px;--tc:#3a7a3a;--ts:#2d5a2d;--delay:.6s"><div class="t-top"></div><div class="t-mid"></div><div class="t-trunk"></div></div>
+    <div class="tree3d" style="right:8%;bottom:60px;--h:130px;--w:70px;--tc:#4a8a4a;--ts:#3a7a3a;--delay:.3s"><div class="t-top"></div><div class="t-mid"></div><div class="t-trunk"></div></div>
+    <div class="flower lg" style="left:13%;bottom:68px;animation-delay:0s">&#x1F338;</div>
+    <div class="flower" style="left:17%;bottom:64px;animation-delay:.5s">&#x1F33C;</div>
+    <div class="flower lg" style="left:21%;bottom:72px;animation-delay:1s">&#x1F33A;</div>
+    <div class="flower" style="left:25%;bottom:65px;animation-delay:.8s">&#x1F337;</div>
+    <div class="flower lg" style="right:13%;bottom:68px;animation-delay:.3s">&#x1F33C;</div>
+    <div class="flower" style="right:17%;bottom:64px;animation-delay:.9s">&#x1F338;</div>
+    <div class="flower lg" style="right:21%;bottom:72px;animation-delay:1.4s">&#x1F33B;</div>
+    <div class="flower" style="right:25%;bottom:65px;animation-delay:.6s">&#x1F33A;</div>
+    <div class="butterfly b1">&#x1F98B;</div>
+    <div class="butterfly b2">&#x1F98B;</div>
+    <div class="butterfly b3">&#x1F98B;</div>
+    <div class="butterfly b4">&#x1F98B;</div>
     <div class="grass"></div>
   </div>
   <div id="root"></div>
-    <script type="module" src="/main.jsx"></script>
-  <div class="cloud cloud-5"></div><div class="cloud cloud-6"></div><div class="cloud cloud-7"></div><div class="cloud cloud-8"></div><div class="cloud cloud-9"></div><div class="cloud cloud-10"></div></body>
+  <script type="module" src="/main.jsx"></script>
+  </body>
 </html>
