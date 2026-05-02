@@ -49,7 +49,7 @@ export async function fetchActivitiesForCity(city, county) {
       name: p.displayName?.text || p.name || "Local Activity",
       city: city,
       category: "free summer",
-      image: `https://picsum.photos/seed/${p.id || i}/500/300`,
+      image: `https://images.unsplash.com/photo-1551632811-561732d1e306?w=500&auto=format`,
       mapUrl: "https://www.google.com/maps/search/" + encodeURIComponent((p.name || "") + " " + city),
       description: p.formattedAddress || "Free local library/community activity."
     });
@@ -82,4 +82,50 @@ export async function fetchActivitiesForCity(city, county) {
   }
 
   return combined;
+}
+// ── Default Activities component (was missing — caused App.jsx import crash) ──
+import { useState, useEffect } from 'react';
+import ActivityCard from './ActivityCard';
+
+export default function Activities({ city, category }) {
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const county = Object.entries(CITIES_BY_COUNTY).find(
+    ([, cities]) => cities.includes(city)
+  )?.[0] || 'Santa Clara';
+
+  useEffect(() => {
+    if (!city) return;
+    setLoading(true);
+    fetchActivitiesForCity(city, county)
+      .then(setItems)
+      .finally(() => setLoading(false));
+  }, [city, county]);
+
+  const filtered = category === 'summer' || !category
+    ? items
+    : items.filter(a => a.category === category);
+
+  if (loading) {
+    return (
+      <div style={{ textAlign: 'center', padding: '40px', color: '#64748b' }}>
+        🌞 Finding fun near {city}...
+      </div>
+    );
+  }
+
+  return (
+    <div style={{
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+      gap: '16px',
+      padding: '16px',
+    }}>
+      {filtered.length === 0
+        ? <p style={{ color: '#94a3b8', padding: '20px' }}>No activities found for {city}.</p>
+        : filtered.map(a => <ActivityCard key={a.id} activity={a} />)
+      }
+    </div>
+  );
 }
