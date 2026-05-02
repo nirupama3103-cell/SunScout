@@ -23,14 +23,14 @@ const CITY_COORDS = {
 };
 
 export default function App() {
-  const [activeCity, setActiveCity] = useState('Sunnyvale');
-  const [activeTab,  setActiveTab]  = useState('weekend');
-  const [liveItems,  setLiveItems]  = useState([]);
-  const [loading,    setLoading]    = useState(false);
-  const [page,       setPage]       = useState(1);
-  const [weatherTemp, setWeatherTemp] = useState(null);
+  const [activeCity,   setActiveCity]   = useState('Sunnyvale');
+  const [activeTab,    setActiveTab]    = useState('weekend');
+  const [liveItems,    setLiveItems]    = useState([]);
+  const [loading,      setLoading]      = useState(false);
+  const [page,         setPage]         = useState(1);
+  const [weatherTemp,  setWeatherTemp]  = useState(null);
+  const [filter,       setFilter]       = useState('all');
 
-  // Weather for banner
   useEffect(() => {
     const c = CITY_COORDS[activeCity] || CITY_COORDS['Sunnyvale'];
     fetch(`https://api.open-meteo.com/v1/forecast?latitude=${c.lat}&longitude=${c.lon}&current_weather=true&temperature_unit=fahrenheit`)
@@ -39,7 +39,7 @@ export default function App() {
       .catch(() => setWeatherTemp(72));
   }, [activeCity]);
 
-  useEffect(() => { setPage(1); setLiveItems([]); }, [activeCity, activeTab]);
+  useEffect(() => { setPage(1); setLiveItems([]); setFilter('all'); }, [activeCity, activeTab]);
 
   useEffect(() => {
     setLoading(true);
@@ -73,11 +73,20 @@ export default function App() {
     mapUrl: item.mapUrl.replace(/Sunnyvale/g, encodeURIComponent(cityLabel)),
   }));
 
-  const all     = [...curated, ...liveItems];
-  const shown   = all.slice(0, page * PAGE_SIZE);
-  const hasMore = shown.length < all.length;
+  const all = [...curated, ...liveItems];
+  const filtered = filter === 'free' ? all.filter(i => i.free === true)
+                 : filter === 'paid' ? all.filter(i => i.free === false)
+                 : all;
+  const shown   = filtered.slice(0, page * PAGE_SIZE);
+  const hasMore = shown.length < filtered.length;
   const tagline     = TAGLINES[activeTab];
   const activeColor = TABS.find(t => t.id === activeTab)?.color || '#f59e0b';
+
+  const FILTERS = [
+    { id: 'all',  label: 'All',       color: '#7c3aed' },
+    { id: 'free', label: 'FREE only', color: '#16a34a' },
+    { id: 'paid', label: 'PAID only', color: '#f59e0b' },
+  ];
 
   return (
     <div style={{ minHeight: '100vh', background: '#fdf6ec', fontFamily: 'Nunito, sans-serif' }}>
@@ -85,15 +94,20 @@ export default function App() {
       <Controls activeCity={activeCity} setActiveCity={setActiveCity} activeTab={activeTab} setActiveTab={setActiveTab} />
 
       <div style={{ maxWidth: '1160px', margin: '0 auto', padding: '24px 16px 80px' }}>
-
         <WeatherBanner temp={weatherTemp} city={activeCity} setActiveTab={setActiveTab} />
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: '28px', alignItems: 'start' }}>
 
           <div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '18px' }}>
-              {shown.map(item => <ActivityCard key={item.id} activity={item} />)}
-            </div>
+            {shown.length === 0 ? (
+              <div style={{ textAlign: 'center', padding: '60px 20px', color: '#94a3b8', fontSize: '18px', fontWeight: '700' }}>
+                No {filter === 'free' ? 'free' : filter === 'paid' ? 'paid' : ''} activities found here yet!
+              </div>
+            ) : (
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '18px' }}>
+                {shown.map(item => <ActivityCard key={item.id} activity={item} />)}
+              </div>
+            )}
 
             {hasMore && (
               <div style={{ textAlign: 'center', marginTop: '36px' }}>
@@ -112,9 +126,9 @@ export default function App() {
           </div>
 
           <div style={{ position: 'sticky', top: '20px' }}>
-            <div style={{ background: '#fff', borderRadius: '22px', padding: '28px 24px', boxShadow: '0 4px 20px rgba(0,0,0,0.07)' }}>
+            <div style={{ background: '#fff', borderRadius: '22px', padding: '28px 24px', boxShadow: '0 4px 20px rgba(0,0,0,0.07)', marginBottom: '16px' }}>
               <div style={{ fontSize: '48px', marginBottom: '14px', lineHeight: 1 }}>{tagline.emoji}</div>
-              <p style={{ fontSize: '17px', fontWeight: '800', color: '#374151', lineHeight: 1.6, marginBottom: '18px', margin: '0 0 18px' }}>
+              <p style={{ fontSize: '17px', fontWeight: '800', color: '#374151', lineHeight: 1.6, margin: '0 0 18px' }}>
                 {tagline.text}
               </p>
               <p style={{ fontSize: '19px', fontWeight: '900', color: activeColor, margin: 0 }}>
@@ -125,19 +139,24 @@ export default function App() {
               </p>}
             </div>
 
-            <div style={{ marginTop: '16px', background: '#fff', borderRadius: '16px', padding: '14px 18px', boxShadow: '0 2px 10px rgba(0,0,0,0.06)' }}>
-              <p style={{ margin: '0 0 10px', fontSize: '12px', fontWeight: '800', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '1px' }}>Filter</p>
-              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-                {['All','FREE only','PAID only'].map(f => (
-                  <button key={f} style={{
-                    padding: '5px 12px', borderRadius: '20px', border: '1.5px solid #e2e8f0',
-                    background: f === 'All' ? '#7c3aed' : '#fff',
-                    color: f === 'All' ? '#fff' : '#64748b',
-                    fontSize: '12px', fontWeight: '700', cursor: 'pointer',
+            <div style={{ background: '#fff', borderRadius: '16px', padding: '16px 18px', boxShadow: '0 2px 10px rgba(0,0,0,0.06)' }}>
+              <p style={{ margin: '0 0 12px', fontSize: '11px', fontWeight: '800', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '1px' }}>Filter by cost</p>
+              <div style={{ display: 'flex', gap: '8px' }}>
+                {FILTERS.map(f => (
+                  <button key={f.id} onClick={() => { setFilter(f.id); setPage(1); }} style={{
+                    padding: '7px 14px', borderRadius: '20px',
+                    border: filter === f.id ? 'none' : '1.5px solid #e2e8f0',
+                    background: filter === f.id ? f.color : '#fff',
+                    color: filter === f.id ? '#fff' : '#64748b',
+                    fontSize: '12px', fontWeight: '800', cursor: 'pointer',
                     fontFamily: 'Nunito, sans-serif',
-                  }}>{f}</button>
+                    transition: 'all 0.15s',
+                  }}>{f.label}</button>
                 ))}
               </div>
+              <p style={{ margin: '10px 0 0', fontSize: '12px', color: '#94a3b8' }}>
+                Showing {shown.length} of {filtered.length} activities
+              </p>
             </div>
           </div>
         </div>
