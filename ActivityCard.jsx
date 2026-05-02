@@ -1,89 +1,53 @@
-import React from 'react';
+import React, { useState } from 'react';
+const FALLBACK = 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600';
 
-const IMGS = {
-  library:   'https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=500&auto=format',
-  community: 'https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=500&auto=format',
-  park:      'https://images.unsplash.com/photo-1587502537745-84b86da1204f?w=500&auto=format',
-  splash:    'https://images.unsplash.com/photo-1560089000-7433a4ebbd64?w=500&auto=format',
-  art:       'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=500&auto=format',
-  movie:     'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&auto=format',
-  hiking:    'https://images.unsplash.com/photo-1551632811-561732d1e306?w=500&auto=format',
-  stem:      'https://images.unsplash.com/photo-1581092160562-40aa08e9dbd0?w=500&auto=format',
-  camp:      'https://images.unsplash.com/photo-1510672981848-a1c4f1cb5ccf?w=500&auto=format',
-  indoor:    'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=500&auto=format',
-};
-
-function getImage(a) {
-  const n = (a.name || '').toLowerCase();
-  if (n.includes('library') || n.includes('reading') || n.includes('storytime')) return IMGS.library;
-  if (n.includes('splash') || n.includes('pool'))                                 return IMGS.splash;
-  if (n.includes('art') || n.includes('paint') || n.includes('craft'))           return IMGS.art;
-  if (n.includes('movie') || n.includes('film'))                                  return IMGS.movie;
-  if (n.includes('hik') || n.includes('trail') || n.includes('creek'))           return IMGS.hiking;
-  if (n.includes('stem') || n.includes('robot') || n.includes('coding'))         return IMGS.stem;
-  if (n.includes('camp'))                                                          return IMGS.camp;
-  if (n.includes('community') || n.includes('center'))                            return IMGS.community;
-  if ((a.category || '') === 'indoor')                                             return IMGS.indoor;
-  return IMGS.park;
-}
-
-function buildMapUrl(a) {
-  if (a.mapUrl && a.mapUrl.startsWith('http')) return a.mapUrl;
-  return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent((a.name || '') + ' ' + (a.city || ''));
-}
-
-function ActivityCard({ activity, onClick }) {
-  const isPaid = (activity.category || '').toLowerCase().includes('paid');
-  const badge = isPaid ? 'PAID' : 'FREE';
-  const badgeColor = isPaid ? '#f59e0b' : '#22c55e';
-
-  return React.createElement('div', {
-    onClick: onClick,
-    style: {
-      backgroundColor: 'white', borderRadius: '20px',
-      boxShadow: '0 4px 12px rgba(0,0,0,0.08)', overflow: 'hidden',
-      cursor: 'pointer', transition: 'transform 0.15s ease',
-    },
-    onMouseEnter: function(e) { e.currentTarget.style.transform = 'translateY(-2px)'; },
-    onMouseLeave: function(e) { e.currentTarget.style.transform = 'translateY(0)'; },
-  },
-    React.createElement('div', { style: { position: 'relative' } },
-      React.createElement('img', {
-        src: getImage(activity),
-        alt: activity.name,
-        loading: 'lazy',
-        onError: function(e) { e.target.onerror = null; e.target.src = IMGS.park; },
-        style: { width: '100%', height: '180px', objectFit: 'cover', display: 'block' }
-      }),
-      React.createElement('span', {
-        style: {
+export default function ActivityCard({ activity }) {
+  const [imgErr, setImgErr] = useState(false);
+  const isFree = activity.free === true;
+  return (
+    <div style={{
+      background: '#fff', borderRadius: '18px', overflow: 'hidden',
+      boxShadow: '0 3px 14px rgba(0,0,0,0.08)',
+      transition: 'transform 0.2s, box-shadow 0.2s',
+      cursor: 'pointer', display: 'flex', flexDirection: 'column',
+    }}
+      onMouseEnter={e => { e.currentTarget.style.transform='translateY(-5px)'; e.currentTarget.style.boxShadow='0 12px 28px rgba(0,0,0,0.13)'; }}
+      onMouseLeave={e => { e.currentTarget.style.transform='none'; e.currentTarget.style.boxShadow='0 3px 14px rgba(0,0,0,0.08)'; }}
+    >
+      <div style={{ position: 'relative' }}>
+        <img src={imgErr ? FALLBACK : activity.image} alt={activity.name}
+          onError={() => setImgErr(true)}
+          style={{ width: '100%', height: '160px', objectFit: 'cover', display: 'block' }} />
+        <span style={{
           position: 'absolute', top: '10px', right: '10px',
-          backgroundColor: badgeColor, color: 'white',
-          padding: '3px 10px', borderRadius: '20px',
-          fontSize: '0.75rem', fontWeight: 700,
-        }
-      }, badge)
-    ),
-    React.createElement('div', { style: { padding: '16px 20px 20px' } },
-      React.createElement('h3', {
-        style: { margin: '0 0 6px 0', color: '#0f172a', fontSize: '1.05rem', fontWeight: 700 }
-      }, activity.name),
-      React.createElement('p', {
-        style: { color: '#475569', lineHeight: '1.5', marginBottom: '16px', fontSize: '0.875rem', minHeight: '2.5em' }
-      }, activity.description),
-      React.createElement('a', {
-        href: buildMapUrl(activity),
-        target: '_blank',
-        rel: 'noopener noreferrer',
-        onClick: function(e) { e.stopPropagation(); },
-        style: {
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          backgroundColor: '#ef4444', color: 'white', padding: '10px 16px',
-          borderRadius: '12px', textDecoration: 'none', fontWeight: 600, fontSize: '0.9rem',
-        }
-      }, 'View on Map')
-    )
+          background: isFree ? '#16a34a' : '#f59e0b',
+          color: '#fff', fontSize: '10px', fontWeight: '900',
+          padding: '4px 10px', borderRadius: '20px',
+          boxShadow: '0 2px 6px rgba(0,0,0,0.2)', letterSpacing: '0.5px',
+        }}>{isFree ? 'FREE' : 'PAID'}</span>
+      </div>
+      <div style={{ padding: '13px 15px 15px', flex: 1, display: 'flex', flexDirection: 'column', gap: '6px' }}>
+        <h3 style={{ fontSize: '14px', fontWeight: '800', color: '#1e293b', margin: 0, lineHeight: 1.3 }}>
+          {activity.name}
+        </h3>
+        {activity.description && (
+          <p style={{ fontSize: '12px', color: '#64748b', margin: 0, lineHeight: 1.5, flex: 1 }}>
+            {activity.description}
+          </p>
+        )}
+        {activity.hours && (
+          <p style={{ fontSize: '11px', color: '#b45309', margin: 0, fontWeight: '700' }}>
+            🕐 {activity.hours}
+          </p>
+        )}
+        <a href={activity.mapUrl} target="_blank" rel="noopener noreferrer"
+          style={{
+            display: 'block', textAlign: 'center', padding: '9px 0', marginTop: '4px',
+            background: 'linear-gradient(135deg, #f59e0b, #ef4444)',
+            color: '#fff', borderRadius: '10px', textDecoration: 'none',
+            fontWeight: '800', fontSize: '13px', fontFamily: 'Nunito, sans-serif',
+          }}>View on Map 🚗</a>
+      </div>
+    </div>
   );
 }
-
-export default ActivityCard;
