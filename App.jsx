@@ -89,7 +89,7 @@ export default function App() {
   ];
 
   return (
-    <div style={{ minHeight: '100vh', background: '#fdf6ec', fontFamily: 'Nunito, sans-serif' }}>
+    <div style={{ minHeight: '100vh', background: 'transparent', fontFamily: 'Nunito, sans-serif' }}>
       <Header cityName={activeCity} />
       <Controls activeCity={activeCity} setActiveCity={setActiveCity} activeTab={activeTab} setActiveTab={setActiveTab} />
 
