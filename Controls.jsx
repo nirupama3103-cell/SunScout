@@ -20,7 +20,7 @@ export default function Controls({ activeCity, setActiveCity, activeTab, setActi
       </div>
 
       {/* Tab Pills */}
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', justifyContent: 'center' }}>
+      <div style={{ display: 'flex', gap: '10px', overflowX: 'auto', WebkitOverflowScrolling: 'touch', paddingBottom: '4px', scrollbarWidth: 'none' }}>
         {TABS.map(tab => (
           <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={{
             padding: '8px 20px', borderRadius: '20px', border: 'none', fontFamily: 'Nunito, sans-serif',
