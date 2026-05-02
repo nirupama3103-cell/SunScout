@@ -51,7 +51,14 @@ export async function fetchActivitiesForCity(city, county) {
       category: "free summer",
       image: `https://images.unsplash.com/photo-1551632811-561732d1e306?w=500&auto=format`,
       mapUrl: "https://www.google.com/maps/search/" + encodeURIComponent((p.name || "") + " " + city),
-      description: p.formattedAddress || "Free local library/community activity."
+      description: (() => {
+          const name = (p.displayName?.text || '').toLowerCase();
+          if (name.includes('library')) return 'Free books, events, and air-conditioned fun for all ages.';
+          if (name.includes('community')) return 'Free programs and activities for kids and families.';
+          if (name.includes('park')) return 'Open green space, trails, and outdoor play areas.';
+          if (name.includes('ymca')) return 'Affordable fitness and youth programs for the whole family.';
+          return 'Free local activity — great for kids and families!';
+        })()
     });
   });
 
