@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from './Header';
+import FloatingDeco from './FloatingDeco';
 import Controls from './Controls';
 import ActivityCard from './ActivityCard';
 import WeatherBanner from './WeatherBanner';
@@ -122,6 +123,7 @@ export default function App() {
 
   return (
     <div style={{ minHeight: '100vh', fontFamily: 'Nunito, sans-serif' }}>
+      <FloatingDeco />
       <Header cityName={activeCity} />
       <Controls activeCity={activeCity} setActiveCity={setActiveCity} activeTab={activeTab} setActiveTab={setActiveTab} />
 
