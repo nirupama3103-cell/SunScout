@@ -4,27 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SunScout</title>
+    <link rel="stylesheet" href="/index.css" />
   </head>
   <body>
   <div class="scene">
-    <div class="sun-wrapper">
-      <div class="sun3d">
-        <div class="sun-body"></div>
-        <div class="sun-eye l"></div>
-        <div class="sun-eye r"></div>
-        <div class="sun-smile"></div>
-        <div class="sun-ray" style="transform:rotate(0deg)"></div>
-        <div class="sun-ray" style="transform:rotate(45deg)"></div>
-        <div class="sun-ray" style="transform:rotate(90deg)"></div>
-        <div class="sun-ray" style="transform:rotate(135deg)"></div>
-        <div class="sun-ray" style="transform:rotate(180deg)"></div>
-        <div class="sun-ray" style="transform:rotate(225deg)"></div>
-        <div class="sun-ray" style="transform:rotate(270deg)"></div>
-        <div class="sun-ray" style="transform:rotate(315deg)"></div>
-      </div>
-      <div class="waving-hand">&#x1F44B;</div>
-    </div>
-    <!--share moved--> onclick="if(navigator.share){navigator.share({title:'SunScout',url:location.href});}else{navigator.clipboard.writeText(location.href).then(()=>{var b=this;b.textContent='Copied!';setTimeout(()=>{b.innerHTML='&#x1F4E4; Share';},1800);});}">&#x1F4E4; Share</button>
     <div class="cloud3d c1"><div class="cb"></div><div class="ct t1"></div><div class="ct t2"></div></div>
     <div class="cloud3d c2"><div class="cb"></div><div class="ct t1"></div><div class="ct t2"></div></div>
     <div class="cloud3d c3"><div class="cb"></div><div class="ct t1"></div><div class="ct t2"></div></div>
@@ -49,7 +32,6 @@
     <div class="butterfly b4">&#x1F98B;</div>
     <div class="grass"></div>
   </div>
-  <button class="share-btn" onclick="var u='https://sun-scout-tau.vercel.app';if(navigator.share){navigator.share({title:'SunScout',text:'Find free parks, splash pads near you!',url:u});}else{navigator.clipboard.writeText(u).then(()=>{this.textContent='Copied!';setTimeout(()=>{this.innerHTML='&#x1F4E4; Share';},2000);}).catch(()=>{prompt('Copy:',u);});}">&#x1F4E4; Share</button>
   <div id="root"></div>
   <script type="module" src="/main.jsx"></script>
   </body>
