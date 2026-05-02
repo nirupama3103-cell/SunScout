@@ -4,3 +4,12 @@ body {
   background: #fdf6ec;
   min-height: 100vh;
 }
+#root {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+img, video {
+  max-width: 100%;
+  height: auto;
+}
