@@ -38,6 +38,21 @@ const LogoSVG = () => (
   </svg>
 );
 
+function ShareBtn() {
+  const share = () => {
+    const url = 'https://sun-scout-tau.vercel.app';
+    if (navigator.share) {
+      navigator.share({title: 'SunScout', text: 'Find free parks and splash pads near you!', url});
+    } else {
+      navigator.clipboard.writeText(url).then(() => {
+        document.getElementById('sharebtn').textContent = 'Copied!';
+        setTimeout(() => { document.getElementById('sharebtn').innerHTML = '📤 Share'; }, 2000);
+      });
+    }
+  };
+  return <button id="sharebtn" onClick={share} style={{position:'fixed',bottom:'20px',right:'20px',zIndex:999999,background:'linear-gradient(135deg,#FF6B00,#FFB300)',color:'#fff',border:'none',borderRadius:'999px',padding:'13px 26px',fontSize:'15px',fontWeight:900,cursor:'pointer',boxShadow:'0 6px 24px rgba(255,107,0,0.5)',fontFamily:'Nunito,sans-serif'}}>📤 Share</button>;
+}
+
 export default function FloatingDeco() {
   return (
     <>
@@ -49,6 +64,7 @@ export default function FloatingDeco() {
       <div className="deco-sun-wrap">
         <SunSVG />
       </div>
+      <ShareBtn />
     </>
   );
 }
