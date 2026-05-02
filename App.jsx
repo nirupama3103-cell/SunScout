@@ -176,7 +176,7 @@ export default function App() {
 
         <WeatherBanner temp={weatherTemp} city={activeCity} setActiveTab={setActiveTab} />
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: '28px', alignItems: 'start' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: window.innerWidth <= 768 ? '1fr' : '1fr 300px', gap: '28px', alignItems: 'start' }}>
           <div>
             {shown.length === 0 ? (
               <div style={{ textAlign: 'center', padding: '60px 20px', background: 'rgba(255,255,255,0.7)', borderRadius: '20px' }}>
