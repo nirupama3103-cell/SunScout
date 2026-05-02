@@ -1,0 +1,31 @@
+*, *::before, *::after { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: #fdf6ec;
+  min-height: 100vh;
+  /* Prevent side-scrolling on mobile */
+  overflow-x: hidden;
+  width: 100%;
+}
+
+#root {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+img, video {
+  max-width: 100%;
+  height: auto;
+}# Add the changes
+git add .
+
+# Commit with a note
+git commit -m "fix: global css resets for mobile responsiveness"
+
+# Push to trigger Vercel build
+git push origin main
