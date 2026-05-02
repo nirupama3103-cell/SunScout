@@ -1,31 +1,67 @@
-*, *::before, *::after { 
-  box-sizing: border-box; 
-  margin: 0; 
-  padding: 0; 
-}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   font-family: 'Nunito', sans-serif;
   background: #fdf6ec;
   min-height: 100vh;
-  /* Prevent side-scrolling on mobile */
-  overflow-x: hidden;
-  width: 100%;
 }
 
-#root {
-  max-width: 100vw;
-  overflow-x: hidden;
+/* ── Responsive card grid ── */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
 }
 
-img, video {
-  max-width: 100%;
-  height: auto;
-}# Add the changes
-git add .
+/* ── Main layout: cards + right panel ── */
+.main-layout {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 28px;
+  align-items: start;
+}
 
-# Commit with a note
-git commit -m "fix: global css resets for mobile responsiveness"
+/* ── City pills scrollable on mobile ── */
+.city-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
 
-# Push to trigger Vercel build
-git push origin main
+/* ── Tablet ── */
+@media (max-width: 900px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .main-layout {
+    grid-template-columns: 1fr;
+  }
+  .right-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+}
+
+/* ── Mobile ── */
+@media (max-width: 600px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+  .main-layout {
+    grid-template-columns: 1fr;
+  }
+  .right-panel {
+    grid-template-columns: 1fr;
+  }
+  .city-pills {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .city-pills::-webkit-scrollbar { display: none; }
+}

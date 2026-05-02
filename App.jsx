@@ -96,7 +96,7 @@ export default function App() {
       <div style={{ maxWidth: '1160px', margin: '0 auto', padding: '24px 16px 80px' }}>
         <WeatherBanner temp={weatherTemp} city={activeCity} setActiveTab={setActiveTab} />
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: '28px', alignItems: 'start' }}>
+        <div className="main-layout">
 
           <div>
             {shown.length === 0 ? (
@@ -104,7 +104,7 @@ export default function App() {
                 No {filter === 'free' ? 'free' : filter === 'paid' ? 'paid' : ''} activities found here yet!
               </div>
             ) : (
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '18px' }}>
+              <div className="card-grid">
                 {shown.map(item => <ActivityCard key={item.id} activity={item} />)}
               </div>
             )}
@@ -125,7 +125,7 @@ export default function App() {
             )}
           </div>
 
-          <div style={{ position: 'sticky', top: '20px' }}>
+          <div className="right-panel" style={{ position: 'sticky', top: '20px' }}>
             <div style={{ background: '#fff', borderRadius: '22px', padding: '28px 24px', boxShadow: '0 4px 20px rgba(0,0,0,0.07)', marginBottom: '16px' }}>
               <div style={{ fontSize: '48px', marginBottom: '14px', lineHeight: 1 }}>{tagline.emoji}</div>
               <p style={{ fontSize: '17px', fontWeight: '800', color: '#374151', lineHeight: 1.6, margin: '0 0 18px' }}>

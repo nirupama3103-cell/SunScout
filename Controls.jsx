@@ -7,7 +7,7 @@ export default function Controls({ activeCity, setActiveCity, activeTab, setActi
   return (
     <div style={{ padding: '20px 16px 0', display: 'flex', flexDirection: 'column', gap: '14px', alignItems: 'center' }}>
       {/* City Pills */}
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', justifyContent: 'center' }}>
+      <div className="city-pills" style={{ display: 'flex', gap: '8px' }}>
         {CITIES.map(c => (
           <button key={c} onClick={() => setActiveCity(c)} style={{
             padding: '6px 16px', borderRadius: '20px', border: 'none', fontFamily: 'Nunito, sans-serif',
