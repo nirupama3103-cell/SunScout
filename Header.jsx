@@ -18,13 +18,13 @@ export default function Header({ cityName }) {
       ))}
 
       <div style={{
-        position:'absolute', top:'18px', right:'20px',
+        position:'absolute', top:'12px', right:'12px',
         background:'rgba(255,255,255,0.92)', backdropFilter:'blur(10px)',
         borderRadius:'18px', padding:'12px 18px',
         display:'flex', alignItems:'center', gap:'12px',
-        boxShadow:'0 4px 16px rgba(0,0,0,0.1)', minWidth:'180px', textAlign:'left',
+        boxShadow:'0 4px 16px rgba(0,0,0,0.1)', minWidth:'140px', textAlign:'left', maxWidth:'180px',
       }}>
-        <span style={{ fontSize:'42px', lineHeight:1 }}>{icon}</span>
+        <span style={{ fontSize:'32px', lineHeight:1 }}>{icon}</span>
         <div>
           <div style={{ fontSize:'11px', fontWeight:'800', color:'#7c3aed', textTransform:'uppercase', letterSpacing:'0.5px' }}>{cityName} Weather Alert:</div>
           <div style={{ fontSize:'13px', fontWeight:'700', color:'#334155' }}>{loading ? 'Loading...' : weather.condition + ','}</div>
