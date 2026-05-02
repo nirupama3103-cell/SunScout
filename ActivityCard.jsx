@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-const FALLBACK = 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600';
+const FALLBACK = 'https://images.unsplash.com/photo-1587502537745-84b86da1204f?w=600&auto=format';
 
 export default function ActivityCard({ activity }) {
   const [imgErr, setImgErr] = useState(false);
