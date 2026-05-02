@@ -100,11 +100,9 @@ export default function App() {
     : all;
 
   // Age filter
-  const aged = ageGroup === 'all' ? searched : searched.filter(i => {
-    const text = (i.name + ' ' + (i.description || '')).toLowerCase();
-    const keywords = AGE_KEYWORDS[ageGroup] || [];
-    return keywords.some(k => text.includes(k)) || true; // show all if no keyword match
-  });
+  const aged = ageGroup === 'all' ? searched : searched.filter(i =>
+    i.ageGroups && i.ageGroups.includes(ageGroup)
+  );
 
   // Cost filter
   const filtered = filter === 'free' ? aged.filter(i => i.free === true)
