@@ -1,53 +1,61 @@
-import React, { useState } from 'react';
-const FALLBACK = 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600';
+import React from 'react';
 
-export default function ActivityCard({ activity }) {
-  const [imgErr, setImgErr] = useState(false);
-  const isFree = activity.free === true;
+const FALLBACK_IMG = 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=500&auto=format';
+
+const ActivityCard = ({ activity, onClick }) => {
   return (
-    <div style={{
-      background: '#fff', borderRadius: '18px', overflow: 'hidden',
-      boxShadow: '0 3px 14px rgba(0,0,0,0.08)',
-      transition: 'transform 0.2s, box-shadow 0.2s',
-      cursor: 'pointer', display: 'flex', flexDirection: 'column',
-    }}
-      onMouseEnter={e => { e.currentTarget.style.transform='translateY(-5px)'; e.currentTarget.style.boxShadow='0 12px 28px rgba(0,0,0,0.13)'; }}
-      onMouseLeave={e => { e.currentTarget.style.transform='none'; e.currentTarget.style.boxShadow='0 3px 14px rgba(0,0,0,0.08)'; }}
+    <div
+      onClick={onClick}
+      style={{
+        padding: '0',
+        backgroundColor: 'white',
+        borderRadius: '20px',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+        overflow: 'hidden',
+        cursor: 'pointer',
+        transition: 'transform 0.15s ease, box-shadow 0.15s ease',
+      }}
+      onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-2px)'}
+      onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}
     >
-      <div style={{ position: 'relative' }}>
-        <img src={imgErr ? FALLBACK : activity.image} alt={activity.name}
-          onError={() => setImgErr(true)}
-          style={{ width: '100%', height: '160px', objectFit: 'cover', display: 'block' }} />
-        <span style={{
-          position: 'absolute', top: '10px', right: '10px',
-          background: isFree ? '#16a34a' : '#f59e0b',
-          color: '#fff', fontSize: '10px', fontWeight: '900',
-          padding: '4px 10px', borderRadius: '20px',
-          boxShadow: '0 2px 6px rgba(0,0,0,0.2)', letterSpacing: '0.5px',
-        }}>{isFree ? 'FREE' : 'PAID'}</span>
-      </div>
-      <div style={{ padding: '13px 15px 15px', flex: 1, display: 'flex', flexDirection: 'column', gap: '7px' }}>
-        <h3 style={{ fontSize: '14px', fontWeight: '800', color: '#1e293b', margin: 0, lineHeight: 1.3 }}>
+      {/* ── Image (was missing — root cause of no images on mobile) */}
+      <img
+        src={activity.image || FALLBACK_IMG}
+        alt={activity.name}
+        loading="lazy"
+        onError={e => { e.target.onerror = null; e.target.src = FALLBACK_IMG; }}
+        style={{
+          width: '100%',
+          height: '180px',
+          objectFit: 'cover',
+          display: 'block',
+        }}
+      />
+
+      {/* ── Card body */}
+      <div style={{ padding: '16px 20px 20px' }}>
+        <h3 style={{ margin: '0 0 6px 0', color: '#0f172a', fontSize: '1.1rem', fontWeight: 700 }}>
           {activity.name}
         </h3>
-        {activity.description && (
-          <p style={{ fontSize: '12px', color: '#64748b', margin: 0, lineHeight: 1.5, flex: 1 }}>
-            {activity.description}
-          </p>
-        )}
-        {activity.hours && (
-          <p style={{ fontSize: '11px', color: '#b45309', margin: 0, fontWeight: '700' }}>
-            🕐 {activity.hours}
-          </p>
-        )}
-        <a href={activity.mapUrl} target="_blank" rel="noopener noreferrer"
+        <p style={{ color: '#475569', lineHeight: '1.5', marginBottom: '16px', fontSize: '0.9rem', minHeight: '2.7em' }}>
+          {activity.description}
+        </p>
+        <a
+          href={activity.mapUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={e => e.stopPropagation()}
           style={{
-            display: 'block', textAlign: 'center', padding: '9px 0', marginTop: '4px',
-            background: 'linear-gradient(135deg, #f59e0b, #ef4444)',
-            color: '#fff', borderRadius: '10px', textDecoration: 'none',
-            fontWeight: '800', fontSize: '13px', fontFamily: 'Nunito, sans-serif',
-          }}>View on Map 🚗</a>
+            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+            backgroundColor: '#ef4444', color: 'white', padding: '10px 16px',
+            borderRadius: '12px', textDecoration: 'none', fontWeight: 600, fontSize: '0.9rem',
+          }}
+        >
+          View on Map 🏎️
+        </a>
       </div>
     </div>
   );
-}
+};
+
+export default ActivityCard;
