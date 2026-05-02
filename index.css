@@ -306,3 +306,12 @@ body > div[style*="orange"], body > div[style*="#f97"] { display: none !importan
   font-family: Nunito, sans-serif;
   pointer-events: auto;
 }
+
+.share-btn {
+  position: fixed !important;
+  bottom: 20px !important;
+  right: 20px !important;
+  z-index: 999999 !important;
+  pointer-events: auto !important;
+  cursor: pointer !important;
+}
