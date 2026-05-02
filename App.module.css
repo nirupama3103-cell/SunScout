@@ -139,3 +139,9 @@
   box-shadow: 0 4px 15px rgba(0,0,0,0.15);
   cursor: pointer;
 }
+@media (max-width: 600px) {
+  .results-grid {
+    grid-template-columns: 1fr;
+    padding: 8px;
+  }
+}
