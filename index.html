@@ -24,7 +24,7 @@
       </div>
       <div class="waving-hand">&#x1F44B;</div>
     </div>
-    <button class="share-btn" onclick="if(navigator.share){navigator.share({title:'SunScout',url:location.href});}else{navigator.clipboard.writeText(location.href).then(()=>{var b=this;b.textContent='Copied!';setTimeout(()=>{b.innerHTML='&#x1F4E4; Share';},1800);});}">&#x1F4E4; Share</button>
+    <!--share moved--> onclick="if(navigator.share){navigator.share({title:'SunScout',url:location.href});}else{navigator.clipboard.writeText(location.href).then(()=>{var b=this;b.textContent='Copied!';setTimeout(()=>{b.innerHTML='&#x1F4E4; Share';},1800);});}">&#x1F4E4; Share</button>
     <div class="cloud3d c1"><div class="cb"></div><div class="ct t1"></div><div class="ct t2"></div></div>
     <div class="cloud3d c2"><div class="cb"></div><div class="ct t1"></div><div class="ct t2"></div></div>
     <div class="cloud3d c3"><div class="cb"></div><div class="ct t1"></div><div class="ct t2"></div></div>
@@ -49,6 +49,7 @@
     <div class="butterfly b4">&#x1F98B;</div>
     <div class="grass"></div>
   </div>
+  <button class="share-btn" onclick="var u='https://sun-scout-tau.vercel.app';if(navigator.share){navigator.share({title:'SunScout',text:'Find free parks, splash pads near you!',url:u});}else{navigator.clipboard.writeText(u).then(()=>{this.textContent='Copied!';setTimeout(()=>{this.innerHTML='&#x1F4E4; Share';},2000);}).catch(()=>{prompt('Copy:',u);});}">&#x1F4E4; Share</button>
   <div id="root"></div>
   <script type="module" src="/main.jsx"></script>
   </body>
