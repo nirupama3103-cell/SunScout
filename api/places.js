@@ -1,13 +1,10 @@
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   if (req.method === 'OPTIONS') return res.status(200).end();
-
   const { query } = req.query;
   if (!query) return res.status(400).json({ error: 'query required' });
-
   const apiKey = process.env.GOOGLE_MAPS_API_KEY || process.env.VITE_GOOGLE_MAPS_API_KEY;
   if (!apiKey) return res.status(200).json({ places: [] });
-
   try {
     const response = await fetch(
       'https://places.googleapis.com/v1/places:searchText',
