@@ -71,13 +71,21 @@ export default function App() {
       .then(r => r.json())
       .then(data => {
         const places = (data.places || []).slice(0, 6);
+        const tabImages = {
+          indoor: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=600',
+          weekend: 'https://images.unsplash.com/photo-1588880331179-bc9b93a8cb5e?w=600',
+          summer: 'https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=600',
+          paid: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=600',
+        };
         setLiveItems(places.map((p, i) => ({
           id: `live-${i}`,
           name: p.displayName?.text || 'Local Spot',
           free: activeTab === 'summer' || activeTab === 'weekend',
-          image: `https://picsum.photos/seed/${activeTab}${activeCity}${i}/600/400`,
+          ageGroups: ['0-2','3-5','6-12','teen'],
+          image: tabImages[activeTab] || `https://images.unsplash.com/photo-1551632811-561732d1e306?w=600`,
           mapUrl: `https://www.google.com/maps/search/${encodeURIComponent((p.displayName?.text || '') + ' ' + activeCity)}`,
-          description: p.editorialSummary?.text || p.formattedAddress || 'A great local spot for kids and families.',
+          description: p.editorialSummary?.text || p.formattedAddress || 'A great local spot for kids and families in ' + activeCity + '.',
+          tab: activeTab,
         })));
         setLoading(false);
       })

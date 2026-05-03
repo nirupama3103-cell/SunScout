@@ -4,6 +4,10 @@ const FALLBACK = 'https://images.unsplash.com/photo-1587502537745-84b86da1204f?w
 export default function ActivityCard({ activity }) {
   const [imgErr, setImgErr] = useState(false);
   const isFree = activity.free === true;
+  const TAB_LABELS = {indoor:'Indoor',weekend:'Weekend',summer:'Summer',paid:'Paid'};
+  const tabLabel = activity.tab ? TAB_LABELS[activity.tab] : null;
+  const TAB_COLORS = {indoor:'#7c3aed',weekend:'#10b981',summer:'#f59e0b',paid:'#ef4444'};
+  const tabColor = TAB_COLORS[activity.tab] || '#64748b';
   return (
     <div style={{
       background: '#fff', borderRadius: '18px', overflow: 'hidden',
