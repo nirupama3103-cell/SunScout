@@ -102,7 +102,7 @@ export default function App() {
 
   // Age filter
   const aged = ageGroup === 'all' ? searched : searched.filter(i =>
-    i.ageGroups && i.ageGroups.includes(ageGroup)
+    !i.ageGroups || i.ageGroups.length === 0 || i.ageGroups.includes(ageGroup)
   );
 
   // Cost filter
@@ -174,7 +174,7 @@ export default function App() {
           ))}
         </div>
 
-        <WeatherBanner temp={weatherTemp} city={activeCity} setActiveTab={setActiveTab} />
+        <WeatherBanner temp={weatherTemp} city={activeCity} setActiveTab={setActiveTab} activeTab={activeTab} />
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: '28px', alignItems: 'start' }}>
           <div>
