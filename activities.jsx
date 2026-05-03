@@ -110,9 +110,17 @@ export default function Activities({ city, category }) {
       .finally(() => setLoading(false));
   }, [city, county]);
 
-  const filtered = category === 'summer' || !category
+  const filtered = !category || category === 'summer'
     ? items
-    : items.filter(a => a.category === category);
+    : items.filter(a => {
+        const cat = (a.category || '').toLowerCase();
+        const age = (a.ageGroup || a.age || '').toLowerCase();
+        if (category === 'indoor') return cat.includes('indoor');
+        if (category === 'weekend') return true;
+        if (category === 'paid') return cat.includes('paid') || a.free === false;
+        if (['toddler','kids','teen','0-2','3-5','6-12'].includes(category)) return age.includes(category) || age === 'all';
+        return cat.includes(category);
+      });
 
   if (loading) {
     return (
